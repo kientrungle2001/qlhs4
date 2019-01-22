@@ -1,0 +1,1 @@
+<smarty title="Smarty Test" />

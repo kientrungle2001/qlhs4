@@ -1,0 +1,1 @@
+<input type="hidden" name="{e name}" id="{e id}" value="{e value}" />

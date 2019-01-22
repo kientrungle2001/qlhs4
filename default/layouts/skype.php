@@ -1,0 +1,1 @@
+<a href="skype:{e address}" rel="nofollow">{e address} {e text}</a>

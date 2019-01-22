@@ -1,0 +1,8 @@
+.pzk_slideitem {
+	display: none;
+	position: relative;
+}
+
+.pzk_slideactive {
+	display: block;
+}

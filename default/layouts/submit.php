@@ -1,0 +1,1 @@
+<input {ea id} {ea class} {ea style} type="submit" name="{e name}" value="{e value}{e label}{e text}" {ea onclick} />

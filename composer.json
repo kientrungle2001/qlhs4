@@ -1,0 +1,6 @@
+{
+    "require": {
+        "ellumilel/php-excel-writer": "^0.1.6",
+        "phpoffice/phpspreadsheet": "^1.6"
+    }
+}

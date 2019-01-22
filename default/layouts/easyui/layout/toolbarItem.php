@@ -1,0 +1,1 @@
+<a onclick="{prop action}; return false;" href="javascript:{prop action};" class="easyui-linkbutton" iconCls="icon-{prop icon}" plain="true">&nbsp;{prop label}</a>

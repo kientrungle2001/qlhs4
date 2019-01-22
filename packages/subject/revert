@@ -1,0 +1,7 @@
+<?php
+echo 'Revert Subject';
+rcopy(PKG_DIR . DS . 'page.subject.online.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online.php');
+rcopy(PKG_DIR . DS . 'page.subject.center.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center.php');
+rcopy(PKG_DIR . DS . 'page.subject.center.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/datagrid.php');
+rcopy(PKG_DIR . DS . 'page.subject.center.classes.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/classes.php');
+rcopy(PKG_DIR . DS . 'page.subject.center.student.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/student.php');

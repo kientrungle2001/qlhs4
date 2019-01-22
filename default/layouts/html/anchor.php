@@ -1,0 +1,1 @@
+<a href="{prop src}" title="{prop title}" class="{prop class}">{children all}</a>

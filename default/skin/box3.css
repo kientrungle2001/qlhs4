@@ -1,0 +1,10 @@
+.pzk_box3{
+	display: block;
+	border: 1px solid #9DBF15;
+}
+
+.pzk_box3 .pzk_title {
+	height: 33px;
+	background-color: #9EBA15;
+	font-weight: bold;
+}

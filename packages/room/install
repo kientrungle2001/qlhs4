@@ -1,0 +1,10 @@
+<?php
+echo "Room\r\n";
+if(!is_dir($roomDir = BASE_DIR . '/app/qlhs/pages/grid')) {
+	mkdir($roomDir);
+}
+copy(PKG_DIR . DS . 'page.room.php', BASE_DIR . '/app/qlhs/pages/grid/room.php');
+copy(PKG_DIR . DS . 'page.room.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/room/datagrid.php');
+copy(PKG_DIR . DS . 'page.room.classes.php', BASE_DIR . '/app/qlhs/pages/grid/room/classes.php');
+copy(PKG_DIR . DS . 'page.room.asset.php', BASE_DIR . '/app/qlhs/pages/grid/room/asset.php');
+copy(PKG_DIR . DS . 'page.room.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/room/schedule.php');

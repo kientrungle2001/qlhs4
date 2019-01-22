@@ -1,0 +1,1 @@
+<a class="easyui-splitbutton" {attrs id, href, title, width, height, disabled, toggle, selected, group, plain, text, iconCls, iconAlign, size, onClick, menu, duration}>{children all}</a>

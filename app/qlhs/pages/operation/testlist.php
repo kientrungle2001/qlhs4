@@ -1,0 +1,1 @@
+<core.db.list table="student" conditions='["in", "id", [1, 2, 3, 4]]' pageNum="0" pageSize="10" />

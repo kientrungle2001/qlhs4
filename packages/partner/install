@@ -1,0 +1,12 @@
+<?php
+echo "Partner\r\n";
+// create controller
+copy(PKG_DIR . DS . 'controller.Partner.php', BASE_DIR . '/app/qlhs/controller/Partner.php');
+// create grid
+copy(PKG_DIR . DS . 'page.partner.php', BASE_DIR . '/app/qlhs/pages/grid/partner.php');
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/partner')) {
+	mkdir(BASE_DIR . '/app/qlhs/pages/grid/partner');
+}
+//	create billing
+copy(PKG_DIR . DS . 'page.partner.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/partner/datagrid.php');
+copy(PKG_DIR . DS . 'page.partner.billing.php', BASE_DIR . '/app/qlhs/pages/grid/partner/billing.php');

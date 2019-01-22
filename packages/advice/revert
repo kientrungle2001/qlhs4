@@ -1,0 +1,3 @@
+<?php
+echo "Revert Hello\r\n";
+rcopy(PKG_DIR . DS . 'page.advice.php', BASE_DIR . '/app/qlhs/pages/grid/advice.php');

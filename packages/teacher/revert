@@ -1,0 +1,7 @@
+<?php
+echo 'Revert Hello'."\r\n";
+rcopy(PKG_DIR . DS . 'page.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/teacher.php');
+rcopy(PKG_DIR . DS . 'page.teacher.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/datagrid.php');
+rcopy(PKG_DIR . DS . 'page.teacher.classes.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/classes.php');
+rcopy(PKG_DIR . DS . 'page.teacher.student.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/student.php');
+rcopy(PKG_DIR . DS . 'page.teacher.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/test_class.php');

@@ -1,0 +1,4 @@
+<?php
+echo 'Revert Course';
+rcopy(PKG_DIR . DS . 'class.Hello.php', BASE_DIR . '/objects/Hello.php');
+rcopy(PKG_DIR . DS . 'hello.php', BASE_DIR . '/default/layouts/hello.php');

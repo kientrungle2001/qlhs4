@@ -1,0 +1,6 @@
+<link rel='stylesheet' id='nivoslider-css'  href='http://demo.dev7studios.com/nivo-slider/wp-content/plugins/nivo-slider/scripts/nivo-slider/nivo-slider.css?ver=4.0.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://demo.dev7studios.com/nivo-slider/wp-content/plugins/nivo-slider/scripts/nivo-slider/jquery.nivo.slider.pack.js?ver=4.0.1'></script>
+<link rel='stylesheet' id='nivoslider-theme-bar-css'  href='http://demo.dev7studios.com/nivo-slider/wp-content/plugins/nivo-slider/scripts/nivo-slider/themes/bar/bar.css?ver=4.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='nivoslider-theme-dark-css'  href='http://demo.dev7studios.com/nivo-slider/wp-content/plugins/nivo-slider/scripts/nivo-slider/themes/dark/dark.css?ver=4.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='nivoslider-theme-default-css'  href='http://demo.dev7studios.com/nivo-slider/wp-content/plugins/nivo-slider/scripts/nivo-slider/themes/default/default.css?ver=4.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='nivoslider-theme-light-css'  href='http://demo.dev7studios.com/nivo-slider/wp-content/plugins/nivo-slider/scripts/nivo-slider/themes/light/light.css?ver=4.0.1' type='text/css' media='all' />

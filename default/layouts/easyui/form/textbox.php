@@ -1,0 +1,1 @@
+<input class="easyui-textbox" {attrs id, title, width, height, prompt, value, type, multiline, editable, disabled, readonly, icons, iconCls, iconAlign, iconWidth, buttonText, buttonIcon, buttonAlign, onChange, onResize, onClickButton, onClickIcon} />

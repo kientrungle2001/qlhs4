@@ -1,0 +1,342 @@
+.clear {
+	clear: both;
+}
+.separator {
+	self {
+		background: #eceeed;
+		padding: 10px;
+	}
+	.inner {
+		.currentTime {
+			float: left;
+			width: auto;
+		}
+		.categories {
+			float: right;
+			width: auto;
+		}
+	}
+}
+.order_header {
+	.order_company {
+		float: left;
+		width: 145px;
+	}
+	.order_date {
+		self {
+			float: left;
+			width: 145px;
+		}
+		.order_line_label_header {
+			text-align: center;
+			font-size: 18px;
+			display: block;
+		}
+	}
+	.order_no {
+		float: left;
+		width: 145px;
+	}
+	.order_template {
+		float: left;
+		width: 145px;
+	}
+}
+.order_wrapper {
+	width: 595px;
+	font-size: 12px;
+}
+.order_signature_wrapper {
+	.order_date {
+		text-align: right;
+	}
+	.order_signature {
+		.order_signature_item {
+			float: left;
+			width: 33%;
+			text-align: center;
+		}
+	}
+}
+.order_line_value input {
+	width: 100px;
+	border: none;
+	border-bottom: 1px dotted #333;
+}
+.order_no input {
+	width: 100px;
+	border: none;
+	border-bottom: 1px dotted #333;
+}
+.order_no input[disabled] {
+	display: none;
+}
+
+.easyui-combobox2 {
+	width: 120px;
+}
+
+/* Main menu */
+#menu
+{
+	self {
+		width: 100%;
+		margin: 0;
+		padding: 10px 0 0 0;
+		list-style: none;  
+		background: #111;
+		background: -moz-linear-gradient(#444, #111); 
+		background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));	
+		background: -webkit-linear-gradient(#444, #111);	
+		background: -o-linear-gradient(#444, #111);
+		background: -ms-linear-gradient(#444, #111);
+		background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+		-moz-border-radius: 50px;
+		border-radius: 50px;
+		-moz-box-shadow: 0 2px 1px #9c9c9c;
+		-webkit-box-shadow: 0 2px 1px #9c9c9c;
+		box-shadow: 0 2px 1px #9c9c9c;
+	}
+	
+	li {
+		float: left;
+		padding: 0 0 10px 0;
+		position: relative;
+		line-height: 0;
+	}
+
+	a {
+		float: left;
+		height: 25px;
+		padding: 0 10px;
+		color: #999;
+		text-transform: uppercase;
+		font: bold 12px/25px Arial, Helvetica;
+		text-decoration: none;
+		text-shadow: 0 1px 0 #000;
+	}
+	li:hover > a {
+			color: #444;
+	}
+	li:hover	> ul {
+		display: block;
+	}
+
+	ul {
+		self {
+			list-style: none;
+			margin: 0;
+			padding: 0;    
+			display: none;
+			position: absolute;
+			top: 35px;
+			left: 0;
+			z-index: 99999;    
+			background: #444;
+			background: -moz-linear-gradient(#444, #111);
+			background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));
+			background: -webkit-linear-gradient(#444, #111);    
+			background: -o-linear-gradient(#444, #111);	
+			background: -ms-linear-gradient(#444, #111);	
+			background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+			-moz-box-shadow: 0 0 2px rgba(255,255,255,.5);
+			-webkit-box-shadow: 0 0 2px rgba(255,255,255,.5);
+			box-shadow: 0 0 2px rgba(255,255,255,.5);	
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+		
+		ul {
+			self {
+				top: 0;
+  		left: 150px;
+			}
+			li:first-child a:after{
+				left: -8px;
+				top: 12px;
+				width: 0;
+				height: 0;
+				border-left: 0;	
+				border-bottom: 5px solid transparent;
+				border-top: 5px solid transparent;
+				border-right: 8px solid #E0ECFF;
+			}
+			li:first-child a:hover:after{
+    border-right-color: #E0ECFF; 
+    border-bottom-color: transparent; 	
+			}
+		}
+
+		li {
+			float: none;
+			margin: 0;
+			padding: 0;
+			display: block;  
+			-moz-box-shadow: 0 1px 0 #111111, 0 2px 0 #777777;
+			-webkit-box-shadow: 0 1px 0 #111111, 0 2px 0 #777777;
+			box-shadow: 0 1px 0 #111111, 0 2px 0 #777777;
+		}
+		li:last-child{   
+			-moz-box-shadow: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;    
+		}
+		a {    
+			padding: 10px;
+			height: 10px;
+			width: 130px;
+			height: auto;
+			line-height: 1;
+			display: block;
+			white-space: nowrap;
+			float: none;
+			text-transform: none;
+		}
+
+		a:hover {
+			background: #0186ba;
+			background: -moz-linear-gradient(#04acec,  #0186ba);	
+			background: -webkit-gradient(linear, left top, left bottom, from(#04acec), to(#0186ba));
+			background: -webkit-linear-gradient(#04acec,  #0186ba);
+			background: -o-linear-gradient(#04acec,  #0186ba);
+			background: -ms-linear-gradient(#04acec,  #0186ba);
+			background: linear-gradient(#04acec,  #0186ba);
+		}
+		li:first-child > a {
+			-moz-border-radius: 5px 5px 0 0;
+			border-radius: 5px 5px 0 0;
+		}
+
+		li:first-child > a:after{
+			content: '';
+			position: absolute;
+			left: 30px;
+			top: -8px;
+			width: 0;
+			height: 0;
+			border-left: 5px solid transparent;
+			border-right: 5px solid transparent;
+			border-bottom: 8px solid #E0ECFF;
+		}
+		li:first-child a:hover:after {
+			border-bottom-color: #E0ECFF; 
+		}
+
+		li:last-child > a{
+			-moz-border-radius: 0 0 5px 5px;
+			border-radius: 0 0 5px 5px;
+		}
+	}
+}
+
+*html #menu li a:hover /* IE6 */
+{
+	color: #444;
+}
+
+
+/* Sub-menu */
+*html #menu ul a /* IE6 */
+{    
+	height: 10px;
+}
+
+*:first-child+html #menu ul a /* IE7 */
+{    
+	height: 10px;
+}
+
+/* Clear floated elements */
+#menu:after 
+{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+* html #menu             { zoom: 1; } /* IE6 */
+*:first-child+html #menu { zoom: 1; } /* IE7 */
+
+/* Schedule */
+.schedule-daily {
+	self::after {
+		content: ' ';
+		display: block;
+		clear:both;
+	}
+	.schedule-daily-item {
+		self {
+			float: left;
+			margin: 10px;
+			padding: 10px;
+			border: 3px dotted #CCC;
+			width: 200px;
+			height: 200px;
+			text-align: center;
+			vertical-align: middle;
+		}
+		.room-name {
+			font-size: 22px;
+			color: green;
+			font-weight: bold;
+		}
+		.subject-name {
+			font-size: 18px;
+			color: red;
+		}
+		.teacher-name {
+			font-size: 18px;
+			color: red;
+		}
+		.class-name {
+			font-size: 16px;
+			color: blue;
+		}
+	}
+}
+
+.pzk-autocomplete {
+	position: absolute;
+	z-index: 1;
+	background: #fff;
+}
+.pzk-autocomplete-close {
+	float: right;
+	margin-right: -10px;
+	margin-top: -10px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 10px;
+	height: 10px;
+	display: block;
+	border-radius: 50%;
+	text-align: center;
+}
+.pzk-autocomplete-item {
+	text-decoration: none;
+	padding: 5px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: block;
+}
+.pzk-autocomplete-item:hover {
+	background: yellow;
+}
+.clearfix::after {
+	content: " ";
+	display:block;
+	clear:both;
+}
+.form-elements {
+	.form-item {
+		float: left;
+		width: 23%;
+		height: 45px;
+	}
+	
+}

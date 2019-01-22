@@ -1,0 +1,1 @@
+<li><a href="/{e link}"><?php if (@$data->image) {?><img src="{e image}" /><?php }?>{e label}{e text}</a>{ec all}</li>

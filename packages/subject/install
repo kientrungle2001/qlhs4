@@ -1,0 +1,17 @@
+<?php
+echo "Subject\r\n";
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/subject')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/subject');
+}
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/subject/center')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/subject/center');
+}
+copy(PKG_DIR . DS . 'page.subject.online.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online.php');
+copy(PKG_DIR . DS . 'page.subject.center.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center.php');
+copy(PKG_DIR . DS . 'page.subject.center.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/datagrid.php');
+copy(PKG_DIR . DS . 'page.subject.center.classes.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/classes.php');
+copy(PKG_DIR . DS . 'page.subject.center.student.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/student.php');
+copy(PKG_DIR . DS . 'page.subject.center.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/teacher.php');
+copy(PKG_DIR . DS . 'page.subject.center.student_order.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/student_order.php');
+copy(PKG_DIR . DS . 'page.subject.center.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/test_class.php');
+copy(PKG_DIR . DS . 'page.subject.center.test_student_mark.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/test_student_mark.php');

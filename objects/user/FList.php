@@ -1,0 +1,1 @@
+<?phprequire_once BASE_DIR . '/objects/List.php';class PzkFList extends PzkList {	public function init() {		parent::init();		$this->conditions = 'friend.userId=' . _element('owner')->getViewingUserId();	}}?>

@@ -1,0 +1,4 @@
+<?php
+echo "Hello\r\n";
+copy(PKG_DIR . DS . 'class.Hello.php', BASE_DIR . '/objects/Hello.php');
+copy(PKG_DIR . DS . 'hello.php', BASE_DIR . '/default/layouts/hello.php');

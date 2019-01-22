@@ -1,0 +1,1 @@
+<?phpclass UserLogoutObject extends FunctionObject {	public function call(&$user, $arguments) {	}}?>

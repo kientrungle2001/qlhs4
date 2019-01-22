@@ -1,0 +1,1 @@
+<div class="easyui-tabs {prop class}" {attrs id, style, rel, title, width, height, plain, fit, border, scrollIncrement, scrollDuration, tools, toolPosition, tabPosition, headerWidth, tabWidth, tabHeight, selected, showHeader, onLoad, onSelect, onUnselect, onBeforeClose, onClose, onAdd, onUpdate, onContextMenu}>{children all}</div>

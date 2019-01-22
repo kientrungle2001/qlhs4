@@ -1,0 +1,1 @@
+<input {attrs id, name, type, value, onclick, onClick} style="{prop style}; width: {prop width}; height: {prop height};" />

@@ -1,0 +1,1 @@
+<th data-options="field:'{prop field}',width:{prop width},sortable:'{prop sortable}', resizable: {prop resizable}" <?php if(@$data->formatter):?>{attr formatter}<?php endif;?>>{children all}</th>

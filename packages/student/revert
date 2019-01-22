@@ -1,0 +1,11 @@
+<?php
+echo "Revert Student\r\n";
+rcopy(PKG_DIR . DS . 'class.StudentDetail.php', BASE_DIR . '/objects/edu/StudentDetail.php');
+rcopy(PKG_DIR . DS . 'student_detail.php', BASE_DIR . '/app/qlhs/layouts/student_detail.php');
+rcopy(PKG_DIR . DS . 'page.student.php', BASE_DIR . '/app/qlhs/pages/grid/student.php');
+rcopy(PKG_DIR . DS . 'page.student.online.php', BASE_DIR . '/app/qlhs/pages/grid/student/online.php');
+rcopy(PKG_DIR . DS . 'page.student.center.php', BASE_DIR . '/app/qlhs/pages/grid/student/center.php');
+rcopy(PKG_DIR . DS . 'page.student.unclassed.php', BASE_DIR . '/app/qlhs/pages/grid/student/unclassed.php');
+rcopy(PKG_DIR . DS . 'page.student.potential.php', BASE_DIR . '/app/qlhs/pages/grid/student/potential.php');
+rcopy(PKG_DIR . DS . 'page.student.familiar.php', BASE_DIR . '/app/qlhs/pages/grid/student/familiar.php');
+rcopy(PKG_DIR . DS . 'controller.Student.php', BASE_DIR . '/app/qlhs/controller/Student.php');

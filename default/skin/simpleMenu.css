@@ -1,0 +1,17 @@
+@CHARSET "ISO-8859-1";
+ul.simpleMenu {
+	margin-left: 20px;
+}
+
+ul.simpleMenu li ul{
+	margin-left: 20px;
+	display: none;
+}
+
+ul.activeMenu {
+	display: block;
+}
+
+ul.activeSubMenu {
+	color: #ccaacc;
+}

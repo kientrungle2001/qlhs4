@@ -1,0 +1,1 @@
+<input class="easyui-numberbox" {attrs id, type, value, min, max, precision, decimalSeparator, groupSeparator, prefix, suffix, filter, formatter, parser} />

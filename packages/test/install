@@ -1,0 +1,7 @@
+<?php
+echo "Test\r\n";
+copy(PKG_DIR . DS . 'page.test.php', BASE_DIR . '/app/qlhs/pages/grid/test.php');
+copy(PKG_DIR . DS . 'page.test.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/test/datagrid.php');
+copy(PKG_DIR . DS . 'page.test.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/test/test_class.php');
+copy(PKG_DIR . DS . 'page.test.test_student_mark.php', BASE_DIR . '/app/qlhs/pages/grid/test/test_student_mark.php');
+copy(PKG_DIR . DS . 'page.test.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/test/schedule.php');

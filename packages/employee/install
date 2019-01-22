@@ -1,0 +1,13 @@
+<?php
+echo "Employee\r\n";
+// create controller
+copy(PKG_DIR . DS . 'controller.Employee.php', BASE_DIR . '/app/qlhs/controller/Employee.php');
+// create grid
+copy(PKG_DIR . DS . 'page.employee.php', BASE_DIR . '/app/qlhs/pages/grid/employee.php');
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/employee')) {
+	mkdir(BASE_DIR . '/app/qlhs/pages/grid/employee');
+}
+//	create billing
+copy(PKG_DIR . DS . 'page.employee.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/employee/datagrid.php');
+copy(PKG_DIR . DS . 'page.employee.billing.php', BASE_DIR . '/app/qlhs/pages/grid/employee/billing.php');
+copy(PKG_DIR . DS . 'page.employee.absent.php', BASE_DIR . '/app/qlhs/pages/grid/employee/absent.php');

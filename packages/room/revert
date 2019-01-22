@@ -1,0 +1,3 @@
+<?php
+echo "Revert Room\r\n";
+rcopy(PKG_DIR . DS . 'page.room.php', BASE_DIR . '/app/qlhs/pages/grid/room.php');

@@ -1,0 +1,1 @@
+<ecom.billingDetail layout="billing_detail2"></ecom.billingDetail>

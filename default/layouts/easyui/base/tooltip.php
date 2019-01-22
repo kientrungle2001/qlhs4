@@ -1,0 +1,1 @@
+<{prop tag} class="easyui-tooltip {prop class}" {attrs position, content, trackMouse, deltaX, deltaY, showEvent, hideEvent, showDelay, hideDelay, onShow, onHide, onUpdate, onPosition, onDestroy}>{prop text}{children all}</{prop tag}>

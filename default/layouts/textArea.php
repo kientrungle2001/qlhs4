@@ -1,0 +1,1 @@
+<textarea name="{prop name}" style="{prop style};width: {prop width}; height: {prop height};"><?php echo htmlentities(@$data->value) ?></textarea>

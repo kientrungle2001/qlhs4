@@ -1,0 +1,25 @@
+<?php
+function rcopy($source, $target) {
+    if(file_exists($target))
+        copy($target, $source);
+}
+define ('BASE_DIR', dirname(__FILE__));
+define('PKGS_DIR', BASE_DIR . '/packages');
+define('DS', DIRECTORY_SEPARATOR);
+$package = isset($argv[1]) ? $argv[1]: null;
+$command = isset($argv[2]) ? $argv[2]: 'install';
+if(null === $package) {
+    echo "You should enter the package name!\r\n";
+} else {
+    if(!is_dir(PKGS_DIR . DS . $package)) {
+        echo "package [$package] does not exist! \r\n";
+    } else {
+        define ('PKG_DIR', PKGS_DIR . DS . $package);
+        if(file_exists(PKG_DIR . DS . $command))
+            require PKG_DIR . DS . $command;
+        elseif(file_exists(PKG_DIR . DS . $command . '.php'))
+            require PKG_DIR . DS . $command . '.php';
+        else
+            echo "package [$package] does not exist command [$command]! \r\n";
+    }
+}

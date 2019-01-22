@@ -1,0 +1,2 @@
+{e text}
+{ec all}

@@ -1,0 +1,1 @@
+<th {attrs title, field, width, rowspan, colspan, align, halign, sortable, order, resizable, fixed, hidden, checkbox, formatter, styler, sorter, editor}>{prop title}</th>

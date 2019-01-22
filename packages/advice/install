@@ -1,0 +1,3 @@
+<?php
+echo "Advice\r\n";
+copy(PKG_DIR . DS . 'page.advice.php', BASE_DIR . '/app/qlhs/pages/grid/advice.php');

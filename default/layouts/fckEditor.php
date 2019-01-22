@@ -1,0 +1,1 @@
+<textarea {attr id} {attr name} {attr rows} {attr cols} style="width: 100%; height: {prop height}"><?php echo htmlspecialchars(@$data->value) ?></textarea>

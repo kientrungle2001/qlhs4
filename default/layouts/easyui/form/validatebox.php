@@ -1,0 +1,1 @@
+<input class="easyui-validatebox" {attrs id, title, value, type, required, validType, delay, missingMessage, invalidMessage, tipPosition, deltaX, novalidate, onBeforeValidate, onValidate} />

@@ -1,0 +1,35 @@
+.pzk_header {
+	width: 851px;
+}
+
+.pzk_logo {
+	float: left;
+	width: 244px;
+	background-color: #47A242;
+}
+
+.pzk_logo h3{
+	font-size: 14px;
+	text-align: center;
+	height: 76px;
+	*height: 73px;
+	vertical-align: middle;
+	font-weight: bold;
+	margin: 0;
+}
+
+.pzk_logo hr {
+	height: 2px;
+	padding: 0;
+	margin: 0;
+}
+
+.pzk_banner {
+	float: left;
+	width: 607px;
+	height: 258px;
+}
+
+.pzk_header_line {
+	clear: both;
+}

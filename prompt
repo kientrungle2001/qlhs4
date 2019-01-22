@@ -1,0 +1,26 @@
+<?php
+$package = '';
+while($package !== 'exit') {
+	$package = readline("Enter package name to select(exit to break): ");
+	if($package == 'exit') {
+		break;
+	}
+	echo "Package [$package] selected\r\n";
+	$type = '';
+	while($type !== 'exit') {
+		$type = readline("What type(controller, object, page) do you want to do something with in package [$package](exit to break): ");
+		if($type == 'exit') {
+			break;
+		}
+		echo "You select Type [$type] on Package [$package]\r\n";
+		$action = '';
+		while($action !== 'exit') {
+			$action = readline("What action with $type do you want to do on [$package](exit to break): ");
+			if($action == 'exit') {
+				break;
+			}
+			echo "You select action [$action] $controller on Package [$package]\r\n";
+		}
+	}
+	
+}

@@ -1,0 +1,3 @@
+<?php
+unlink(BASE_DIR . '/objects/Hello.php');
+unlink(BASE_DIR . '/default/layouts/hello.php');

@@ -1,0 +1,1 @@
+<edu.studentList layout="student_list"></edu.studentList>

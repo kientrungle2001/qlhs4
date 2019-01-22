@@ -1,0 +1,36 @@
+<?php
+echo "Student Package\r\n";
+copy(PKG_DIR . DS . 'class.StudentDetail.php', BASE_DIR . '/objects/edu/StudentDetail.php');
+copy(PKG_DIR . DS . 'student_detail.php', BASE_DIR . '/app/qlhs/layouts/student_detail.php');
+copy(PKG_DIR . DS . 'page.student.php', BASE_DIR . '/app/qlhs/pages/grid/student.php');
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/student');
+}
+copy(PKG_DIR . DS . 'page.student.online.php', BASE_DIR . '/app/qlhs/pages/grid/student/online.php');
+copy(PKG_DIR . DS . 'page.student.center.php', BASE_DIR . '/app/qlhs/pages/grid/student/center.php');
+copy(PKG_DIR . DS . 'page.student.unclassed.php', BASE_DIR . '/app/qlhs/pages/grid/student/unclassed.php');
+copy(PKG_DIR . DS . 'page.student.classed.php', BASE_DIR . '/app/qlhs/pages/grid/student/classed.php');
+copy(PKG_DIR . DS . 'page.student.ontest.php', BASE_DIR . '/app/qlhs/pages/grid/student/ontest.php');
+copy(PKG_DIR . DS . 'page.student.potential.php', BASE_DIR . '/app/qlhs/pages/grid/student/potential.php');
+copy(PKG_DIR . DS . 'page.student.used.php', BASE_DIR . '/app/qlhs/pages/grid/student/used.php');
+copy(PKG_DIR . DS . 'page.student.familiar.php', BASE_DIR . '/app/qlhs/pages/grid/student/familiar.php');
+copy(PKG_DIR . DS . 'controller.Student.php', BASE_DIR . '/app/qlhs/controller/Student.php');
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student/component')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/student/component');
+}
+
+copy(PKG_DIR . DS . 'page.student.component.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/datagrid.php');
+copy(PKG_DIR . DS . 'page.student.component.classify_student.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/classify_student.php');
+copy(PKG_DIR . DS . 'page.student.component.script.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/script.php');
+
+// Student Selector
+copy(PKG_DIR . DS . 'class.StudentSelector.php', BASE_DIR . '/objects/edu/StudentSelector.php');
+copy(PKG_DIR . DS . 'class.StudentSelector.js', BASE_DIR . '/js/edu/studentSelector.js');
+copy(PKG_DIR . DS . 'edu.student.selector.php', BASE_DIR . '/default/layouts/edu/student/selector.php');
+
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student/online')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/student/online');
+}
+
+copy(PKG_DIR . DS . 'page.student.online.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/student/online/datagrid.php');
+copy(PKG_DIR . DS . 'page.student.online.classify_student.php', BASE_DIR . '/app/qlhs/pages/grid/student/online/classify_student.php');

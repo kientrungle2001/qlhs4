@@ -1,0 +1,1 @@
+<div {attrs id, text, iconCls, href, disabled, onclick}>{children all}</div>

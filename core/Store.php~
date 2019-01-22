@@ -1,0 +1,467 @@
+<?php
+
+/**
+ * Kho luu du lieu, truy xuat theo key
+ *
+ */
+class PzkStore {
+	public $storage;
+	public $timeout = 900;
+	public $time = 900;
+	public static $current;
+
+
+	/**
+	 * Ham khai bao kho du lieu
+	 * @param $type: loai kho du lieu luu tru
+	 */
+	public function __construct($type = 'php') {
+		$storage = 'Pzk' . strtoupper($type[0]) . substr($type, 1) . 'Store';
+		$this->storage = new $storage();
+	}
+
+	/**
+	 * Ham khoi tao doi tuong kho du lieu theo loai
+	 * @param $type: loai kho can khoi tao
+	 */
+	public static function instance($type = 'php') {
+		return new PzkStore($type);
+	}
+
+	/**
+	 * Ham lay kho du lieu hien thoi
+	 * @return kho du lieu hien thoi
+	 */
+	public static function getCurrent() {
+		return self::$current;
+	}
+
+	/**
+	 * Dat mot kho du lieu la kho luu tru hien thoi
+	 */
+	public static function setCurrent($current) {
+		return self::$current = $current;
+	}
+
+	/**
+	 * Ham lay hoac dat gia tri cho 1 key
+	 * @param $key: khoa de lay gia tri hoac dat gia tri
+	 * @param $value: gia tri can dat cho key
+	 */
+	public static function store($key, $value = NULL) {
+		if ($value !== NULL) {
+			return self::$current->set($key, $value);
+		} else {
+			return self::$current->get($key);
+		}
+	}
+
+	/**
+	 * Ham lay gia tri theo khoa
+	 * @param $key: khoa can lay du lieu
+	 * @return gia tri theo khoa
+	 */
+	public function get($key, $timeout = null) {
+		return @$this->storage->get($key);
+	}
+
+	/**
+	 * Ham dat gia tri cho khoa
+	 * @param $key: khoa
+	 * @param $value: gia tri can dat
+	 * @return gia tri vua dat
+	 */
+	public function set($key, $value) {
+		return @$this->storage->set($key, $value);
+	}
+
+	/**
+	 * Ham xoa tat ca cac du lieu trong kho
+	 */
+	public function clear() {
+	}
+
+	/**
+	 * Ham tai du lieu vao kho
+	 * @param $data: mang du lieu can dat vao kho
+	 */
+	public function load($data) {
+	}
+	
+	public function __call($name, $arguments) {
+		$prefix = substr($name, 0, 3);
+		$property = strtolower($name[3]) . substr($name, 4);
+		switch ($prefix) {
+			case 'get':
+				return $this->get($property, @$arguments[0]);
+				break;
+			case 'set':
+				//Always set the value if a parameter is passed
+				if (count($arguments) != 1) {
+					throw new \Exception("Setter for $name requires exactly one parameter.");
+				}
+				$this->set($property, $arguments[0]);
+				//Always return this (Even on the set)
+				return $this;
+			default:
+				throw new \Exception("Property $name doesn't exist.");
+				break;
+		}
+	}
+	
+	public function getFilterData() {
+		$fields = array();
+		$arguments = func_get_args();
+		if(count($arguments) == 0) {
+			return $this;
+		} else if(count($arguments) == 1) {
+			if(is_string($arguments[0])) {
+				$fields = explodetrim(',', $arguments[0]);
+			} else if (is_array($arguments[0])) {
+				$fields = $arguments[0];
+			}
+		} else {
+			$fields = $arguments;
+		}
+		$data = array();
+		foreach($fields as $field) {
+			$data[$field] = $this->get($field);
+		}
+		return $data;
+	}
+	
+}
+
+/**
+ * Luu tru theo mang thong thuong
+ *
+ */
+class PzkPhpStore extends PzkStore {
+	public function __construct() {
+		$this->storage = array();
+	}
+	public function get($key, $timeout = null) {
+		return @$this->storage[$key];
+	}
+
+	public function set($key, $value) {
+		return $this->storage[$key] = $value;
+	}
+}
+
+/**
+ * Luu tru bang memcached
+ *
+ */
+class PzkMemcacheStore extends PzkStore {
+	public function __construct() {
+
+		$memcache = new Memcache();
+		$memcache->connect('localhost', 11211) or die ("Could not connect");
+		$this->storage = $memcache;
+
+		if (@$_REQUEST['noCache']) {
+			$this->storage->flush();
+		}
+
+		$time = $this->getTime();
+		if (time() - $time > $this->timeout) {
+			$this->storage->flush();
+			$this->time = $this->setTime(time());
+		}
+	}
+
+}
+
+/**
+ * Luu tru theo file
+ *
+ */
+class PzkFilecacheStore extends PzkStore {
+	public $dir = 'cache';
+	public $nocache = false;
+	public function __construct() {
+		
+	}
+	public function get($key, $timeout = null) {
+		if (!@$key) return false;
+		$fileName = $this->dir . '/' . md5($key) . '.txt';
+
+		if (!file_exists($fileName)) {
+			return NULL;
+		}
+		if(!$this->nocache) {
+			if(!$timeout) {
+				$timeout = $this->timeout;
+			}
+			$remainingTime = -(time() - filemtime($fileName) - $timeout);
+
+			if ($remainingTime < 0) {
+				unlink($fileName);
+				return NULL;
+			}
+		}
+
+		return file_get_contents($fileName);
+	}
+
+	public function set($key, $value) {
+		return file_put_contents($this->dir . '/' . md5($key) . '.txt', $value);
+	}
+
+	public function clear() {
+
+		$d = dir("cache");
+		while (false !== ($entry = $d->read())) {
+			unlink('cache/' . $entry . '.txt');
+		}
+		$d->close();
+	}
+	
+}
+
+/**
+ * Luu tru theo session
+ *
+ */
+class PzkSessionStore extends PzkStore {
+	public function __construct() {
+	}
+
+	public function get($key, $timeout = null) {
+		if(!isset($_SESSION[$key])) return null;
+		$created = $_SESSION[$key.'_timestart'];
+		$time = time();
+		if($timeout && $time - $created > $timeout) {
+			unset($_SESSION[$key.'_timestart']);
+			unset($_SESSION[$key]);
+			return null;
+		}
+		return @$_SESSION[$key];
+	}
+
+	public function set($key, $value) {
+		$_SESSION[$key.'_timestart'] = time();
+		return $_SESSION[$key] = $value;
+	}
+}
+
+class PzkFileVarStore extends PzkFilecacheStore {
+	public $nocache = true;
+	public function __construct() {
+		
+	}
+	public function get($key, $timeout = null) {
+		$value = parent::get($key, $timeout);
+		if ($value !== NULL)
+		return unserialize($value);
+		return NULL;
+	}
+
+	public function set($key, $value) {
+		return parent::set($key, serialize($value));
+	}
+}
+
+class PzkFileVarSessionStore extends PzkFileVarStore {
+	public $dir = 'cache/session';
+	public function __construct() {
+		@mkdir('cache', 0777);
+		@mkdir('cache/session', 0777);
+	}
+	public function get($key, $timeout = null) {
+		$key = session_id().$key;
+		$value = parent::get($key, $timeout);
+		return $value;
+	}
+
+	public function set($key, $value) {
+		$key = session_id().$key;
+		return parent::set($key, $value);
+	}
+}
+
+/**
+ * Luu tru bang database
+ *
+ */
+class PzkDatabaseStore extends PzkStore {
+	public function __construct() {
+		$this->storage = _db();
+	}
+
+	public function get($key, $timeout = null) {
+		return @$this->storage->select('id, mkey, mvalue')->from('mstore');
+	}
+
+	public function set($key, $value) {
+		return $_SESSION[$key] = $value;
+	}
+}
+
+/**
+ * Luu tru bang MongoDB
+ *
+ */
+class PzkMongoStore extends PzkStore {
+	public function PzkMongoStore() {
+		$this->storage = new Mongo();
+	}
+}
+
+/**
+@desc: ham lay gia tri trong cac store theo kieu key, value
+@param $key: viet duoi dang store.key
+@example: 	pzk_store('session.abc123') se tra ve gia tri tuong ung voi key = abc123 luu trong session
+pzk_store('session.abc123', 'cai gi do') se gan gia tri 'cai gi do' cho key = abc123 luu trong session
+*/
+function pzk_store($key, $value = NULL, $timeout = NULL) {
+
+	// chon store
+	$store = NULL;
+	$arr = explode('.', $key);
+
+	$storeType = 'php';
+	$realKey = $key;
+
+	if (count($arr) == 2){
+		$storeType = $arr[0];
+		$realKey = $arr[1];
+	}
+
+	$store = PzkStore::store($storeType);
+
+	// get hoac set cac gia tri
+	if (!$store) return NULL;
+	if ($value === NULL) {
+		return $store->get($realKey, $timeout);
+	}
+	return $store->set($realKey, $value);
+}
+
+// Khoi tao Store de luu cac bien global
+$phpStorage = PzkStore::setCurrent(PzkStore::instance('php'));
+PzkStore::store('php', $phpStorage);
+
+// khoi tao store de luu cac element
+$elementStorage = PzkStore::instance('php');
+PzkStore::store('element', $elementStorage); // php element
+
+/**
+ * Ham lay hoac dat cac element
+ *
+ * @param String $key: id cua element
+ * @param PzkObject $value: instance cua element
+ * @return PzkObject
+ */
+
+function pzk_store_element($key = NULL, $value = NULL) {
+	if($key === NULL) {
+		return pzk_store('element');
+	}
+	return pzk_store('element.'. $key, $value);
+}
+
+/**
+ * Hàm lấy hoặc đặt element
+ * @param string $key: id của element
+ * @param string $value: element
+ * @return PzkObject đối tượng
+ */
+function pzk_element($key = NULL, $value = NULL) {
+	return pzk_store_element($key, $value);
+}
+
+/**
+ * Ham lay gia tri cua 1 bien session
+ *
+ * @param String $key: khoa
+ * @param Object $value: gia tri can dat
+ * @return mixed gia tri tuong ung voi khoa
+ */
+
+function pzk_store_session($key = NULL, $value = NULL, $timeout = NULL) {
+	if($key === NULL) {
+		return pzk_store('session');
+	}
+	return pzk_store('session.'. $key, $value, $timeout);
+}
+
+/**
+ * Lấy, đặt giá trị của session
+ * @param String $key
+ * @param mixed $value
+ * @param string $timeout thời gian hết hạn session
+ * @return mixed
+ */
+function pzk_session($key = NULL, $value = NULL, $timeout = NULL) {
+	return pzk_store_session($key, $value, $timeout);
+}
+
+/**
+ * Ham lay gia tri trong memcache
+ *
+ * @param String $key: khoa
+ * @param String $value: gia tri can dat
+ * @return gia tri tuong ung voi khoa
+ */
+
+function pzk_store_memcache($key = NULL, $value = NULL, $timeout = NULL) {
+	if($key === NULL) {
+		return pzk_store('memcache');
+	}
+	return pzk_store('memcache.'. $key, $value, $timeout);
+}
+
+function pzk_memcache($key = NULL, $value = NULL, $timeout = NULL) {
+	return pzk_store_memcache($key, $value, $timeout);
+}
+
+/**
+ * Ham lay gia tri duoc cache o file
+ *
+ * @param String $key: ten khoa
+ * @param String $value: gia tri duoc luu ra file
+ * @return gia tri tuong ung voi khoa
+ */
+
+function pzk_store_filecache($key = NULL, $value = NULL, $timeout = NULL) {
+	if($key === NULL) {
+		return pzk_store('filecache');
+	}
+	return pzk_store('filecache.'. $key, $value, $timeout);
+}
+
+function pzk_filecache($key = NULL, $value = NULL, $timeout = NULL) {
+	return pzk_store_filecache($key, $value, $timeout);
+}
+
+function pzk_store_filevar($key = NULL, $value = NULL, $timeout = NULL) {
+	if($key === NULL) {
+		return pzk_store('fileVar');
+	}
+	return pzk_store('fileVar.'. $key, $value, $timeout);
+}
+
+function pzk_filevar($key = NULL, $value = NULL, $timeout = NULL) {
+	return pzk_store_filevar($key, $value, $timeout);
+}
+
+/////////////////////////// Cache Shortcuts /////////////////////////
+
+/**
+ * 
+ * @param unknown $xml
+ * @return PzkObject
+ */
+function pzk_parse($xml) {
+	return PzkParser::parse($xml);
+}
+
+function pzk_pclass($selector) {
+	$pss = pzk_store_element('pss'); 
+	if ($pss) {
+		return @$pss->arr[$selector];
+	}
+	return 0;
+}
