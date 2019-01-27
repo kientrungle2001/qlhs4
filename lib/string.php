@@ -290,3 +290,17 @@ function trstr($fields) {
 	$str .= '</tr>';
 	return $str;
 }
+// http://php.net/manual/es/function.gmmktime.php
+function gmstrtotime($date) {
+	$t = 0;
+	if(is_numeric($date)) {
+		$t = $date;
+	} else {
+		$t = strtotime($date);
+	}
+	
+	$m = date('m', $t);
+	$d = date('d', $t);
+	$Y = date('Y', $t);
+	return gmmktime(0, 0, 0, $m, $d, $Y);
+}

@@ -14,7 +14,8 @@ class PzkAccountController extends PzkController {
 	}
 
 	public function logoutAction() {
-		pzk_session()->set('loginId', null);
+		$permission = pzk_element()->getPermission();
+		$permission->logout();
 		$this->redirect('/account/login');
 	}
 }

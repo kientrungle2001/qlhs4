@@ -1,0 +1,1 @@
+<div layout="customer_thap2" />

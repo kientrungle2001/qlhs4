@@ -6,6 +6,7 @@
  */
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 	class PzkTableController extends PzkController {
 
@@ -16,6 +17,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 	public $deletes = array();
 	public $statusDeletes = array();
 	public $exports = array();
+	public $export_sets = array();
+	public $export_metadata = array();
 	public $onEdit = array();
 	public $onAdd = array();
 	public $onDel = array();
@@ -208,7 +211,13 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 			}
 			$rand = rand(0, 1000000000000);
 			$file = '/cache/export-' .date('YmdHis'). '-' .$rand.'.' . $ext;
-			$options = $_REQUEST['options'];
+			// export dữ liệu theo options chứa fields và childTables
+			if(isset($_REQUEST['export_set']) && isset($this->export_sets[$_REQUEST['table']][$_REQUEST['export_set']])) {
+				$options = $this->export_sets[$_REQUEST['table']][$_REQUEST['export_set']];
+			} else {
+				$options = $_REQUEST['options'];
+			}
+
 			$items = $this->buildExportData($table, $items, $options);
 
 			if($ext == 'json') {
@@ -230,7 +239,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 			} elseif($ext == 'xlsx') {
 				$spreadsheet = new Spreadsheet();
 				$sheet = $spreadsheet->getActiveSheet();
-				array_to_sheet($items, $sheet);
+				sheet_set_column_width($sheet, $options);
+				array_to_sheet($items, $sheet, $options);
 
 				$writer = new Xlsx($spreadsheet);
 				$writer->save(BASE_DIR .$file);
@@ -261,11 +271,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 			}
 
 			if (file_exists(BASE_DIR . $file)) {
-                echo json_encode(['file' => BASE_URL . $file, 'query' => $query]);
+				echo json_encode(['file' => BASE_URL . $file, 'query' => $query]);
 			}
 			//unlink($file);
 		} else {
-            echo json_encode($data);
+			echo json_encode($data);
 		}
 		
 	}
@@ -274,7 +284,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 	 * Xây dựng dữ liệu cho export
 	 * @param string $table
 	 * @param array $items
-	 * @param array $options
+	 * @param array $options chứa fields(index => string, title => string) và childTables
 	 * @param boolean $isMainTable
 	 * @return array[]
 	 */
@@ -316,7 +326,17 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 			} else {
 				$fieldName = $field['index'];
 			}
-			$result[$fieldName] = @$item[$field['index']];
+			if(@$field['type'] == 'date') {
+				//$result[$fieldName] = '=datevalue("' . date('Y-m-d', strtotime(@$item[$field['index']])) . '")';
+				$result[$fieldName] = @$item[$field['index']];
+			} elseif(@$field['type'] == 'money') {
+				$result[$fieldName] = product_price(@$item[$field['index']]);
+			} elseif(@$field['type'] == 'map') {
+				$map = @$field['map'];
+				$result[$fieldName] = $map[@$item[$field['index']]];
+			} else {
+				$result[$fieldName] = @$item[$field['index']];
+			}
 		}
 		return $result;
 	}
@@ -759,14 +779,19 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 	}
 
 }
-function array_to_sheet(&$array, &$sheet) {
-	
+function array_to_sheet(&$array, &$sheet, $options) {
+	file_put_contents(BASE_DIR.'/array_to_sheet.txt', '');
+	file_put_contents(BASE_DIR.'/array_to_sheet.txt', var_export($array, true), FILE_APPEND);
+	file_put_contents(BASE_DIR.'/array_to_sheet.txt', var_export($options, true), FILE_APPEND);
 	$columns = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 
 	'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 
 	'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 	'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 
 	'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 
-	'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ');
+	'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ', 
+	'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 
+	'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 
+	'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ');
 	$columnIndex = 0;
 	$person = $array[0];	
 	foreach($person as $prop => $value) {
@@ -776,15 +801,43 @@ function array_to_sheet(&$array, &$sheet) {
 	}
 
 	foreach($array as $index => $person) {
-		$columnIndex = 0;
-		foreach($person as $prop => $value) {
-			if(is_a($value, 'DateTime')) {
-				$sheet->setCellValue($columns[$columnIndex] . ($index + 2),'= datevalue("'. $value->format('m/d/Y') . '")');
+		foreach($options['fields'] as $columnIndex => $field) {
+			$value = $person[pzk_or(@$field['title'], @$field['index'])];
+			if(isset($options['fields'][$columnIndex]['type']) && $options['fields'][$columnIndex]['type'] == 'date') {
+				$value = new DateTime($value);
+				if(isset($options['fields'][$columnIndex]['dateType']) && $options['fields'][$columnIndex]['dateType'] == 'formula') {
+					$sheet->setCellValue($columns[$columnIndex] . ($index + 2),'= datevalue("'. $value->format('m/d/Y') . '")');
+				} elseif(isset($options['fields'][$columnIndex]['dateType']) && $options['fields'][$columnIndex]['dateType'] == 'date') {
+					$sheet->setCellValue($columns[$columnIndex] . ($index + 2), $value->format($options['fields'][$columnIndex]['format']));
+				} else {
+					$sheet->setCellValue($columns[$columnIndex] . ($index + 2), \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmstrtotime($value->getTimestamp())));
+					$sheet->getStyle($columns[$columnIndex] . ($index + 2))
+    		->getNumberFormat()
+    		->setFormatCode(pzk_or(@$options['fields'][$columnIndex]['format'], 'dd/mm/yyyy'));
+				}
 			} else {
 				$sheet->setCellValue($columns[$columnIndex] . ($index + 2), $value);
 			}
-			
-			$columnIndex++;
+			//$sheet->getStyle($columns[$columnIndex] . ($index + 2))->getAlignment()->setWrapText(true);			
+		}
+		//$sheet->getRowDimension(($index + 2))->setRowHeight(-1);
+	}
+}
+
+function sheet_set_column_width(&$sheet, $options) {
+	$columns = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 
+	'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 
+	'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+	'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 
+	'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 
+	'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ', 
+	'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 
+	'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 
+	'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ');
+	foreach($options['fields'] as $index => $field) {
+		if(isset($field['width'])) {
+			$column = $sheet->getColumnDimension($columns[$index]);
+			$column->setWidth($field['width']);
 		}
 	}
 }

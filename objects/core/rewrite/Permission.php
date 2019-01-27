@@ -1,13 +1,17 @@
 <?php
 class PzkCoreRewritePermission extends PzkObjectLightWeight {
 	public $user = false;
+	public $table = 'profile_profile';
+	public $entity = 'profile.profile';
+	public $username = 'username';
+	public $password = 'password';
 	public function init() {
 		$request = pzk_element('request');
 		$loginId = pzk_session('loginId');
 		if(!$loginId) {
 			$loginId = 3;
 		}
-		$this->user = _db()->getEntity('profile.profile')->load($loginId, 900);
+		$this->user = _db()->getEntity($this->entity)->load($loginId, 900);
 		$controller = $request->get('controller');
 		$action = $request->get('action');
 		if($request->host == 'phongthuyhoangtra.vn' || $request->host == 'www.phongthuyhoangtra.vn') {
@@ -27,7 +31,7 @@ class PzkCoreRewritePermission extends PzkObjectLightWeight {
 	}
 	
 	public function login($username, $password) {
-		$user = _db()->useCB()->select('*')->from('profile_profile')->where(array('and', array('username', $username), array('password', $password)))->result_one();
+		$user = _db()->useCB()->select('*')->from($this->table)->where(array('and', array($this->username, $username), array($this->password, $password)))->result_one();
 		if($user) {
 			pzk_session('loginId', $user['id']);
 			pzk_session('role', $user['type']);

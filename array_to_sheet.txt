@@ -1,0 +1,225 @@
+array (
+  0 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  1 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  2 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  3 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  4 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  5 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  6 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0201819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+  7 => 
+  array (
+    'Ngày nhận' => '2018-10-04',
+    'Ngày gửi yêu cầu' => '2018-10-04',
+    'Mã số thuế' => '0101819959',
+    'Tên doanh nghiệp' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ VIỆT ',
+    'Thời gian gen' => '2018-04-10',
+    'Mã đơn vị' => '',
+    'Số hợp đồng' => '101959',
+    'Số hóa đơn' => '4612',
+    'Tên khách hàng' => 'Chị Hường',
+    'Số điện thoại' => '0974296122',
+    'Email' => 'trungtamdaynghehan@gmail.com',
+    'Địa chỉ VAT' => ' Số 106 X1, tổ 26 - Thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+    'Địa chỉ trả TB' => 'Trung tâm dạy nghề hàn công nghệ cao- tổ 47- thị trấn Đông Anh - Huyện Đông Anh - Hà Nội ',
+  ),
+)array (
+  'fields' => 
+  array (
+    0 => 
+    array (
+      'index' => 'ngay_nhan',
+      'title' => 'Ngày nhận',
+      'type' => 'date',
+      'width' => 15,
+    ),
+    1 => 
+    array (
+      'index' => 'ngay_gui_yc',
+      'title' => 'Ngày gửi yêu cầu',
+      'type' => 'date',
+      'width' => 15,
+    ),
+    2 => 
+    array (
+      'index' => 'mst',
+      'title' => 'Mã số thuế',
+      'type' => 'string',
+      'width' => 15,
+    ),
+    3 => 
+    array (
+      'index' => 'ten_doanh_nghiep',
+      'title' => 'Tên doanh nghiệp',
+      'type' => 'string',
+      'width' => 45,
+    ),
+    4 => 
+    array (
+      'index' => 'thoi_gian_gen',
+      'title' => 'Thời gian gen',
+      'type' => 'date',
+      'width' => 15,
+    ),
+    5 => 
+    array (
+      'index' => 'ma_don_vi',
+      'title' => 'Mã đơn vị',
+      'type' => 'string',
+      'width' => 15,
+    ),
+    6 => 
+    array (
+      'index' => 'so_hop_dong',
+      'title' => 'Số hợp đồng',
+      'type' => 'string',
+      'width' => 15,
+    ),
+    7 => 
+    array (
+      'index' => 'so_hoa_don',
+      'title' => 'Số hóa đơn',
+      'type' => 'string',
+      'width' => 15,
+    ),
+    8 => 
+    array (
+      'index' => 'ten_khach_hang',
+      'title' => 'Tên khách hàng',
+      'type' => 'string',
+      'width' => 15,
+    ),
+    9 => 
+    array (
+      'index' => 'so_dien_thoai',
+      'title' => 'Số điện thoại',
+      'type' => 'string',
+      'width' => 15,
+    ),
+    10 => 
+    array (
+      'index' => 'email',
+      'title' => 'Email',
+      'type' => 'string',
+      'width' => 25,
+    ),
+    11 => 
+    array (
+      'index' => 'dia_chi_vat',
+      'title' => 'Địa chỉ VAT',
+      'type' => 'string',
+      'width' => 55,
+    ),
+    12 => 
+    array (
+      'index' => 'dia_chi_tra',
+      'title' => 'Địa chỉ trả TB',
+      'type' => 'string',
+      'width' => 55,
+    ),
+  ),
+)

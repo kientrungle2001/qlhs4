@@ -675,3 +675,27 @@ function _db() {
 function db_query($sql) {
     return _db()->query($sql);
 }
+
+function eand($arr) {
+    array_unshift($arr, 'and');
+    return $arr;
+}
+
+function eor($arr) {
+    array_unshift($arr, 'or');
+    return $arr;
+}
+
+function mand() {
+    $arr = func_get_args();
+    return eand($arr);
+}
+
+function mor() {
+    $arr = func_get_args();
+    return eor($arr);
+}
+
+function meq($a, $b) {
+    return array($a, $b);
+}

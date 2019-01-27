@@ -8,6 +8,7 @@ $config['path_to_css_dir'] = './';				//	default: '../'
 $config['xCSS_files'] = array
 (
 'src/test.xcss'		=> 'output/test.css',
+'src/erp.xcss'		=> 'output/erp.css',
 //	'source/main.xcss'			=> 'generated/main.css',
 );
 
