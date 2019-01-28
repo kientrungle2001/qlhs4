@@ -3,6 +3,7 @@
 	<li><a href="{url /}">Tổng quan</a></li>
 	<li><a href="{url /}">THAP</a></li>
 	<li><a href="{url /phanquyen}">Phân quyền</a></li>
+	<li><a href="{url /thamso}">Tham số</a></li>
 	<li>
 	<a href="#"><?php echo pzk_session('username')?></a>
 	<ul>

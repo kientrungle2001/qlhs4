@@ -6,6 +6,8 @@
 		</script>
 		<html.js src="<?php echo BASE_URL?>/3rdparty/jquery/jquery-3.3.1.min.js"></html.js>
 		<html.js src="<?php echo BASE_URL?>/3rdparty/bootstrap-4.2.1-dist/js/bootstrap.min.js"></html.js>
+		<html.js src="<?php echo BASE_URL?>/3rdparty/jquery-ui-1.12.1.custom/jquery-ui.min.js"></html.js>
+		<html.js src="<?php echo BASE_URL?>/3rdparty/jquery-ui-1.12.1.custom/datepicker-vi.js"></html.js>
 		<html.js src="<?php echo BASE_URL?>/js/components.js"></html.js>
 		<!--
 		<html.js src="<?php echo BASE_URL?>/3rdparty/easyui/jquery.easyui.min.js" />
@@ -18,6 +20,7 @@
 		<html.js src="<?php echo BASE_URL?>/js/erp.js" />
 		<html.css src="<?php echo BASE_URL?>/3rdparty/bootstrap-4.2.1-dist/css/bootstrap.min.css"></html.css>
 		<html.css src="<?php echo BASE_URL?>/3rdparty/font-awesome-4.7.0/css/font-awesome.min.css"></html.css>
+		<html.css src="<?php echo BASE_URL?>/3rdparty/jquery-ui-1.12.1.custom/jquery-ui.min.css"></html.css>
 		<html.js src="<?php echo BASE_URL?>/xcss" />
 		<html.css src="<?php echo BASE_URL?>/xcss/output/erp.css" />
 		<!--

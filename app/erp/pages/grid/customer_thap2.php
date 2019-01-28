@@ -1,1 +1,1 @@
-<div layout="customer_thap2" />
+<div layout="customer_thap3" />

@@ -34,7 +34,9 @@ class PzkDtableController extends PzkTableController {
 			'ncc_tb_hd',
 			'kh_phat_sinh',
 			'co_hoa_don',
-			'co_thiet_bi'
+			'co_thiet_bi',
+			'nhan_vien_kinh_doanh',
+			'id_nhan_vien_kinh_doanh'
 		)
 	);
 
@@ -57,8 +59,24 @@ class PzkDtableController extends PzkTableController {
 				'tinh_trang' => array('equal', 'tinh_trang', '?'),
 				'co_hoa_don' => array('equal', 'co_hoa_don', '?'),
 				'co_thiet_bi' => array('equal', 'co_thiet_bi', '?'),
+				'ngayBatDau' => array('gte', 'ngay_gui_yc', '?'),
+				'ngayKetThuc' => array('lte', 'ngay_gui_yc', '?'),
+				'nha_cc' => array('like', 'nha_cc', '?-%'),
 			)
-		)
+		),
+		'app_params' => array(
+			'none' => 0
+		),
+		'app_params_filter' => array(
+			'where' => array(
+				'keyword' => array(
+					'sql',
+					"(PAR_NAME like '%?%' or PAR_TYPE like '%?%')"
+				),
+				'STATUS' => array('equal', 'STATUS', '?'),
+				'PAR_TYPE' => array('equal', 'PAR_TYPE', '?'),
+			)
+		),
 	);
 
 	public $export_sets = array(

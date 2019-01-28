@@ -45,7 +45,7 @@ pzk = {
 	elements: {},
 	loadScript: function(jsFile) {
 		var $head = $('body');
-		if ($head.find('script[src='+jsFile+']').length == 0) {
+		if ($head.find('script[src="'+jsFile+'"]').length == 0) {
 			$head.append('<script src="'+jsFile+'"></script>');
 		}
 	},

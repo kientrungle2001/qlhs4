@@ -74,12 +74,12 @@
 					<span class="fa fa-address-book-o"></span> <% item.ten_khach_hang%>  <span class="fa fa-phone"></span> <% item.so_dien_thoai%><br /><span class="fa fa-envelope-o"></span> <% item.email%>
 					</div>
 					<div class="col-md-3">
-						<span class="fa fa-calendar-o"> <% item.ngay_gui_yc | vndate %><br />
-						<span class="fa fa-calendar"> <% item.ngay_nhan | vndate %> <br />
-						<span class="fa fa-money"> <% item.so_tien %> <br />
-						<span class="fa fa-money"> <% item.con_thu %> <br />
-						<span class="fa fa-money"> <% item.da_thu %> <br />
-						<span class="fa fa-money"> <% item.doanh_thu %> <br />
+						<span class="fa fa-calendar-o"> <% item.ngay_gui_yc | vndate %></span><br />
+						<span class="fa fa-calendar"> <% item.ngay_nhan | vndate %> </span><br />
+						<span class="fa fa-money btn btn-danger btm-sm"> <% item.so_tien | vnprice %></span> <br />
+						<span class="fa fa-money btn btn-warning btm-sm"> <% item.con_thu | vnprice %> </span><br />
+						<span class="fa fa-money btn btn-success btm-sm"> <% item.da_thu | vnprice %> </span><br />
+						<span class="fa fa-money btn btn-info btm-sm"> <% item.doanh_thu | vnprice %> </span><br />
 					</div>
 					<div class="col-md-1"><a href="#" ng-click="detail(item)"> <span class="fa fa-play"></span> </a></div>
 				</div>

@@ -772,6 +772,17 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 		echo json_encode($fields);
 	}
 
+	public function distinctAction() {
+		$table = $_REQUEST['table'];
+		$field = $_REQUEST['field'];
+		$items = _db()->select('distinct(`'.$field.'`)')->from($table)->result();
+		$result = array();
+		foreach($items as $item) {
+			$result[] = $item[$field];
+		}
+		echo json_encode($result);
+	}
+
 	public function exportConfigAction() {
 		$table = $_REQUEST['table'];
 		$config = @$this->exports[$table];
