@@ -376,4 +376,28 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		}
 		
 	}
+
+	$scope.duplicate = function(item, instantDuplicate) {
+		var newItem = {};
+		for(var key in item) {
+			if(key !== 'id') {
+				newItem[key] = item[key];
+			}
+		}
+		if(instantDuplicate) {
+			ajax({
+				url: BASE_REQUEST + '/Dtable/add?table=customer_thap2',
+				data: newItem,
+				success: function(resp) {
+					$scope.mode = 'list';
+					$scope.reload();
+					alert('Đã sao chép thành công');
+				}
+			});
+		} else {
+			$scope.multipleItems = [newItem];
+			$scope.mode = 'addmul';
+		}
+		
+	}
 }]);

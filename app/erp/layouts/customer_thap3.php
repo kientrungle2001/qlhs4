@@ -126,7 +126,7 @@
 		<div class="card">
 			<div class="card-header bg-primary text-white">Danh sách THAP</div>
 			<div class="mt-2 mb-2 pl-2 pr-2">
-			<select ng-model="rows" ng-options="rows_item as rows_item for rows_item in all_rows" ng-change="reload()" class="btn btn-primary">
+			<select ng-model="rows" ng-options="rows_item as rows_item for rows_item in all_rows" ng-change="reload()" class="btn btn-primary btn-sm">
 			</select>
 			<a class="btn btn-sm" ng-repeat="p in pages()" ng-click="changePage(p)" ng-class="{'btn-primary text-white': page==p, 'btn-secondary text-white': page!=p}"><% p %></a>
 			<button class="btn btn-primary btn-sm" ng-click="mode='addmul'">Thêm nhiều</button>
@@ -155,7 +155,7 @@
 						<td><% item.id%></td>
 						<td><span class="text-primary"><% item.ngay_nhan | vndate%></span><br /><span class="text-danger"><% item.ngay_gui_yc | vndate%></span><br /><span class="text-success"><% item.ngay_hoan_thien_hs | vndate%></span><br /><span class="text-info"><% item.ngay_thanh_toan_tien_kh_ve_cty | vndate%></span><br /><span class="text-warning"><% item.ngay_ban_giao_hs_den_pdvkh | vndate%></span><br /><% item.ngay_tt_ncc | vndate%><br /><% item.ngay_tt_tb_den_ncc | vndate%><br /><% item.ngay_huy_dv | vndate%><br />
 							<span class="btn btn-info btn-sm"><% item.tinh_trang%></span><br />
-							<a href="javascript:void(0)">Duplicate</a>
+							<a href="javascript:void(0)" ng-click="duplicate(item)">Sao chép</a>
 						</td>
 						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%><br /><% item.co_thiet_bi | co_tb%></td>
 						<td><% item.thoi_gian_gen | vndate%><br /><% item.so_hop_dong%><br /><% item.so_hoa_don%><br /><% item.hinh_thuc_thanh_toan%><br /><% item.nhan_vien_kinh_doanh%></td>
@@ -438,6 +438,7 @@
 						<th>Mã đơn vị</th>
 						<th>SỐ HỢP ĐỒNG</th>
 						<th>SỐ HÓA ĐƠN</th>
+						<th>Tên khách hàng</th>
 						<th>SĐT</th>
 						<th>EMAIL</th>
 						<th>ĐỊA CHỈ VAT</th>
@@ -486,6 +487,7 @@
 						<td><input class="form-control form-control-sm" ng-model="item.ma_don_vi"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.so_hop_dong"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.so_hoa_don"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.ten_khach_hang"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.so_dien_thoai"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.email"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.dia_chi_vat"/></td>
@@ -547,7 +549,7 @@
 			</div>
 			
 			<div class="mt-2 mb-2 pl-2 pr-2">
-			<select ng-model="rows" ng-options="rows_item as rows_item for rows_item in all_rows" ng-change="reload()" class="btn btn-primary">
+			<select ng-model="rows" ng-options="rows_item as rows_item for rows_item in all_rows" ng-change="reload()" class="btn btn-primary btn-sm">
 			</select>
 			<a class="btn btn-sm" ng-repeat="p in pages()" ng-click="changePage(p)" ng-class="{'btn-primary text-white': page==p, 'btn-secondary text-white': page!=p}"><% p %></a>
 			</div>
