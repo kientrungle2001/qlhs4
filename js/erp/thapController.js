@@ -309,6 +309,20 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		$scope.selectedItem.nhan_vien_kinh_doanh = sale ? sale.NAME : '';
 	};
 
+	$scope.chonNVKDMul = function(item) {
+		var sale = null;
+		var id_nhan_vien_kinh_doanh = item.id_nhan_vien_kinh_doanh;
+		for(var i = 0; i < $scope.saleStaffs.length; i++) {
+			var nvkd = $scope.saleStaffs[i];
+			if(nvkd.id == id_nhan_vien_kinh_doanh) {
+				sale = nvkd;
+				break;
+			}
+		}
+		item.id_nhan_vien_kinh_doanh = id_nhan_vien_kinh_doanh;
+		item.nhan_vien_kinh_doanh = sale ? sale.NAME : '';
+	}
+
 	$scope.del = function() {
 		if(confirm('Bạn có muốn xóa những bản ghi đã chọn?')) {
 			var ids = [];
@@ -327,5 +341,39 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 				}
 			});
 		}
+	};
+	$scope.multipleItems = [{}];
+	$scope.addMulItem = function() {
+		$scope.multipleItems.push({});
+	};
+	$scope.removeMulItem = function(index) {
+		if($scope.multipleItems.length > 1) {
+			if(confirm('Bạn có muốn xóa bản ghi này?')) {
+				$scope.multipleItems.splice(index, 1);
+			}
+		} else {
+			alert('Bạn không thể xóa bản ghi này');
+		}
+	};
+	$scope.addMul = function() {
+		if(!$scope.addMulDisabled) {
+			$scope.addMulDisabled = true;
+			$scope.multipleItems.forEach(function(item) {
+				ajax({
+					url: BASE_REQUEST + '/Dtable/add?table=customer_thap2',
+					data: item,
+					async: false,
+					success: function(resp) {
+						item.saved = true;
+						$scope.$apply();
+					}
+				});
+			});
+			$scope.mode='list';
+			$scope.reload();
+			$scope.addMulDisabled = false;
+			$scope.multipleItems = [{}];
+		}
+		
 	}
 }]);

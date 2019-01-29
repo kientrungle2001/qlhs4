@@ -508,17 +508,44 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 	 * @return array mảng dữ liệu insert được
 	 */
 	public function buildInsertData($table, $data) {
-		$fields = $this->getFields($table);
+        $fields = $this->getFields($table);
+        $fieldTypes = $this->describle($table, false);
+        $fieldTypesMap = array();
+        foreach($fieldTypes as $fieldType) {
+            $fieldTypesMap[$fieldType['Field']] = $fieldType;
+        }
 		$params = array();
 		$result = array();
 		foreach($data as $key => $val) {
 			if(in_array($key, $fields)) {
 				if(is_array($val)) {
 					$val = ','.implode(',', $val).',';
-				}
-				$result[$key] = $val;
+                }
+                if(isset($fieldTypesMap[$key]) && strpos($fieldTypesMap[$key]['Type'], 'int(') !== false ) {
+                    if(!$val) {
+                        $result[$key] = '0';
+                    } else {
+                        $result[$key] = intval($val);
+                    }
+                    
+                } elseif(isset($fieldTypesMap[$key]) && ( strpos($fieldTypesMap[$key]['Type'], 'float') !== false 
+                    || strpos($fieldTypesMap[$key]['Type'], 'double') !== false ) ) {
+                        $result[$key] = floatval($val);
+                } elseif(isset($fieldTypesMap[$key]) && $fieldTypesMap[$key]['Type'] === 'date' ) {
+                    if(!$val) {
+                        $val = '0000-01-01';
+                    }
+                    $result[$key] = $val;
+                } elseif(isset($fieldTypesMap[$key]) && $fieldTypesMap[$key]['Type'] === 'datetime' ) {
+                    if(!$val) {
+                        $val = '0000-01-01 00:00:00';
+                    }
+                    $result[$key] = $val;
+                } else {
+                    $result[$key] = $val;
+                }
 			} else {
-				$params[$key] = $val;
+                $params[$key] = $val;
 			}
 		}
 		if(in_array('params', $fields)) {

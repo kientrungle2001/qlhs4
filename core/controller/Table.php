@@ -426,6 +426,10 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 				$data[$field] = $_REQUEST[$field];
 			}
 		}
+		foreach($fields as $field) {
+			if(!isset($data[$field])) $data[$field] = null;
+		}
+		$data = _db()->buildInsertData($table, $data);
 		_db()->update($table)
 				->set($data)->where('id=' . $_REQUEST['id'])->result();
 		if(isset($this->onEdit[$table])) {
@@ -467,6 +471,10 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 			));
 			return false;
 		}
+		foreach($fields as $field) {
+			if(!isset($data[$field])) $data[$field] = null;
+		}
+		$data = _db()->buildInsertData($table, $data);
 		$id = _db()->insert($table)
 				->fields(implode(',', $fields))
 				->values(array($data))->result();

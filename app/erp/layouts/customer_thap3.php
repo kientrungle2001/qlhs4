@@ -130,6 +130,7 @@
 			</select>
 			<a class="btn btn-sm" ng-repeat="p in pages()" ng-click="changePage(p)" ng-class="{'btn-primary text-white': page==p, 'btn-secondary text-white': page!=p}"><% p %></a>
 			<button class="btn btn-primary btn-sm" ng-click="add()">Thêm mới</button>
+			<button class="btn btn-primary btn-sm" ng-click="mode='addmul'">Thêm nhiều</button>
 			<button class="btn btn-primary btn-sm" ng-click="export('xlsx', 'default')">Xuất dữ liệu</button>
 			<button class="btn btn-danger btn-sm" ng-click="del()">Xóa</button>
 			</div>
@@ -225,15 +226,19 @@
 				<h6 class="card-subtitle mb-2 text-muted">Thông tin hợp đồng</h6>
 				<p class="card-text">
 				<div class="row">
-					<div class="col-md-3 form-group">
+					<div class="col-md-2 form-group">
 						<label>Ngày nhận: <% selectedItem.ngay_nhan | vndate %></label>
 						<input jqdatepicker ng-model="selectedItem.ngay_nhan" datetime="yyyy-MM-dd" class="form-control form-control-sm" />
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<label>Ngày gửi YC: <% selectedItem.ngay_gui_yc | vndate %></label> 
 						<input jqdatepicker ng-model="selectedItem.ngay_gui_yc" datetime="yyyy-MM-dd" class="form-control form-control-sm" />
 					</div>
 					<div class="col-md-3">
+						<label>Thời gian GEN: <% selectedItem.thoi_gian_gen | vndate %></label> 
+						<input jqdatepicker ng-model="selectedItem.thoi_gian_gen" datetime="yyyy-MM-dd" class="form-control form-control-sm" />
+					</div>
+					<div class="col-md-2">
 						<label>Số hợp đồng: </label>
 						<input ng-model="selectedItem.so_hop_dong" class="form-control form-control-sm" />
 					</div>
@@ -418,6 +423,126 @@
 				<button href="javascript:void(0)" ng-click="save()" class="btn btn-primary">Lưu</button>
 				<button href="javascript:void(0)" ng-click="resetAdd()" class="btn btn-secondary" ng-show="mode=='add'">Clear</button>
 				<button href="javascript:void(0)" ng-click="cancel()" class="btn btn-secondary">Quay lại</button>
+			</div>
+
+			<div class="card-body" ng-show="mode=='addmul'">
+				<table class="table table-sm" style="width: 6000px;">
+					<tr>
+						<th>&nbsp;</th>
+						<th>NGÀY NHẬN</th>
+						<th>NGÀY GỬI Y/C</th>
+						<th>MST</th>
+						<th>TÊN DOANH NGHIỆP</th>
+						<th>TG GEN</th>
+						<th>Mã đơn vị</th>
+						<th>SỐ HỢP ĐỒNG</th>
+						<th>SỐ HÓA ĐƠN</th>
+						<th>SĐT</th>
+						<th>EMAIL</th>
+						<th>ĐỊA CHỈ VAT</th>
+						<th>Đ/C TRẢ TB</th>
+						<th>Khu Vực Cài đặt</th>
+						<th>Tên nhân viên KD</th>
+						<th>Số năm</th>
+						<th>Gói hóa đơn</th>
+						<th>NHÀ CC</th>
+						<th>Mức điểm</th>
+						<th>SỐ TIỀN</th>
+						<th>Phí DV </th>
+						<th>CHIẾT KHẤU</th>
+						<th>CÒN THU</th>
+						<th>ĐÃ THU</th>
+						<th>Tỉ lệ hoa hồng</th>
+						<th>Doanh thu được hường</th>
+						<th>NGƯỜI TRẢ</th>
+						<th>NGÀY NHẬN TRẢ</th>
+						<th>NGÀY HOÀN THIỆN HS</th>
+						<th>Ngày thanh toán tiền của KH về công ty</th>
+						<th>TÌNH TRẠNG</th>
+						<th>HÌNH THỨC TT (TM/CK/ để trống nếu chưa TT)</th>
+						<th>Ngày bàn giao HS đến PDVKH</th>
+						<th>NGÀY TT NCC (ngày thanh toán cước cho nhà cung cấp)</th>
+						<th>Ngày Thanh toán TB cho NCC</th>
+						<th>Note ( Phòng KT)</th>
+						<th>Số LĐ</th>
+						<th>Note (tiêu đề)</th>
+						<th>SPAM TÍNH LƯƠNG</th>
+						<th>TÌNH TRẠNG SPAM</th>
+						<th>NCC TB, HĐ</th>
+						<th>KH phát sinh</th>
+						<th>&nbsp;</th>
+					</tr>
+					<tr ng-repeat="item in multipleItems">
+						<td>
+							<a href="#" ng-click="addMulItem()"><span class="fa fa-plus-square-o"></span></a>
+							<a href="#" ng-click="removeMulItem($index)"><span class="fa fa-remove text-danger"></span></a>
+						</td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_nhan" /></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_gui_yc" /></td>
+						<td><input class="form-control form-control-sm" ng-model="item.mst"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.ten_doanh_nghiep"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.thoi_gian_gen"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.ma_don_vi"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_hop_dong"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_hoa_don"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_dien_thoai"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.email"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.dia_chi_vat"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.dia_chi_tra"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.khu_vuc_cai_dat"/></td>
+						<td>
+							<select ng-model="item.id_nhan_vien_kinh_doanh" class="form-control form-control-sm"
+									ng-options="sale.id as (sale.CODE + ' - ' + sale.NAME) for sale in saleStaffs track by sale.id"
+									ng-change="chonNVKDMul(item)">
+								<option value="">Chọn NVKD</option>
+							</select>
+						</td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_nam"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.goi_hoa_don"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.nha_cc"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.muc_diem"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_tien"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.phi_dich_vu"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.chiet_khau"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.con_thu"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.da_thu"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.hoa_hong"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.doanh_thu"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.nguoi_tra"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_nhan_tra"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_hoan_thien_hs"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_thanh_toan_tien_kh_ve_cty"/></td>
+						<td><select ng-model="item.tinh_trang" class="form-control form-control-sm">
+							<option value="new">Mới</option>
+							<option value="processing">Điều phối viên đang xử lý</option>
+							<option value="provider">Đang chuyển sang nhà cung cấp</option>
+							<option value="provider-processed">Nhà cung cấp đã xử lý</option>
+							<option value="technical">Đang chuyển cho phòng kỹ thuật</option>
+							<option value="technical-processed">Phòng kỹ thuật</option>
+							<option value="shipping">Đang chuyển cho bộ phận giao vận</option>
+							<option value="shipped">Đã giao</option>
+							<option value="completed">Đã xong</option>
+						</select></td>
+						<td><input class="form-control form-control-sm" ng-model="item.hinh_thuc_thanh_toan"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_ban_giao_hs_den_pdvkh"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_tt_ncc"/></td>
+						<td><input jqdatepicker class="form-control form-control-sm" ng-model="item.ngay_tt_tb_den_ncc"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.note_pkt"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_ld"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.note"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.spam_tinh_luong"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.tinh_trang_spam"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.ncc_tb_hd"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.kh_phat_sinh"/></td>
+						<td>
+							<a href="#"><span class="fa fa-plus-square-o"></span></a>
+						</td>
+					</tr>
+				</table>
+				<div class="mt-2 mb-2 pl-2 pr-2">
+					<button class="btn btn-primary" ng-click="addMul()" ng-disabled="addMulDisabled">Thêm</button>
+					<button class="btn btn-secondary" ng-click="mode='list'">Quay lại</button>
+				</div>
 			</div>
 			
 			<div class="mt-2 mb-2 pl-2 pr-2">
