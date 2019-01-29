@@ -25,6 +25,24 @@ erpApp.directive('jqdatepicker', function() {
 	};
 });
 
+erpApp.filter('co_hd', function() {
+	return function(input) {
+			input = input || '';
+			var out = '';
+			out = input == '0' ? 'Không hóa đơn': 'Có hóa đơn';
+			return out;
+	};
+});
+
+erpApp.filter('co_tb', function() {
+	return function(input) {
+			input = input || '';
+			var out = '';
+			out = input == '0' ? 'Không thiết bị': 'Có thiết bị';
+			return out;
+	};
+});
+
 erpApp.filter('vndate', function() {
 	return function(input) {
 			input = input || '';

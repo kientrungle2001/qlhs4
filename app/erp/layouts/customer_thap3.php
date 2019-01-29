@@ -129,8 +129,8 @@
 			<select ng-model="rows" ng-options="rows_item as rows_item for rows_item in all_rows" ng-change="reload()" class="btn btn-primary">
 			</select>
 			<a class="btn btn-sm" ng-repeat="p in pages()" ng-click="changePage(p)" ng-class="{'btn-primary text-white': page==p, 'btn-secondary text-white': page!=p}"><% p %></a>
-			<button class="btn btn-primary btn-sm" ng-click="add()">Thêm mới</button>
 			<button class="btn btn-primary btn-sm" ng-click="mode='addmul'">Thêm nhiều</button>
+			<button class="btn btn-primary btn-sm" ng-click="add()">Thêm mới</button>
 			<button class="btn btn-primary btn-sm" ng-click="export('xlsx', 'default')">Xuất dữ liệu</button>
 			<button class="btn btn-danger btn-sm" ng-click="del()">Xóa</button>
 			</div>
@@ -154,9 +154,10 @@
 						<td><input type="checkbox" ng-model="itemSelecteds[item.id]" /></td>
 						<td><% item.id%></td>
 						<td><span class="text-primary"><% item.ngay_nhan | vndate%></span><br /><span class="text-danger"><% item.ngay_gui_yc | vndate%></span><br /><span class="text-success"><% item.ngay_hoan_thien_hs | vndate%></span><br /><span class="text-info"><% item.ngay_thanh_toan_tien_kh_ve_cty | vndate%></span><br /><span class="text-warning"><% item.ngay_ban_giao_hs_den_pdvkh | vndate%></span><br /><% item.ngay_tt_ncc | vndate%><br /><% item.ngay_tt_tb_den_ncc | vndate%><br /><% item.ngay_huy_dv | vndate%><br />
-							<span class="btn btn-info btn-sm"><% item.tinh_trang%></span>
+							<span class="btn btn-info btn-sm"><% item.tinh_trang%></span><br />
+							<a href="javascript:void(0)">Duplicate</a>
 						</td>
-						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%></td>
+						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%><br /><% item.co_thiet_bi | co_tb%></td>
 						<td><% item.thoi_gian_gen | vndate%><br /><% item.so_hop_dong%><br /><% item.so_hoa_don%><br /><% item.hinh_thuc_thanh_toan%><br /><% item.nhan_vien_kinh_doanh%></td>
 						<td><% item.ten_khach_hang%><br /><% item.so_dien_thoai%><br /><% item.email%><br /><% item.dia_chi_vat%><br /><% item.dia_chi_tra%><br /><% item.khu_vuc_cai_dat%></td>
 						<td><% item.so_nam%><br /><% item.goi_hoa_don%><br /><% item.nha_cc%><br /><% item.ncc_tb_hd%><br /><% item.so_ld%></td>
