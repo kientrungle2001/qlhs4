@@ -165,6 +165,189 @@ class PzkDtableController extends PzkTableController {
 						'type' => 'string',
 						'width'	=> 55
 					),
+					array(
+						'index' => 'khu_vuc_cai_dat',
+						'title' => 'Khu vực cài đặt',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					
+					array(
+						'index' => 'nhan_vien_kinh_doanh',
+						'title' => 'Tên nhân viên kinh doanh',
+						'type' => 'string',
+						'width'	=> 25
+					),
+					array(
+						'index' => 'so_nam',
+						'title' => 'Số năm',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'goi_hoa_don',
+						'title' => 'Gói hóa đơn',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'nha_cc',
+						'title' => 'Nhà cung cấp',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'muc_diem',
+						'title' => 'Mức điểm',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'so_tien',
+						'title' => 'Số tiền',
+						'type' => 'money',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'phi_dich_vu',
+						'title' => 'Phí dịch vụ',
+						'type' => 'money',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'chiet_khau',
+						'title' => 'Chiết khấu',
+						'type' => 'money',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'con_thu',
+						'title' => 'Còn thu',
+						'type' => 'money',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'da_thu',
+						'title' => 'Đã thu',
+						'type' => 'money',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'hoa_hong',
+						'title' => 'Tỉ lệ hoa hồng',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'doanh_thu',
+						'title' => 'Doanh thu được hưởng',
+						'type' => 'money',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'nguoi_tra',
+						'title' => 'Người trả',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ngay_nhan_tra',
+						'title' => 'Ngày nhận trả',
+						'type' => 'date',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ngay_hoan_thien_hs',
+						'title' => 'Ngày hoàn thiện HS',
+						'type' => 'date',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ngay_thanh_toan_tien_kh_ve_cty',
+						'title' => 'Ngày thanh toán tiền của KH về công ty',
+						'type' => 'date',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'tinh_trang',
+						'title' => 'Tình trạng',
+						'type' => 'map',
+						'map'	=> array(
+							'completed' => 'Đã xong'
+						),
+						'width'	=> 15
+					),
+					array(
+						'index' => 'hinh_thuc_thanh_toan',
+						'title' => 'Hình thức thanh toán',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ngay_ban_giao_hs_den_pdvkh',
+						'title' => 'Ngày bàn giao HS đến PDVKH',
+						'type' => 'date',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ngay_tt_ncc',
+						'title' => 'NGÀY TT NCC (ngày thanh toán cước cho nhà cung cấp)',
+						'type' => 'date',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ngay_tt_tb_den_ncc',
+						'title' => 'Ngày Thanh toán TB cho NCC',
+						'type' => 'date',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'note_pkt',
+						'title' => 'Note ( Phòng KT)',
+						'type' => 'string',
+						'width'	=> 45
+					),
+					array(
+						'index' => 'so_ld',
+						'title' => 'Số lao động',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'note',
+						'title' => 'Note',
+						'type' => 'string',
+						'width'	=> 45
+					),
+					array(
+						'index' => 'spam_tinh_luong',
+						'title' => 'SPAM TÍNH LƯƠNG',
+						'type' => 'map',
+						'map'	=> array(
+							'yes'	=>	'SPAM',
+							'no'	=>	'',
+							''	=>	''
+						),
+						'width'	=> 15
+					),
+					array(
+						'index' => 'tinh_trang_spam',
+						'title' => 'Tình trạng spam',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'ncc_tb_hd',
+						'title' => 'NCC TB, HĐ',
+						'type' => 'string',
+						'width'	=> 15
+					),
+					array(
+						'index' => 'kh_phat_sinh',
+						'title' => 'KH phát sinh',
+						'type' => 'string',
+						'width'	=> 15
+					),
 				)
 			)
 		)
