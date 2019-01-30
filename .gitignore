@@ -5,7 +5,7 @@ public/
 .settings/
 .vscode/
 npm-debug.log
-
+array_to_sheet.txt
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
