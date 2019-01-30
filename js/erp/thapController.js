@@ -425,13 +425,22 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 				return result;
 			},
 			success: function(data) {
-				console.log(data);
+				$scope.uploadData = data;
+				$scope.uploadError = null;
 			},
 			error: function(error) {
-				console.log(error);
+				$scope.uploadError = error;
+				$scope.uploadData = null;
 			}
 		});
 	});
+
+	// do import
+	$scope.import = function() {
+		ajax({
+			url: BASE_REQUEST + '/Dtable/import'
+		})
+	};
 
 }]);
 

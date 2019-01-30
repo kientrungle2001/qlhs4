@@ -774,6 +774,17 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 		
 	}
 
+	public function importExcelAction() {
+		$table = $_REQUEST['table'];
+		$file = $_REQUEST['file'];
+		$import_set = $_REQUEST['import_set'];
+		// do import into table
+			// read data from file
+			// load import config set
+			// foreach data
+				// import each row by config
+	}
+
 	public function fieldsAction() {
 		$table = $_REQUEST['table'];
 		$fields = _db()->getFields($table);
