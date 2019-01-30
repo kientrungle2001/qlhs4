@@ -333,7 +333,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 				$result[$fieldName] = product_price(@$item[$field['index']]);
 			} elseif(@$field['type'] == 'map') {
 				$map = @$field['map'];
-				$result[$fieldName] = $map[@$item[$field['index']]];
+				$result[$fieldName] = @$map[@$item[$field['index']]];
 			} else {
 				$result[$fieldName] = @$item[$field['index']];
 			}
