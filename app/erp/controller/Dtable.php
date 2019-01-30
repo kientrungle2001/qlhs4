@@ -361,6 +361,30 @@ class PzkDtableController extends PzkTableController {
 						'width'	=> 15
 					),
 					array(
+						'index' => 'ngay_vang',
+						'title' => 'Ngày vàng',
+						'type' => 'map',
+						'map'	=> array(
+							'0'	=>	'0',
+							'1.5'	=>	'1.5',
+							'2'	=>	'2'
+						),
+						'width'	=> 15
+					),
+					array(
+						'index' => 'giao_phat',
+						'title' => 'Giao phát',
+						'type' => 'map',
+						'map'	=> array(
+							'NO'	=>	'NO',
+							'COD'	=>	'COD',
+							'KTT'	=>	'KTT',
+							'IMS'	=>	'IMS',
+							''	=>	''
+						),
+						'width'	=> 15
+					),
+					array(
 						'index' => 'ncc_tb_hd',
 						'title' => 'NCC TB, HĐ',
 						'type' => 'string',
