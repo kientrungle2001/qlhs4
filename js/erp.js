@@ -79,6 +79,8 @@ function ajax(options) {
 	return jQuery.ajax(options);
 }
 
+pzk.loadScript('/js/upload.js');
+
 pzk.loadScript('/js/erp/thapController.js');
 pzk.loadScript('/js/erp/phanquyenController.js');
 pzk.loadScript('/js/erp/thamsoController.js');

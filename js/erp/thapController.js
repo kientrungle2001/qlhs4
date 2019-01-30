@@ -400,4 +400,39 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		}
 		
 	}
+
+	//Change id to your id
+	jQuery("#import_file").on("change", function (e) {
+		var file = $(this)[0].files[0] || null;
+		if(!file) return ;
+		var upload = new Upload(file);
+
+		// maby check size or type here with upload.getSize() and upload.getType()
+		console.log(upload.getExtension());
+
+		// execute upload
+		upload.doUpload({
+			url: BASE_REQUEST + "/upload/post",
+			valid: function() {
+				result = {
+					success: true,
+					message: ''
+				};
+				if(this.getExtension() !== 'xlsx') {
+					result.success = false;
+					result.message = 'Không phải file excel';
+				}
+				return result;
+			},
+			success: function(data) {
+				console.log(data);
+			},
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	});
+
 }]);
+
+

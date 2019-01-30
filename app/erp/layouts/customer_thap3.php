@@ -132,6 +132,7 @@
 			<button class="btn btn-primary btn-sm" ng-click="mode='addmul'">Thêm nhiều</button>
 			<button class="btn btn-primary btn-sm" ng-click="add()">Thêm mới</button>
 			<button class="btn btn-primary btn-sm" ng-click="export('xlsx', 'default')">Xuất dữ liệu</button>
+			<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importModal">Nhập dữ liệu</button>
 			<button class="btn btn-danger btn-sm" ng-click="del()">Xóa</button>
 			</div>
 			<table class="table table-striped table-condensed table-bordered table-sm" ng-show="mode=='list'">
@@ -556,4 +557,63 @@
 			<div class="card-footer">Phân trang</div>
 		</div>
 	</div>
+
+
+	<!-- Modals -->
+
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-xl" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Nhập dữ liệu</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				<input id="import_file" type="file" />
+				<div id="progress-wrp">
+					<div class="progress-bar"></div>
+					<div class="status">0%</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				<button type="button" class="btn btn-primary" ng-click="export()">Bắt đầu</button>
+			</div>
+		</div>
+	</div>
+		
+	<!-- End Modals -->
 </div>
+
+<style>
+#progress-wrp {
+  border: 1px solid #0099CC;
+  padding: 1px;
+  position: relative;
+  height: 30px;
+  border-radius: 3px;
+  margin: 10px;
+  text-align: left;
+  background: #fff;
+  box-shadow: inset 1px 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+#progress-wrp .progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  background-color: #f39ac7;
+  width: 0;
+  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+}
+
+#progress-wrp .status {
+  top: 3px;
+  left: 50%;
+  position: absolute;
+  display: inline-block;
+  color: #000000;
+}
+</style>
