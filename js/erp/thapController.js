@@ -275,6 +275,12 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		if($scope.co_thiet_bi && jQuery.trim($scope.co_thiet_bi)) {
 			postData.filters.co_thiet_bi = $scope.co_thiet_bi;
 		}
+		if($scope.ngay_vang && jQuery.trim($scope.ngay_vang)) {
+			postData.filters.ngay_vang = $scope.ngay_vang;
+		}
+		if($scope.giao_phat && jQuery.trim($scope.giao_phat)) {
+			postData.filters.giao_phat = $scope.giao_phat;
+		}
 		if($scope.ngayBatDau) {
 			postData.filters.ngayBatDau = $scope.ngayBatDau;
 		}
