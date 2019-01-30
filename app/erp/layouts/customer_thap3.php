@@ -97,6 +97,26 @@
 						</select>
 					</div>
 
+					<div class="form-group">
+						<select ng-model="ngay_vang" ng-change="chonNgayVang()" class="form-control form-control-sm">
+							<option value="">Ngày vàng</option>
+							<option value="0">Không có</option>
+							<option value="1.5">Nhân 1.5</option>
+							<option value="2">Nhân 2</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<select ng-model="giao_phat" ng-change="chonGiaoPhat()" class="form-control form-control-sm">
+							<option value="">Giao phát</option>
+							<option value="NO">Không có</option>
+							<option value="COD">COD - Thu tiền hộ</option>
+							<option value="IMS">IMS - Chuyển phát nhanh</option>
+							<option value="KTT">KTT - Kỹ thuật trả</option>
+						</select>
+					</div>
+
+
 					<!-- Sắp xếp theo -->
 					<div class="form-group">
 						<select ng-model="truong_sap_xep" ng-change="chonTruongSapXep()" class="form-control form-control-sm">
@@ -141,7 +161,7 @@
 						<th><input type="checkbox" ng-model="checkAllItems" ng-change="toggleSelectedItems()" /></th>
 						<th>ID</th>
 						<th><span class="text-primary">Ngày nhận</span><br /><span class="text-danger">Ngày gửi YC</span><br /><span class="text-success">Ngày Hoàn thiện HS</span><br /><span class="text-info">Ngày KHTT về CT</span><br /><span class="text-warning">Ngày bàn giao HS đến phòng DVKH</span><br />Ngày TT NCC<br />Ngày TT TB cho NCC<br />Ngày hủy DV<br />Trạng thái</th>
-						<th>MST<br />Tên doanh nghiệp<br />Mã đơn vị<br />KH Phát sinh <br />Note PKT<br />Note</th>
+						<th>MST<br />Tên doanh nghiệp<br />Mã đơn vị<br />KH Phát sinh <br />Note PKT<br />Note<br />Giao phát<br />Ngày vàng</th>
 						<th>TG Gen<br />Số hợp đồng<br />Số hóa đơn<br />Hình thức TT<br />NV Kinh doanh</th>
 						<th>Tên khách hàng<br />SĐT<br />Email<br />Địa chỉ VAT<br />Địa chỉ trả TB<br />Khu vực cài đặt</th>
 						<th>Số năm<br />Gói hóa đơn<br />Nhà CC<br />Nhà CC, TB, HĐ<br />Số LĐ</th>
@@ -158,7 +178,7 @@
 							<span class="btn btn-info btn-sm"><% item.tinh_trang%></span><br />
 							<a href="javascript:void(0)" ng-click="duplicate(item)">Sao chép</a>
 						</td>
-						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%><br /><% item.co_thiet_bi | co_tb%></td>
+						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%><br /><% item.co_thiet_bi | co_tb%><br />giao phát: <% item.giao_phat%><br />Ngày vàng: <% item.ngay_vang%></td>
 						<td><% item.thoi_gian_gen | vndate%><br /><% item.so_hop_dong%><br /><% item.so_hoa_don%><br /><% item.hinh_thuc_thanh_toan%><br /><% item.nhan_vien_kinh_doanh%></td>
 						<td><% item.ten_khach_hang%><br /><% item.so_dien_thoai%><br /><% item.email%><br /><% item.dia_chi_vat%><br /><% item.dia_chi_tra%><br /><% item.khu_vuc_cai_dat%></td>
 						<td><% item.so_nam%><br /><% item.goi_hoa_don%><br /><% item.nha_cc%><br /><% item.ncc_tb_hd%><br /><% item.so_ld%></td>
@@ -179,7 +199,7 @@
 				<button href="javascript:void(0)" ng-click="cancel()" class="btn btn-secondary">Quay lại</button>
 				<p class="card-text">
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 						<label>Tình trạng:</label> 
 						<select ng-model="selectedItem.tinh_trang" class="form-control form-control-sm">
 							<option value="new">Mới</option>
@@ -193,19 +213,36 @@
 							<option value="completed">Đã xong</option>
 						</select>	
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-2">
 						<label>Có hóa đơn:</label> 
 						<select ng-model="selectedItem.co_hoa_don" class="form-control form-control-sm">
 							<option value="1">Có</option>
 							<option value="0">Không</option>
 						</select>	
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-2">
 						<label>Có thiết bị:</label> 
 						<select ng-model="selectedItem.co_thiet_bi" class="form-control form-control-sm">
 							<option value="1">Có</option>
 							<option value="0">Không</option>
 						</select>		
+						</div>
+						<div class="col-md-2">
+						<label>Ngày vàng:</label> 
+						<select ng-model="selectedItem.ngay_vang" class="form-control form-control-sm">
+							<option value="0">Không có</option>
+							<option value="1.5">Nhân 1.5</option>
+							<option value="2">Nhân 2</option>
+						</select>
+						</div>
+						<div class="col-md-2">
+						<label>Giao phát:</label> 
+						<select ng-model="selectedItem.giao_phat" class="form-control form-control-sm">
+							<option value="NO">Không có</option>
+							<option value="COD">Thu tiền hộ</option>
+							<option value="IMS">Nhân 1.5</option>
+							<option value="KTT">Kỹ thuật trả</option>
+						</select>
 						</div>
 					</div>
 					<div class="row">

@@ -56,7 +56,9 @@ class PzkDtableController extends PzkTableController {
 			'spam_tinh_luong',
 			'tinh_trang_spam',
 			'ncc_tb_hd',
-			'kh_phat_sinh'
+			'kh_phat_sinh',
+			'ngay_vang',
+			'giao_phat'
 		)
 	);
 
@@ -79,6 +81,8 @@ class PzkDtableController extends PzkTableController {
 				'tinh_trang' => array('equal', 'tinh_trang', '?'),
 				'co_hoa_don' => array('equal', 'co_hoa_don', '?'),
 				'co_thiet_bi' => array('equal', 'co_thiet_bi', '?'),
+				'ngay_vang' => array('equal', 'ngay_vang', '?'),
+				'giao_phat' => array('equal', 'giao_phat', '?'),
 				'ngayBatDau' => array('gte', 'ngay_gui_yc', '?'),
 				'ngayKetThuc' => array('lte', 'ngay_gui_yc', '?'),
 				'nha_cc' => array('like', 'nha_cc', '?-%'),
