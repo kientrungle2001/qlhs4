@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 	public $onEdit = array();
 	public $onAdd = array();
 	public $onDel = array();
+	public $pkeys = array();
 	
 
 	/**
@@ -426,9 +427,11 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 				$data[$field] = $_REQUEST[$field];
 			}
 		}
+		/*
 		foreach($fields as $field) {
 			if(!isset($data[$field])) $data[$field] = null;
-		}
+		}*/
+		
 		$data = _db()->buildInsertData($table, $data);
 		_db()->update($table)
 				->set($data)->where('id=' . $_REQUEST['id'])->result();

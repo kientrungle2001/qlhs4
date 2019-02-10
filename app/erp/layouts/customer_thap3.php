@@ -240,21 +240,29 @@
 						<select ng-model="selectedItem.giao_phat" class="form-control form-control-sm">
 							<option value="NO">Không có</option>
 							<option value="COD">Thu tiền hộ</option>
-							<option value="IMS">Nhân 1.5</option>
+							<option value="IMS">Chuyển phát nhanh</option>
 							<option value="KTT">Kỹ thuật trả</option>
 						</select>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4">
-							<label>Nhân viên kinh doanh:</label> 
+							<label>Nhân viên kinh doanh:</label>
+							<?php if(0):?> 
 							<select ng-model="selectedItem.id_nhan_vien_kinh_doanh" class="form-control form-control-sm"
 									ng-options="sale.id as (sale.CODE + ' - ' + sale.NAME) for sale in saleStaffs track by sale.id"
 									ng-change="chonNVKD()">
 								<option value="">Chọn NVKD</option>
 							</select>	
+							<?php else: ?>
+							<select ng-model="selectedItem.id_nhan_vien_kinh_doanh" class="form-control form-control-sm"
+									ng-change="chonNVKD()">
+								<option value="">Chọn NVKD</option>
+								<option value="<% sale.id%>" ng-repeat="sale in saleStaffs"><% sale.CODE%> - <% sale.NAME%></option>
+							</select>
+							<?php endif; ?> 
 							<input type="text" ng-model="selectedItem.nhan_vien_kinh_doanh" readonly
-									class="form-control form-control-sm" />
+									class="form-control form-control-sm d-none" />
 						</div>
 						<div class="col-md-8">
 							<label>Note:</label> 
@@ -532,11 +540,19 @@
 						<td><input class="form-control form-control-sm" ng-model="item.dia_chi_tra"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.khu_vuc_cai_dat"/></td>
 						<td>
+							<?php if(0):?>
 							<select ng-model="item.id_nhan_vien_kinh_doanh" class="form-control form-control-sm"
 									ng-options="sale.id as (sale.CODE + ' - ' + sale.NAME) for sale in saleStaffs track by sale.id"
 									ng-change="chonNVKDMul(item)">
 								<option value="">Chọn NVKD</option>
 							</select>
+							<?php else: ?>
+							<select ng-model="item.id_nhan_vien_kinh_doanh" class="form-control form-control-sm"
+									ng-change="chonNVKDMul(item)">
+								<option value="">Chọn NVKD</option>
+								<option value="<% sale.id%>" ng-repeat="sale in saleStaffs"><% sale.CODE%> - <% sale.NAME%></option>
+							</select>
+							<?php endif; ?>
 						</td>
 						<td><input class="form-control form-control-sm" ng-model="item.so_nam"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.goi_hoa_don"/></td>

@@ -29,6 +29,9 @@
         <a class="nav-link" href="{url /}">THAP</a>
       </li>
       <li class="nav-item active">
+        <a class="nav-link" href="{url /khachhang}">Khách hàng</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" href="{url /phanquyen}">Phân quyền</a>
       </li>
       <li class="nav-item dropdown active">
