@@ -101,6 +101,9 @@ class PzkDtableController extends PzkTableController {
 				'PAR_TYPE' => array('equal', 'PAR_TYPE', '?'),
 			)
 		),
+		'customer' => array(
+			'none' => 0
+		),
 	);
 
 	public $export_sets = array(
