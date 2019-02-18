@@ -31,7 +31,7 @@
 	<div class="clear"></div>
 </form>
 </div>
-<div title="Lịch sử tư vấn">
+<div title="LS tư vấn">
 	<?php
 	$rand = rand(0, 1000000);
 	$advice = <<<EOD
@@ -100,7 +100,7 @@ EOD;
 	$adviceGrid->display();
 	?>
 </div>
-<div title="Lịch hẹn thi đầu vào">
+<div title="Hẹn test">
 <?php
 	$rand = rand(0, 1000000);
 	$advice = <<<EOD
@@ -160,7 +160,7 @@ EOD;
 	$adviceGrid->display();
 	?>
 </div>
-<div title="Bài kiểm tra">
+<div title="Bài KT">
 <?php
 	$rand = rand(0, 1000000);
 	$advice = <<<EOD
@@ -217,7 +217,7 @@ EOD;
 	$adviceGrid->display();
 	?>
 </div>
-<div title="Thời khóa biểu">
+<div title="TKB">
 <?php
 	$rand = rand(0, 1000000);
 	$advice = <<<EOD
@@ -233,7 +233,7 @@ EOD;
 	$adviceGrid->display();
 	?>
 </div>
-<div title="Các lớp đã học">
+<div title="Đang học">
 <?php
 	$rand = rand(0, 1000000);
 	$advice = <<<EOD

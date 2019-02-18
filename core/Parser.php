@@ -259,6 +259,13 @@ class PzkParser {
             $file_content = file_get_contents(BASE_DIR . '/' . pzk_app()->getPageUri($matches[1]).'.php');
             return $file_content;
         }, $content);
+        // replace {tag}(.*){/tag} thành {tag}pzk_parse($1){/tag}
+        $content = preg_replace_callback("/{$o}parse{$c}(.*){$o}\/parse{$c}/s", function($matches){
+            $xml = $matches[1];
+            $obj = pzk_parse($xml);
+            return $obj->display();
+        }, $content);
+
         $content = preg_replace('/\{\?/', '<?php', $content);
         $content = preg_replace('/\?\}/', '?>', $content);
         $content = preg_replace('/\{url ([^\}]+)\}/', '<?php echo BASE_REQUEST . \'$1\'; ?>', $content);

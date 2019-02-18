@@ -7,23 +7,37 @@ PzkEduCourseSelector = PzkObj.pzkExt({
 				this.initialFilters = initialFilters;
 				for(var k in initialFilters) {
 					var v = initialFilters[k];
-					$('#dg_course_' + this.id + '_search [name='+k+']').val(v);
+					$('#dg_course_' + this.id + '_search [name='+k+']').pzkVal(v);
+					$('#dg_course_' + this.id + '_search [comboname='+k+']').pzkVal(v);
 				}
 				this.searchCourse();
 			}
 		}
 	},
+	filter: function(key, value) {
+		if(typeof key === 'string') {
+			$('#dg_course_' + this.id + '_search [name='+key+']').pzkVal(value);
+			$('#dg_course_' + this.id + '_search [comboname='+key+']').pzkVal(value);
+		} else {
+			for(var k in key) {
+				$('#dg_course_' + this.id + '_search [name='+k+']').pzkVal(key[k]);
+				$('#dg_course_' + this.id + '_search [comboname='+k+']').pzkVal(key[k]);
+			}
+		}
+		
+		this.searchCourse();
+	},
 	closeCourseSelectorDialog: function() {
 		$('#dlg_course_'+this.id).dialog('close');
 	},
 	resetCourseSelector: function() {
-		$('#'+this.id).val('');
+		$('#'+this.id).pzkVal('');
 		$('#label-'+this.id).text('(Trống)');
 		$('#'+this.id).change();
 	},
 	setCourseSelected: function(row) {
 		if(row) {
-			$('#'+this.id).val(row.id);
+			$('#'+this.id).pzkVal(row.id);
 			$('#label-'+this.id).text(row.name);
 			$('#'+this.id).change();
 		} else {
@@ -31,11 +45,14 @@ PzkEduCourseSelector = PzkObj.pzkExt({
 		}
 	},
 	loadValue: function() {
-		var value = $('#'+this.id).val();
+		var value = $('#'+this.id).pzkVal();
 		this.setValue(value);
 	},
 	resetValue: function() {
 		this.setValue(null);
+	},
+	getValue: function() {
+		return $('#'+this.id).pzkVal();
 	},
 	setValue: function(id) {
 		if(!id) {
@@ -64,7 +81,8 @@ PzkEduCourseSelector = PzkObj.pzkExt({
 				'subjectId': '#searchSubject_'+this.id, 
 				'level': '#searchLevel_'+this.id,
 				'status': '#searchStatus_'+ this.id,
-				'online': '#searchOnline_'+ this.id
+				'online': '#searchOnline_'+ this.id,
+				'classed': '#searchClassed_'+ this.id
 			}
 		});
 	}

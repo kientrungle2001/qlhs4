@@ -16,7 +16,7 @@
 	<div style="clear: both;">&nbsp;</div>
 	<script>
 	function searchClassesByTest(row) {
-		$('#cmbTest').val(row.id);
+		$('#cmbTest').pzkVal(row.id);
 		pzk.elements.dg_test_class.search({
 			builder: function() {
 				return {

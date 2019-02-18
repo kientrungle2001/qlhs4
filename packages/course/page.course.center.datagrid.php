@@ -1,4 +1,14 @@
-<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" defaultFilters='{"online": 0}'>
+<?php 
+if(!isset($defaultFilters)):
+	$defaultFilters = array('online' => 0, 'classed' => 1);
+endif;	
+	?>
+<script>
+classesDefaultAdd = <?php echo json_encode($defaultFilters);?>;
+</script>
+<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" 
+		table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" 
+		defaultFilters='<?php echo json_encode($defaultFilters); ?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="120">Tên lớp</dg.dataGridItem>
 	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
@@ -23,8 +33,7 @@
 			<form.combobox 
 					id="searchSubject" name="subjectId"
 					label="Chọn môn học"
-					sql="select id as value, 
-							name as label from `subject` order by name ASC"
+					sql="{subject_center_sql}"
 					layout="category-select-list"></form.combobox>
 			<form.combobox 
 					id="searchLevel" name="level"
@@ -37,7 +46,7 @@
 					sql="select distinct(status) as value, status as label from classes order by label asc"
 					layout="category-select-list"></form.combobox>
 			<layout.toolbarItem action="searchClasses()" icon="search" />
-			<layout.toolbarItem action="$dg.add()" icon="add" />
+			<layout.toolbarItem action="$dg.add(classesDefaultAdd)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail(function(row) { 
@@ -81,33 +90,35 @@
 			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
 				<form.combobox name="subjectId"
-						sql="select id as value, 
-								name as label from `subject` where 1 order by name ASC"
+						sql="{subject_center_sql}"
 							layout="category-select-list"></form.combobox>
 			</frm.formItem>
 			<frm.formItem name="level" required="true" validatebox="true" label="Trình độ" />
 			<frm.formItem type="user-defined" name="teacherId" required="false" label="Giáo viên">
 				<form.combobox name="teacherId"
-						sql="select id as value, 
-								name as label from `teacher` where 1 order by name ASC"
+						sql="{teacher_sql}"
 							layout="category-select-list"></form.combobox>
 			</frm.formItem>
 			<frm.formItem type="user-defined" name="teacher2Id" required="false" label="Giáo viên 2">
 				<form.combobox name="teacher2Id"
-						sql="select id as value, 
-								name as label from `teacher` where 1 order by name ASC"
+						sql="{teacher_sql}"
 							layout="category-select-list"></form.combobox>
 			</frm.formItem>
 			<frm.formItem type="user-defined" name="roomId" required="false" label="Phòng">
 				<form.combobox name="roomId"
-						sql="select id as value, 
-								name as label from `room` where 1 order by name ASC"
+						sql="{room_sql}"
 							layout="category-select-list"></form.combobox>
 			</frm.formItem>
 			<frm.formItem type="user-defined" name="online" required="false" label="Trực tuyến">
 				<select name="online">
 					<option value="0">Trung tâm</option>
 					<option value="1">Trực tuyến</option>
+				</select>
+			</frm.formItem>
+			<frm.formItem type="user-defined" name="classed" required="false" label="Xếp lớp">
+				<select name="classed">
+					<option value="1">Đã xếp lớp</option>
+					<option value="-1">Chờ xếp lớp</option>
 				</select>
 			</frm.formItem>
 			<frm.formItem name="startDate" type="date" required="false" label="Ngày bắt đầu">

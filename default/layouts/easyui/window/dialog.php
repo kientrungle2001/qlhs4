@@ -2,8 +2,4 @@
         closed="{prop closed}" buttons="#{prop buttons}"
         title="{prop title}">
 	{children all}
-        <div id="dlg-buttons-{prop gridId}">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="pzk.elements.{prop gridId}.save()">Save</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-{prop gridId}').dialog('close')">Cancel</a>
-        </div>
 </div>

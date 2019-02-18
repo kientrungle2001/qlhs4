@@ -8,6 +8,9 @@ class PzkCourseController extends PzkBaseController {
 	public function centerAction() {
 		$this->viewGrid('course/center');
 	}
+	public function unclassedAction() {
+		$this->viewGrid('course/unclassed');
+	}
 	public function studentAction() {
 		$this->viewGrid('class_student');
 	}

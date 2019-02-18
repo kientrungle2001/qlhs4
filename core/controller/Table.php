@@ -32,8 +32,13 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 		set_time_limit(0);
 		$table = @$_REQUEST['table'];
 		$oldTable = $table;
+		// trường cần lấy
 		$fields = @$this->tables[$table] ? @$this->tables[$table] : '*';
+
+		// filter kiểu cũ
 		$filters = @$this->filters[$table];
+
+		// filter kiểu mới
 		$cbFilters = @$this->filters[$table . '_filter'];
 		$groupBy = false;
 		$defaultOrderBy = false;
@@ -46,6 +51,8 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 			$defaultOrderBy = isset($fields['orderBy']) ? $fields['orderBy'] : false;
 			$defaultConds = isset($fields['conds']) ? $fields['conds'] : '1';
 			$fields = @$fields['fields']?@$fields['fields']: '*';
+		} else {
+
 		}
 		$conds = array();
 		$havingConds = array();
@@ -57,28 +64,47 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 		 */
 		if (isset($_REQUEST['filters'])) {
 			if (!$filters) {
-			    // Nếu không khai báo filters, thì filters sẽ lấy tự động từ request
-				$conds = array_merge($conds, $_REQUEST['filters']);
+				// Nếu không khai báo filters, thì filters sẽ lấy tự động từ request
+				foreach($_REQUEST['filters'] as $key => $value) {
+					// Nếu filter khác trống
+					if($value !== '') {
+						$conds[$key] = $value;
+					} else {
+						// tất cả
+					}
+				}
+				// $conds = array_merge($conds, $_REQUEST['filters']);
 			} else {
-			    // Nếu có khai báo filters
+			 // Nếu có khai báo filters
 				foreach ($filters as $key => $options) {
-				    // nếu không có filter của một trường hoặc trường truyền filter lên có giá trị trống thì bỏ qua
+				 // nếu không có filter của một trường hoặc trường truyền filter lên có giá trị trống thì bỏ qua
 					if(!isset($_REQUEST['filters'][$key]) || isset($_REQUEST['filters'][$key]) && $_REQUEST['filters'][$key] == '') continue;
 					
-					// nếu khai báo filter cho trường dạng comparator => field
-					foreach ($options as $comp => $field) {
-					    // nếu field là mảng và có having
-						if(is_array($field)) {
-							if(isset($field['having']) && $field['having'] == true) {
-								$havingConds[] = array($field['name'] => array('cp' => $comp, 'value' => @$_REQUEST['filters'][$key]));
-							}
-						} else {
-						    // nếu có giá trị lọc
-							if (!!@$_REQUEST['filters'][$key]) {
-								$conds[] = array($field => array('cp' => $comp, 'value' => @$_REQUEST['filters'][$key]));
+					if(is_array($options)) {
+						// nếu khai báo filter cho trường dạng comparator => field
+						foreach ($options as $comp => $field) {
+							// nếu field là mảng và có having
+							if(is_array($field)) {
+								if(isset($field['having']) && $field['having'] == true) {
+									if (!!@$_REQUEST['filters'][$key]) {
+										$havingConds[] = array($field['name'] => array('cp' => $comp, 'value' => @$_REQUEST['filters'][$key]));
+									}
+								}
+							} else {
+								// nếu có giá trị lọc
+								if (!!@$_REQUEST['filters'][$key]) {
+									$conds[] = array($field => array('cp' => $comp, 'value' => @$_REQUEST['filters'][$key]));
+								}
 							}
 						}
+					} else {
+						// nếu $options là một chuỗi
+						// nếu có giá trị lọc
+						if (!!@$_REQUEST['filters'][$key]) {
+							$conds[] = array($field => array('cp' => $options, 'value' => @$_REQUEST['filters'][$key]));
+						}
 					}
+					
 				}
 			}
 			
@@ -90,9 +116,10 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 					foreach ($cbFilters['where'] as $key => $options) {
 						if(!isset($_REQUEST['filters'][$key]) || isset($_REQUEST['filters'][$key]) && $_REQUEST['filters'][$key] == '') continue;
 						if(!$cbWhereConds) {
-							$cbWhereConds = array('and', 
-								array('equal', array('string', '1'), array('string', '1')), 
-								array('equal', array('string', '1'), array('string', '1')));
+							$cbWhereConds = array('and'
+							// ,array('equal', array('string', '1'), array('string', '1'))
+							// ,array('equal', array('string', '1'), array('string', '1'))
+							);
 						}
 						$options = json_encode($options);
 						$options = str_replace('?', $_REQUEST['filters'][$key], $options);
@@ -420,8 +447,11 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 	 */
 	public function editAction() {
 		$table = @$_REQUEST['table'];
+		$_REQUEST['id'] = intval($_REQUEST['id']);
 		$fields = @$this->inserts[$table] ? @$this->inserts[$table] : array();
 		$data = array();
+
+		// lọc dữ liệu update theo fields
 		foreach ($fields as $field) {
 			if (isset($_REQUEST[$field])) {
 				$data[$field] = $_REQUEST[$field];
@@ -432,9 +462,12 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 			if(!isset($data[$field])) $data[$field] = null;
 		}*/
 		
+		// xây dựng dữ liệu để cập nhật
 		$data = _db()->buildInsertData($table, $data);
 		_db()->update($table)
 				->set($data)->where('id=' . $_REQUEST['id'])->result();
+		
+		// xử lý sự kiện sau khi cập nhật
 		if(isset($this->onEdit[$table])) {
 		    $onUpdateMethod = $this->onEdit[$table];
 		    $this->$onUpdateMethod($table, $data, $_REQUEST['id']);
@@ -450,8 +483,13 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 				$student->gridIndex();
 			}
 		}
+		$row = _db()->select('*')
+				->from($table)
+				->where(array('equal','id', $_REQUEST['id']))
+				->result_one();
 		echo json_encode(array(
-			'errorMsg' => false
+			'errorMsg' => false,
+			'data' => $row
 		));
 	}
 
@@ -498,8 +536,13 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 				$student->gridIndex();
 			}
 		}
+		$row = _db()->select('*')
+				->from($table)
+				->where(array('equal','id', $id))
+				->result_one();
 		echo json_encode(array(
-			'errorMsg' => false
+			'errorMsg' => false,
+			'data' => $row
 		));
 	}
 
@@ -648,17 +691,26 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 				$data[$field] = $_REQUEST[$field];
 			}
 		}
+		$id = null;
 		if ($result = $this->checkConstraints($table, $data)) {
 			_db()->update($table)
 					->set($data)->where('id=' . $result['row']['id'])->result();
+			$id = $result['row']['id'];
 		} else {
-			_db()->insert($table)
+			$id = _db()->insert($table)
 					->fields(implode(',', $fields))
 					->values(array($data))->result();
 		}
+		
+		$row = null;
+		if($id) {
+			$row = _db()->select('*')->from($table)->where(array('equal', 'id', $id))->result_one();
+		}
+		
 		echo json_encode(array(
 			'errorMsg' => false,
-			'success' => true
+			'success' => true,
+			'data' => $row
 		));
 	}
 	

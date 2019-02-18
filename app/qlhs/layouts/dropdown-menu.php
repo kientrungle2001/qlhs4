@@ -1,5 +1,5 @@
 <!-- Source: https://catalin.red/dist/uploads/2011/03/css3-dropdown-menu-demo.html -->
-	<ul id="menu">
+<ul id="menu">
 	<li><a href="{url /}">Tổng quan</a></li>
 	<li>
 		<a href="{url /student}">Học sinh</a>
@@ -46,6 +46,9 @@
 			</li>
 			<li>
 				<a href="{url /course/online}">Trực tuyến</a>
+			</li>
+			<li>
+				<a href="{url /course/unclassed}">Danh sách chờ</a>
 			</li>
 		</ul>	
 	</li>
@@ -104,55 +107,29 @@
 	<li>
 		<a href="#">Trung tâm</a>
 		<ul>
-		<li>
-				<a href="{url /course/student}">Xếp lớp</a>
-			</li>
-			<li>
-				<a href="{url /course/schedule}">Lịch học</a>
-			</li>
-			<li>
-				<a href="{url /offschedule}">Lịch nghỉ</a>
-			</li>
-			<li>
-				<a href="{url /paymentperiod}">Kỳ thanh toán</a>
-			</li>
+		<li><a href="{url /course/student}">Xếp lớp</a></li>
+		<li><a href="{url /course/schedule}">Lịch học</a></li>
+		<li><a href="{url /offschedule}">Lịch nghỉ</a></li>
+		<li><a href="{url /paymentperiod}">Kỳ thanh toán</a></li>
 		</ul>	
 	</li>
 	<li>
 		<a href="{url /student/order}">Hóa đơn</a>
 		<ul>
-			<li>
-				<a href="{url /student/order}">Học phí</a>
-			</li>
-			<li>
-				<a href="{url /order/report}">Báo cáo</a>
-			</li>
-			<li>
-				<a href="{url /order/billing}">Hóa đơn chi</a>
-			</li>
-			<li>
-				<a href="{url /order/createbill}">Tạo HĐ Chi Nhiều Mục</a>
-			</li>
-			<li>
-				<a href="{url /order/createbill2}">Tạo HĐ Chi Một Mục</a>
-			</li>
-			<li>
-				<a href="{url /order/createordermanual}">Tạo HĐ Thu</a>
-			</li>
+			<li><a href="{url /student/order}">Học phí</a></li>
+			<li><a href="{url /order/report}">Báo cáo</a></li>
+			<li><a href="{url /order/billing}">Hóa đơn chi</a></li>
+			<li><a href="{url /order/createbill}">Tạo HĐ Chi Nhiều Mục</a></li>
+			<li><a href="{url /order/createbill2}">Tạo HĐ Chi Một Mục</a></li>
+			<li><a href="{url /order/createordermanual}">Tạo HĐ Thu</a></li>
 		</ul>
 	</li>
 	<li>
 		<a href="{url /schedule/daily}">Thời khóa biểu</a>
 		<ul>
-			<li>
-				<a href="{url /schedule/daily}">Theo ngày</a>
-			</li>
-			<li>
-				<a href="{url /schedule/weekly}">Theo tuần</a>
-			</li>
-			<li>
-				<a href="{url /schedule/teacher}">Theo giáo viên</a>
-			</li>
+			<li><a href="{url /schedule/daily}">Theo ngày</a></li>
+			<li><a href="{url /schedule/weekly}">Theo tuần</a></li>
+			<li><a href="{url /schedule/teacher}">Theo giáo viên</a></li>
 		</ul>
 	</li>
 	<li>

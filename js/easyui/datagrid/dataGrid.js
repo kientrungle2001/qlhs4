@@ -30,10 +30,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 
 		// Nếu có data thì set data cho form add
 		if(typeof data !== 'undefined') {
-			for (var k in data) {
-				var v = data[k];
-				$('#fm-' + this.id + ' [name='+k+']').val(v);
-			}
+			$('#fm-' + this.id).form('load', data);
 		}
 		
 		// set lại url
@@ -240,7 +237,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 			for(var field in fields) {
 				var fieldOptions = fields[field];
 				if(typeof fieldOptions == 'string') {
-					data[field] = $(fieldOptions).val();
+					data[field] = $(fieldOptions).pzkVal();
 				} else if(typeof fieldOptions == 'object') {
 					if(fieldOptions.source && fieldOptions.source == 'grid') {
 						data[field] = row[fieldOptions.field];

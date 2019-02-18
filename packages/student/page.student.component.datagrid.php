@@ -40,47 +40,50 @@ if(!isset($defaultClassFilters)) {
 				sql="{payment_period_sql}" layout="category-select-list" onChange="searchStudent();"></form.combobox>
 			<form.combobox label="Chọn kỳ chưa thanh toán" id="searchnotlikePeriod" name="notlikeperiodId"
 				sql="{payment_period_sql}" layout="category-select-list" onChange="searchStudent();"></form.combobox>
-			<select name="color" id="searchColor" onChange="searchStudent();">
-				<option value="">Chọn màu</option>
+			<form.combobox layout="category-select-list" label="Chọn màu" 
+					name="color" id="searchColor" onChange="searchStudent();">
 				<option value="red">Đỏ</option>
 				<option value="blue">Xanh da trời</option>
 				<option value="green">Xanh lá cây</option>
 				<option value="yellow">Vàng</option>
 				<option value="purple">Tím</option>
 				<option value="grey">Xám</option>
-			</select>
-			<select name="fontStyle" id="searchFontStyle" onChange="searchStudent();">
-				<option value="">Chọn kiểu</option>
+			</form.combobox>
+			<form.combobox layout="category-select-list" label="Chọn kiểu" 
+					name="fontStyle" id="searchFontStyle" onChange="searchStudent();">
 				<option value="bold">Đậm</option>
 				<option value="italic">Nghiêng</option>
 				<option value="underline">Gạch chân</option>
-			</select>
+			</form.combobox>
 			<form.combobox label="Người phụ trách" id="searchAssignId" name="assignId"
 				sql="{teacher_sql}" onChange="searchStudent();"
 				layout="category-select-list"></form.combobox>
 			<?php if(!isset($filters['type'])): ?>
-			<select name="type" id="searchType" onChange="searchStudent();">
-				<option value="">Phân loại</option>
+			<form.combobox name="type" id="searchType" onChange="searchStudent();"
+					layout="category-select-list"
+					label="Phân loại">
 				<option value="1">Đang học</option>
 				<option value="0">Tiềm năng</option>
 				<option value="2">Lâu năm</option>
-			</select>
+			</form.combobox>
 			<?php endif;?>
-			<select name="rating" id="searchRating" onChange="searchStudent();">
-				<option value="">Xếp hạng</option>
+			<form.combobox name="rating" id="searchRating" onChange="searchStudent();"
+					layout="category-select-list"
+					label="Xếp hạng">
 				<option value="0">Chưa xếp hạng</option>
 				<option value="1">Kém</option>
 				<option value="2">Trung Bình</option>
 				<option value="3">Khá</option>
 				<option value="4">Giỏi</option>
 				<option value="5">Xuất Sắc</option>
-			</select>
+			</form.combobox>
 			<?php if(!isset($filters['status'])): ?>
-			<select name="status" id="searchStatus" onChange="searchStudent();">
-				<option value="">Trạng thái</option>
+			<form.combobox name="status" id="searchStatus" onChange="searchStudent();"
+					layout="category-select-list"
+					label="Trạng thái">
 				<option value="1">Đang học</option>
 				<option value="0">Dừng học</option>
-			</select>
+			</form.combobox>
 		<?php endif;?>
 		<a href="#" onClick="jQuery(this).parent().prev().toggle();jQuery(this).parent().toggle();return false;">Thu gọn</a>
 		</span>

@@ -109,7 +109,7 @@ PzkDataGrid = PzkObj.pzkExt({
 		}
 	},
 	defaultBuilder: function(row, options) {
-		
+		console.log('defaultBuilder');
 		var data = {};
 		
 		if(typeof options['gridField'] != 'undefined') {
@@ -121,7 +121,7 @@ PzkDataGrid = PzkObj.pzkExt({
 			for(var field in fields) {
 				var fieldOptions = fields[field];
 				if(typeof fieldOptions == 'string') {
-					data[field] = $(fieldOptions).val();
+						data[field] = $(fieldOptions).pzkVal();
 				} else if(typeof fieldOptions == 'object') {
 					if(fieldOptions.source && fieldOptions.source == 'grid') {
 						data[field] = row[fieldOptions.field];
@@ -129,7 +129,7 @@ PzkDataGrid = PzkObj.pzkExt({
 				}
 			}
 		}
-		
+		console.log(data);
 		return data;
 	},
 	
@@ -157,6 +157,7 @@ PzkDataGrid = PzkObj.pzkExt({
 	search: function(options) {
 		var builder = options.builder || this.defaultBuilder;
 		var data = builder.call(this, null, options);
+		console.log(data);
 		$('#' + this.id).datagrid('load', {filters: data});
 	},
 	detail: function(options) {

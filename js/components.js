@@ -40,6 +40,34 @@ jQuery.fn.serializeForm = function() {
 	return rslt;
 };
 
+jQuery.fn.pzkVal = function(val) {
+	if(typeof val === 'undefined') {
+		if(this.hasClass('easyui-combobox')) {
+			return this.combobox('getValue');
+		} else {
+			return this.val();
+		}
+	} else {
+		if(this.hasClass('easyui-combobox')) {
+			return this.combobox('setValue', val);
+		} else {
+			return this.val(val);
+		}
+	}
+	
+};
+
+jQuery.fn.pzkTemplate = function(data) {
+	for(var k in data) {
+		var elem = this.find('.pzk-field-' + k);
+		if(elem.is('input,select')) {
+			elem.pzkVal(data[k]);
+		} else {
+			elem.html(data[k]);
+		}
+	}
+};
+
 pzk = {
 	page: 'index',
 	elements: {},
@@ -55,10 +83,56 @@ pzk = {
 			$head.append('<link rel="stylesheet" href="'+cssFile+'"></link>');
 		}
 	},
-	ajax: function(options) {
-		options.data.mainPage = pzk.page;
+	ajax: function(options, success) {
+		options.type = 'post';
+		options.dataType = 'json';
+		if(typeof success !== 'undefined') {
+			options.success = success;
+		}
 		$.ajax(options);
+	},
+	db: {
+		add: function(table, data, success) {
+			pzk.ajax({
+				url: BASE_REQUEST + '/Dtable/add?table=' + table,
+				data: data
+			}, success);
+		},
+		edit: function(table, data, success) {
+			pzk.ajax({
+				url: BASE_REQUEST + '/Dtable/edit?table=' + table,
+				data: data
+			}, success);
+		},
+		update: function(table, data, success) {
+			data.noConstraint = false;
+			pzk.ajax({
+				url: BASE_REQUEST + '/Dtable/update?table=' + table,
+				data: data
+			}, success);
+		},
+		replace: function(table, data, success) {
+			pzk.ajax({
+				url: BASE_REQUEST + '/Dtable/replace?table=' + table,
+				data: data
+			}, success);
+		},
+		del: function(table, data, success) {
+			pzk.ajax({
+				url: BASE_REQUEST + '/Dtable/del?table=' + table,
+				data: data
+			}, success);
+		},
+		get: function(table, id, success) {
+			pzk.ajax({
+				url: BASE_REQUEST + '/Dtable/get?table=' + table,
+				data: {
+					id: id
+				}
+			}, success);
+		}
 	}
+	
 };
 PzkObj = (function(props) { $.extend (this, props || {}); }).pzkImpl({
 	init: function() {

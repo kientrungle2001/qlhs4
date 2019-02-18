@@ -167,8 +167,16 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
      * @return PzkCoreDatabase
      */
     public function where($conds) {
-		$condsStr = $this->buildCondition($conds);
-        $this->options['conds'] = pzk_or(@$this->options['conds'], 1) . ' AND ' . $condsStr;
+        $condsStr = $this->buildCondition($conds);
+        if($condsStr == '1') {
+            return $this;
+        }
+        if(isset($this->options['conds'])) {
+            $this->options['conds'] = pzk_or(@$this->options['conds'], 1) . ' AND ' . $condsStr;
+        } else {
+            $this->options['conds'] = $condsStr;
+        }
+        
         return $this;
     }
 	
@@ -530,7 +538,11 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
                     
                 } elseif(isset($fieldTypesMap[$key]) && ( strpos($fieldTypesMap[$key]['Type'], 'float') !== false 
                     || strpos($fieldTypesMap[$key]['Type'], 'double') !== false ) ) {
-                        $result[$key] = floatval($val);
+                        if(!$val) {
+                            $result[$key] = '0';
+                        } else {
+                            $result[$key] = floatval($val);
+                        }
                 } elseif(isset($fieldTypesMap[$key]) && $fieldTypesMap[$key]['Type'] === 'date' ) {
                     if(!$val) {
                         $val = '0000-01-01';

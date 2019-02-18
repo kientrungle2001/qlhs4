@@ -132,9 +132,9 @@ class PzkDtableController extends PzkTableController {
 			'table' => 'test_schedule as ts
 					left join `classes` as c on ts.classId = c.id
 					left join `student` as s on ts.studentId = s.id
-					left join `subject` as sb on ts.subjectId = sb.id
+					left join `subject` as sb on c.subjectId = sb.id
 					left join `teacher` as t on ts.adviceId = t.id',
-			'fields' => 'ts.*, c.name as className, s.name as studentName, s.phone as phone, sb.name as subjectName, t.name as adviceName'
+			'fields' => 'ts.*, c.name as className, c.subjectId, c.level, c.teacherId, s.name as studentName, s.phone as phone, sb.name as subjectName, t.name as adviceName'
 		],
 		'employee_absent' => [
 			'table' => 'employee_absent as ea 
@@ -154,7 +154,7 @@ class PzkDtableController extends PzkTableController {
 	public $inserts = array(
 		'student' => array('name', 'phone', 'school', 'birthDate', 'address', 'parentName', 
 		'startStudyDate', 'endStudyDate', 'note', 'color', 'fontStyle', 'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code'),
-		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code', 'feeType'),
+		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code', 'feeType', 'classed'),
 		'class_student' => array('classId', 'studentId', 'startClassDate', 'endClassDate', 'note'),
 		'class_teacher' => array('classId', 'teacherId',  'note', 'status', 'role'),
 		'room' => array('name', 'size', 'status', 'note'),
@@ -177,7 +177,7 @@ class PzkDtableController extends PzkTableController {
 		'tuition_fee' => array('classId', 'periodId',  'amount', 'status'),
 		'test' => array('name', 'subjectId', 'level', 'status', 'code'),
 		'test_class' => array('classId', 'testId', 'status', 'startDate', 'endDate'),
-		'test_schedule' => array('classId', 'studentId', 'subjectId', 'adviceId', 'status', 'testDate', 'testTime', 'note', 'title', 'mark', 'rating'),
+		'test_schedule' => array('classId', 'studentId', 'adviceId', 'status', 'testDate', 'testTime', 'note', 'title', 'mark', 'rating'),
 		'advice' => array('classId', 'subjectId', 'status', 'studentId', 'title', 'content', 'type', 'time', 'adviceId'),
 		'test_student_mark' => array('testId', 'classId', 'mark', 'studentId', 'status'),
 		'asset' => array('name', 'roomId', 'teacherId', 'storeId', 'quantity', 'status', 'price', 'subjectId', 'online', 'note', 'startDate', 'endDate', 'employeeId'),
@@ -266,6 +266,7 @@ class PzkDtableController extends PzkTableController {
 				'roomId' => array('equal', array('column', 'c', 'roomId'), '?'),
 				'level' => array('equal', array('column', 'c', 'level'), '?'),
 				'online' => array('equal', array('column', 'c', 'online'), '?'),
+				'classed' => array('equal', array('column', 'c', 'classed'), '?'),
 			)
 		),
 		'teacher_filter' => array(
@@ -368,6 +369,15 @@ class PzkDtableController extends PzkTableController {
 	public $deletes = array(
 		'general_order' => array('student_order' => 'orderId'),
 		'billing_order' => array('billing_detail_order' => 'orderId'),
+		'student' => array(
+			'class_student' => 'studentId',
+			'general_order' => 'studentId',
+			'student_order' =>	'studentId',
+			'class_student_period_mark'	=> 'studentId',
+			'student_schedule' =>	'studentId',
+			'test_schedule' =>	'studentId',
+			'test_student_mark'	=>	'studentId'
+		)
 	);
 	public $statusDeletes = array('general_order' => true);
 	public $exports = array(

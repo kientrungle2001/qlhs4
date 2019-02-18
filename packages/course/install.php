@@ -36,6 +36,9 @@ copy(PKG_DIR . DS . 'page.course.online.datagrid.php', BASE_DIR . '/app/qlhs/pag
 copy(PKG_DIR . DS . 'page.course.online.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/schedule.php');
 copy(PKG_DIR . DS . 'page.course.online.tuition_fee.php', BASE_DIR . '/app/qlhs/pages/grid/course/online/tuition_fee.php');
 
+// unclassed
+copy(PKG_DIR . DS . 'page.course.unclassed.php', BASE_DIR . '/app/qlhs/pages/grid/course/unclassed.php');
+
 // course selector
 copy(PKG_DIR . DS . 'class.CourseSelector.php', BASE_DIR . '/objects/edu/CourseSelector.php');
 copy(PKG_DIR . DS . 'class.CourseSelector.js', BASE_DIR . '/js/edu/courseSelector.js');

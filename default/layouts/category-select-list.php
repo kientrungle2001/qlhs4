@@ -1,8 +1,13 @@
 <?php 
-$data->items = _db()->query($data->sql);
+if(@$data->sql) {
+	$data->items = _db()->query($data->sql);
+}
+
 ?>
-<select {attr id} {attr name} {attr multiple} class="easyui-combobox2" {attr onChange}>
+<select {attr id} {attr name} {attr multiple} class="easyui-combobox" 
+data-options='onSelect: function(oldValue, newValue) { {prop onChange} }'>
 <option value="">{prop label}</option>
+{children all}
 <?php
 if(isset($data->items) && is_array($data->items)) {
 foreach($data->items as $item) {
