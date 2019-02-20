@@ -171,7 +171,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in items" ng-click="itemSelecteds[item.id] = !itemSelecteds[item.id]">
+					<tr ng-repeat="item in items" ng-click="itemSelecteds[item.id] = !itemSelecteds[item.id]"
+							ng-class="{'font-weight-bold': item.da_doc == 0}">
 						<td><input type="checkbox" ng-model="itemSelecteds[item.id]" /></td>
 						<td><% item.id%></td>
 						<td><span class="text-primary"><% item.ngay_nhan | vndate%></span><br /><span class="text-danger"><% item.ngay_gui_yc | vndate%></span><br /><span class="text-success"><% item.ngay_hoan_thien_hs | vndate%></span><br /><span class="text-info"><% item.ngay_thanh_toan_tien_kh_ve_cty | vndate%></span><br /><span class="text-warning"><% item.ngay_ban_giao_hs_den_pdvkh | vndate%></span><br /><% item.ngay_tt_ncc | vndate%><br /><% item.ngay_tt_tb_den_ncc | vndate%><br /><% item.ngay_huy_dv | vndate%><br />
@@ -180,14 +181,21 @@
 						</td>
 						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%><br /><% item.co_thiet_bi | co_tb%><br />giao phát: <% item.giao_phat%><br />Ngày vàng: <% item.ngay_vang%></td>
 						<td><% item.thoi_gian_gen | vndate%><br /><% item.so_hop_dong%><br /><% item.so_hoa_don%><br /><% item.hinh_thuc_thanh_toan%><br /><% item.nhan_vien_kinh_doanh%></td>
-						<td><% item.ten_khach_hang%><br /><% item.so_dien_thoai%><br /><% item.email%><br /><% item.dia_chi_vat%><br /><% item.dia_chi_tra%><br /><% item.khu_vuc_cai_dat%></td>
+						<td><% item.ten_khach_hang%><br /><% item.so_dien_thoai%><br /><% item.email%><br /><% item.dia_chi_vat%><br /><% item.dia_chi_tra%><br /><% item.khu_vuc_cai_dat%>
+						<br />
+						<a href="#" class="btn btn-danger btn-sm" ng-show="item.da_doc == 0" onclick="return false;" ng-click="danh_dau_da_doc(item)">Đánh dấu Đã đọc</a>
+						<br />
+						<a href="#" class="btn btn-primary btn-sm" ng-show="item.da_doc == 1" onclick="return false;" ng-click="danh_dau_chua_doc(item)">Đánh dấu Chưa đọc</a>
+						</td>
 						<td><% item.so_nam%><br /><% item.goi_hoa_don%><br /><% item.nha_cc%><br /><% item.ncc_tb_hd%><br /><% item.so_ld%></td>
 						<td><% item.muc_diem%><br /><% item.so_tien  | vnprice%><br /><% item.phi_dich_vu  | vnprice%>
 							<br /><% item.chiet_khau  | vnprice%><br /><% item.con_thu  | vnprice%>
 							<br /><% item.da_thu  | vnprice%><br /><% item.hoa_hong%>
 							<br /><% item.doanh_thu  | vnprice%></td>
 						<td><% item.nguoi_tra%><br /><% item.ngay_nhan_tra | vndate%></td>
-						<td><% item.spam_tinh_luong%><br /><% item.tinh_trang_spam%></td>
+						<td><% item.spam_tinh_luong%><br /><% item.tinh_trang_spam%>
+						
+						</td>
 					</tr>
 				</tbody>
 			</table>

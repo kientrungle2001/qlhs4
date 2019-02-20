@@ -187,12 +187,21 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 	$scope.selectedItem = {id_nhan_vien_kinh_doanh: ''};
 	$scope.edit = function(item) {
 		$scope.mode = 'edit';
-		$scope.selectedItem = item;
+		$scope.selectedItem = $scope.cloneItem(item);
 		$scope.chonNVKD();
+	};
+
+	$scope.cloneItem = function(item) {
+		var result = {};
+		for(var k in item) {
+			result[k] = item[k];
+		}
+		return result;
 	};
 	
 	// lưu khi edit
 	$scope.save = function() {
+		$scope.selectedItem.da_doc = 0;
 		ajax({
 			url: BASE_REQUEST + '/Dtable/'+$scope.mode+'?table=customer_thap2',
 			data: $scope.selectedItem,
@@ -463,6 +472,26 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 
 	$scope.tinh_con_thu = function(item) {
 		item.con_thu = parseFloat(item.so_tien) - parseFloat(item.chiet_khau);
+	};
+
+	$scope.danh_dau_da_doc = function(item) {
+		pzk.db.update('customer_thap2', {
+			da_doc: 1,
+			id: item.id
+		}, function(){
+			item.da_doc = 1;
+			$scope.$apply();
+		});
+	};
+
+	$scope.danh_dau_chua_doc = function(item) {
+		pzk.db.update('customer_thap2', {
+			da_doc: 0,
+			id: item.id
+		}, function(){
+			item.da_doc = 0;
+			$scope.$apply();
+		});
 	};
 
 }]);

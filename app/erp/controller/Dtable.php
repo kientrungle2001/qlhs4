@@ -58,7 +58,8 @@ class PzkDtableController extends PzkTableController {
 			'ncc_tb_hd',
 			'kh_phat_sinh',
 			'ngay_vang',
-			'giao_phat'
+			'giao_phat',
+			'da_doc'
 		)
 	);
 
