@@ -360,11 +360,11 @@
 					<div class="row">
 						<div class="col-md-4">
 						<label>Số tiền: <% selectedItem.so_tien | vnprice %></label> 
-						<input ng-model="selectedItem.so_tien" ng-change="tinh_con_thu(selectedItem)" class="form-control form-control-sm" />	
+						<input readonly ng-model="selectedItem.so_tien" class="form-control form-control-sm" />	
 						</div>
 						<div class="col-md-4">
 						<label>Phí dịch vụ: <% selectedItem.phi_dich_vu | vnprice %></label> 
-						<input ng-model="selectedItem.phi_dich_vu" class="form-control form-control-sm" />	
+						<input ng-model="selectedItem.phi_dich_vu" ng-change="tinh_con_thu(selectedItem)" class="form-control form-control-sm" />	
 						</div>
 						<div class="col-md-4">
 						<label>Chiết khấu: <% selectedItem.chiet_khau | vnprice %></label> 
