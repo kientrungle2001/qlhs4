@@ -40,6 +40,15 @@
 							<input placeholder="Ngày kết thúc" jqdatepicker class="form-control form-control-sm" id="ngayKetThuc" ng-model="ngayKetThuc" ng-change="chonNgayKetThuc()" />
 					</div>
 
+					<!-- Lọc theo trạng thái đọc -->
+					<div class="form-group">
+						<select ng-model="da_doc" ng-change="chonTrangThaiDoc()" class="form-control form-control-sm">
+							<option value="">Trạng thái đọc</option>
+							<option value="0">Chưa đọc</option>
+							<option value="1">Đã đọc</option>
+						</select>
+					</div>
+
 					<!-- Lọc Nhân viên kinh doanh -->
 					<div class="form-group">
 						<select id="nhan_vien_kinh_doanh" ng-model="selectedSale" ng-change="selectSaleStaff()" 

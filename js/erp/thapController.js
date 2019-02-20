@@ -38,6 +38,9 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		if($scope.tinh_trang && jQuery.trim($scope.tinh_trang)) {
 			postData.filters.tinh_trang = $scope.tinh_trang;
 		}
+		if($scope.da_doc && (jQuery.trim($scope.da_doc) !== '')) {
+			postData.filters.da_doc = $scope.da_doc;
+		}
 		if($scope.co_hoa_don && jQuery.trim($scope.co_hoa_don)) {
 			postData.filters.co_hoa_don = $scope.co_hoa_don;
 		}
@@ -73,6 +76,9 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 
 	$scope.reload();
 
+	$scope.chonTrangThaiDoc = function() {
+		$scope.search();
+	}
 	// chọn nhân viên kinh doanh
 	$scope.selectSaleStaff = function() {
 		$scope.search();

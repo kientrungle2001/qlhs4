@@ -80,6 +80,7 @@ class PzkDtableController extends PzkTableController {
 				'id_nhan_vien_kinh_doanh' => array('equal', 'id_nhan_vien_kinh_doanh', '?'),
 				'spam_tinh_luong' => array('equal', 'spam_tinh_luong', '?'),
 				'tinh_trang' => array('equal', 'tinh_trang', '?'),
+				'da_doc' => array('equal', 'da_doc', '?'),
 				'co_hoa_don' => array('equal', 'co_hoa_don', '?'),
 				'co_thiet_bi' => array('equal', 'co_thiet_bi', '?'),
 				'ngay_vang' => array('equal', 'ngay_vang', '?'),
