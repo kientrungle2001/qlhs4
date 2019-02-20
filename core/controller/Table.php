@@ -493,6 +493,63 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 		));
 	}
 
+	public function addmulAction() {
+		$table = @$_REQUEST['table'];
+		$fields = @$this->inserts[$table] ? @$this->inserts[$table] : array();
+		$rows = array();
+		$insertions = array();
+		foreach($_REQUEST['items'] as $request) {
+			$data = array();
+			foreach ($fields as $field) {
+				if (isset($request[$field])) {
+					$data[$field] = urldecode($request[$field]);
+				}
+			}
+			if ($result = $this->checkConstraints($table, $data)) {
+				continue;
+			}
+			foreach($fields as $field) {
+				if(!isset($data[$field])) $data[$field] = null;
+			}
+			$data = _db()->buildInsertData($table, $data);
+			$insertions[] = $data;
+			
+						# update lại student
+			if($table == 'class_student'  || $table=='student_order') {
+				/*
+				$student = _db()->getEntity('edu.student')->load($data['studentId']);
+				if($student->getId()) {
+					$student->gridIndex();
+				}
+				*/
+			} else if($table == 'student') {
+				
+				/*
+				$student = _db()->getEntity('edu.student')->load($id);
+				if($student->getId()) {
+					$student->gridIndex();
+				}*/
+
+			}
+			// $row = $id;
+			/*
+			_db()->select('*')
+					->from($table)
+					->where(array('equal','id', $id))
+					->result_one();
+					*/
+				
+			// $rows[] = $row;
+		}
+		$id = _db()->insert($table)
+					->fields(implode(',', $fields))
+					->values($insertions)->result();
+
+		echo json_encode(array(
+			'errorMsg' => false,
+		));
+	}
+
 	/**
 	 * Thêm bản ghi mới
 	 * @return boolean
@@ -861,6 +918,22 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 		$table = $_REQUEST['table'];
 		$config = @$this->exports[$table];
 		echo json_encode($config);
+	}
+
+	public function lastidAction() {
+		$table = $_REQUEST['table'];
+		$config = pzk_element('config');
+		$lastid = $_REQUEST['lastid'];
+		if(!$lastid) {
+			if($db_lastid = $config->get('lastid_' . $table)) {
+				echo $db_lastid;
+			} else {
+				echo '0';
+			}
+		} else {
+			$config->set('lastid_' . $table, $lastid);
+		}
+		
 	}
 
 }

@@ -21,7 +21,7 @@
 				</ul>				
 			</li>
 			<li><a href="{url /test/schedule}">Lịch hẹn thi đầu vào</a></li>
-			<li><a href="{url /advice}">Tư vấn Phần mềm</a></li>
+			<li><a href="{url /test/advice}">Tư vấn Phần mềm</a></li>
 			<li><a href="{url /problem}">Vụ việc - lỗi</a></li>
 			<li><a href="{url /demo/orderstat}">Bảng học phí</a></li>
 			<li><a href="{url /demo/muster}">Điểm danh</a></li>
@@ -151,3 +151,193 @@
 		</ul>
 	</li>
 </ul>
+
+<br />
+<a href="#" onclick="getRemoteDatas(); return false;">Lấy dữ liệu từ các phần mềm online</a>
+<br />
+Đã lấy: <span id="got_count"></span> Bản ghi
+<br />
+<script>
+var remotes = [{
+	source: {
+		url: 'http://api2.nextnobels.com/coreusers',
+		type: 'get',
+		dataType: 'json',
+		data: {
+			sort: 'id asc',
+			limit: 50,
+			where: {
+				registered: {
+					'>=': '2018-01-01'
+				}
+			}
+		},
+		lastid: function(success, lastid) {
+			$.ajax({
+				url: '/index.php/dtable/lastid?table=student',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					lastid: lastid || ''
+				},
+				success: function(resp) {
+					if(lastid) {
+						success(resp);
+					} else {
+						var where = {
+							id: {
+								'>': resp
+							}
+						};
+						success(where);
+					}
+				}
+			});
+		}
+	},
+	target: {
+		url: '/index.php/Dtable/addmul?table=student',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			online: 1,
+			status: 0
+		},
+		map: {
+			name: 'name',
+			phone: 'phone',
+			email: 'email',
+			code: 'username',
+			birthDate: 'birthday',
+			birthYear: function(field, item) {
+				return item.birthday.substr(0, 4);
+			},
+			startStudyDate: function(field, item) {
+				var registered = item.registered;
+				return registered.substr(0, 10);
+			}
+		}
+	}
+	
+}];
+function getRemoteDatas() {
+	remotes.forEach(function(remote) {
+		getRemoteData(remote);
+	});
+}
+function getRemoteData(remote) {
+	loadRemoteDataFromSource(remote.source, function(resp){
+		processImportDataToTarget(resp, remote.target, remote, function(processResp){
+			if(processResp.errorMsg) {
+				$.messager.show({
+					title: 'Lỗi',
+					msg: processResp.errorMsg
+				});
+			} else {
+				if(0) {
+					$.messager.show({
+						title: 'Thành công',
+						msg: 'Đã import thành công ' + processResp.data.name
+					});
+				}
+				
+			}
+		});
+	});
+}
+function loadRemoteDataFromSource(source, success) {
+	source.lastid(function(where){
+		source.success = success;
+		$.extend(source.data.where, where);
+		$.ajax(source);
+	});
+}
+
+function processImportDataToTarget(resp, target, remote, success) {
+	if(0) {
+		// OLD insert
+		resp.forEach(function(item, index){
+			$('#got_count').text('' + (index + 1));
+			var map = target.map;
+			for(var field in map) {
+				var value = null;
+				var mapField = map[field];
+				if(typeof mapField === 'function') {
+					value = mapField(field, item);
+				} else {
+					value = item[mapField]
+				}
+				target.data[field] = value;
+			}
+			target.success = success;
+			target.async = false;
+			$.ajax(target);
+			
+		});
+	} else {
+		var items = [];
+		resp.forEach(function(item, index){
+			$('#got_count').text('' + (index + 1));
+			var map = target.map;
+
+			// lưu data cần insert vào itemData
+			var itemData = {};
+			for(var field in target.data) {
+				itemData[field] = target.data[field];
+			}
+
+			// chuyển đổi data từ nguồn sang đích
+			for(var field in map) {
+				var value = null;
+				var mapField = map[field];
+				if(typeof mapField === 'function') {
+					value = mapField(field, item);
+				} else {
+					value = item[mapField]
+				}
+				itemData[field] = value;
+			}
+
+			// lưu vào items
+			items.push(itemData);
+			
+		});
+		var targetOptions = {
+			url: target.url,
+			type: target.type || 'post',
+			dataType: target.dataType || 'json',
+			data: {
+				items: items
+			},
+			async: false,
+			success: success
+		}; 
+		// console.log(targetOptions);
+		// return true;
+		$.ajax(targetOptions);
+	}
+
+	if(resp.length) {
+		// Lưu lại lastid
+		lastid = resp[resp.length - 1].id;
+		remote.source.lastid(function(resp) {
+			$.messager.show({
+				title: 'Lưu lastid',
+				msg: 'Đã lưu lastid: ' + lastid
+			});
+
+			// chạy lại hàm lấy dữ liệu
+			if(1) {
+				setTimeout(function() {
+					getRemoteDatas();
+				}, 1000);
+			}
+		}, lastid);
+
+		if(typeof pzk.elements.dg != 'undefined') {
+			pzk.elements.dg.reload();
+		}
+	}
+}
+
+</script>

@@ -20,6 +20,7 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student/component')) {
 }
 
 copy(PKG_DIR . DS . 'page.student.component.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/datagrid.php');
+copy(PKG_DIR . DS . 'page.student.component.dialog.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/dialog.php');
 copy(PKG_DIR . DS . 'page.student.component.classify_student.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/classify_student.php');
 copy(PKG_DIR . DS . 'page.student.component.script.php', BASE_DIR . '/app/qlhs/pages/grid/student/component/script.php');
 

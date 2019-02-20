@@ -461,6 +461,10 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		})
 	};
 
+	$scope.tinh_con_thu = function(item) {
+		item.con_thu = parseFloat(item.so_tien) - parseFloat(item.chiet_khau);
+	};
+
 }]);
 
 

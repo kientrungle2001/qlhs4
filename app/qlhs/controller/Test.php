@@ -5,4 +5,7 @@ class PzkTestController extends PzkBaseController {
 	public function scheduleAction() {
 		$this->viewGrid('test/schedule');
 	}
+	public function adviceAction() {
+		$this->viewGrid('test/advice');
+	}
 }

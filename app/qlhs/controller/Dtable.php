@@ -177,7 +177,7 @@ class PzkDtableController extends PzkTableController {
 		'tuition_fee' => array('classId', 'periodId',  'amount', 'status'),
 		'test' => array('name', 'subjectId', 'level', 'status', 'code'),
 		'test_class' => array('classId', 'testId', 'status', 'startDate', 'endDate'),
-		'test_schedule' => array('classId', 'studentId', 'adviceId', 'status', 'testDate', 'testTime', 'note', 'title', 'mark', 'rating'),
+		'test_schedule' => array('classId', 'studentId', 'adviceId', 'status', 'testDate', 'testTime', 'note', 'title', 'mark', 'rating', 'type', 'adviceType'),
 		'advice' => array('classId', 'subjectId', 'status', 'studentId', 'title', 'content', 'type', 'time', 'adviceId'),
 		'test_student_mark' => array('testId', 'classId', 'mark', 'studentId', 'status'),
 		'asset' => array('name', 'roomId', 'teacherId', 'storeId', 'quantity', 'status', 'price', 'subjectId', 'online', 'note', 'startDate', 'endDate', 'employeeId'),
@@ -235,6 +235,9 @@ class PzkDtableController extends PzkTableController {
 			'none' => 0
 		),
 		'schedule' => array(
+			'none' => 0
+		),
+		'test_schedule' => array(
 			'none' => 0
 		),
 		'advice_filter' => array(
@@ -348,14 +351,21 @@ class PzkDtableController extends PzkTableController {
 				'roomId' => array('sql', '`c`.id in (select classId from `class_student` inner join classes on class_student.classId=classes.id where classes.roomId=?)'),
 				'classId' => array('equal', array('column', 'classId'), '?'),
 			)
-		)
+			),
+			'test_schedule_filter' => array(
+				'where' => array(
+					'classId' => array('equal', array('column', 'ts', 'classId'), '?'),
+					'studentId' => array('equal', array('column', 'ts', 'studentId'), '?'),
+					'type' => array('equal', array('column', 'ts', 'type'), '?'),
+				)
+			)
 	);
 	
 	public $constraints = array(
 		'class_student' => array('unique_key' => array('type' => 'key', 'key' 
 				=> array('classId', 'studentId'), 'message' => 'Bản ghi đã tồn tại' )),
 		'student' => array('unique_key' => array('type' => 'key', 'key' 
-				=> array('name', 'phone'), 'message' => 'Bản ghi đã tồn tại' )),
+				=> array('name', 'phone', 'code'), 'message' => 'Bản ghi đã tồn tại' )),
 		'student_schedule' => array('unique_key' => array('type' => 'key', 'key' 
 				=> array('classId', 'studentId', 'studyDate'), 'message' => 'Bản ghi đã tồn tại' )),
 		'teacher_schedule' => array('unique_key' => array('type' => 'key', 'key' 

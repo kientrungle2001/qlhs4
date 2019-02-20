@@ -352,7 +352,7 @@
 					<div class="row">
 						<div class="col-md-4">
 						<label>Số tiền: <% selectedItem.so_tien | vnprice %></label> 
-						<input ng-model="selectedItem.so_tien" class="form-control form-control-sm" />	
+						<input ng-model="selectedItem.so_tien" ng-change="tinh_con_thu(selectedItem)" class="form-control form-control-sm" />	
 						</div>
 						<div class="col-md-4">
 						<label>Phí dịch vụ: <% selectedItem.phi_dich_vu | vnprice %></label> 
@@ -360,7 +360,7 @@
 						</div>
 						<div class="col-md-4">
 						<label>Chiết khấu: <% selectedItem.chiet_khau | vnprice %></label> 
-						<input ng-model="selectedItem.chiet_khau" class="form-control form-control-sm" />	
+						<input ng-model="selectedItem.chiet_khau" ng-change="tinh_con_thu(selectedItem)" class="form-control form-control-sm" />	
 						</div>
 					</div>
 					<div class="row">
@@ -370,7 +370,7 @@
 						</div>
 						<div class="col-md-3">
 						<label>Còn thu: <% selectedItem.con_thu | vnprice %></label> 
-						<input ng-model="selectedItem.con_thu" class="form-control form-control-sm" />	
+						<input ng-model="selectedItem.con_thu" class="form-control form-control-sm" readonly />	
 						</div>
 						<div class="col-md-3">
 						<label>Hoa hồng: </label> 

@@ -257,7 +257,8 @@ class PzkParser {
         $c = '\}';
         $content = preg_replace_callback("/{$o}include ([^{$c}]+){$c}/", function($matches){
             $file_content = file_get_contents(BASE_DIR . '/' . pzk_app()->getPageUri($matches[1]).'.php');
-            return $file_content;
+            
+            return PzkParser::parseTemplate($file_content, array());
         }, $content);
         // replace {tag}(.*){/tag} thành {tag}pzk_parse($1){/tag}
         $content = preg_replace_callback("/{$o}parse{$c}(.*){$o}\/parse{$c}/s", function($matches){

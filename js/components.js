@@ -16,6 +16,24 @@ String.pzkImpl({
 	}
 });
 
+/**
+	* Source: https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
+ */
+serializeURI = function(obj, prefix) {
+	var str = [],
+			p;
+	for (p in obj) {
+			if (obj.hasOwnProperty(p)) {
+					var k = prefix ? prefix + "[" + p + "]" : p,
+							v = obj[p];
+					str.push((v !== null && typeof v === "object") ?
+							serializeURI(v, k) :
+							encodeURIComponent(k) + "=" + encodeURIComponent(v));
+			}
+	}
+	return str.join("&");
+}
+
 jQuery.fn.serializeForm = function() {
 	var arr = this.serializeArray();
 	var rslt = {};
@@ -130,6 +148,16 @@ pzk = {
 					id: id
 				}
 			}, success);
+		}
+	},
+	remote: {
+		list: function(model, params, success) {
+			$.ajax({
+				url: 'http://api2.nextnobels.com/' + model + '?' + serializeURI(params),
+				type: 'get',
+				dataType: 'json',
+				success: success
+			});
 		}
 	}
 	

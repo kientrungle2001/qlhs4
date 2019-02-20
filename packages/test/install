@@ -5,3 +5,4 @@ copy(PKG_DIR . DS . 'page.test.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/t
 copy(PKG_DIR . DS . 'page.test.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/test/test_class.php');
 copy(PKG_DIR . DS . 'page.test.test_student_mark.php', BASE_DIR . '/app/qlhs/pages/grid/test/test_student_mark.php');
 copy(PKG_DIR . DS . 'page.test.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/test/schedule.php');
+copy(PKG_DIR . DS . 'page.test.advice.php', BASE_DIR . '/app/qlhs/pages/grid/test/advice.php');

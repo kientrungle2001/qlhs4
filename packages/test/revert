@@ -1,3 +1,8 @@
 <?php
 echo "Revert Test\r\n";
 rcopy(PKG_DIR . DS . 'page.test.php', BASE_DIR . '/app/qlhs/pages/grid/test.php');
+rcopy(PKG_DIR . DS . 'page.test.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/test/datagrid.php');
+rcopy(PKG_DIR . DS . 'page.test.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/test/test_class.php');
+rcopy(PKG_DIR . DS . 'page.test.test_student_mark.php', BASE_DIR . '/app/qlhs/pages/grid/test/test_student_mark.php');
+rcopy(PKG_DIR . DS . 'page.test.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/test/schedule.php');
+rcopy(PKG_DIR . DS . 'page.test.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/test/advice.php');

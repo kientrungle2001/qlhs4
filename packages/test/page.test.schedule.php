@@ -44,7 +44,7 @@
 				table="test_schedule" width="550px" height="450px" nowrap="false"
 				rowStyler="adviceRowStyler"
 				onClickRow="testScheduleClickRow"
-				noClickRow="true" defaultFilters='{"`ts`.`type`": 0}'>
+				noClickRow="true" defaultFilters='{"type": 0}'>
 			<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 			
 			<!--<dg.dataGridItem field="title" width="320">Tiêu đề</dg.dataGridItem>-->
@@ -74,15 +74,6 @@
 			<wdw.dialog gridId="dg" width="700px" height="auto" title="Phần mềm">
 				<frm.form gridId="dg">
 					<frm.formItem type="hidden" name="id" required="false" label="" />
-					<frm.formItem type="user-defined" name="type" required="false" label="Loại hình">
-						<select name="type" class="easyui-combobox">
-							<option value="0">Cuộc gọi</option>
-							<option value="1">Tin nhắn</option>
-							<option value="2">Facebook</option>
-							<option value="3">Email</option>
-							<option value="4">Gặp gỡ</option>
-						</select>
-					</frm.formItem>
 					<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
 					<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
 					<frm.formItem 
@@ -92,11 +83,6 @@
 				</frm.formItem>
 					<frm.formItem type="date" name="testDate" required="false" label="Ngày Thi" />
 					<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
-					<frm.formItem type="user-defined" name="subjectId" required="false" label="Môn học">
-						<form.combobox name="subjectId"
-								sql="{subject_center_sql}"
-									layout="category-select-list"></form.combobox>
-					</frm.formItem>
 					<frm.formItem type="user-defined" name="classId" required="false" label="Khóa học">
 						<edu.courseSelector id="courseSelector" name="classId" defaultFilters='{"online": 0, "status": 1, "classed": -1}' />
 					</frm.formItem>
