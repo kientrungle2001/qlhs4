@@ -95,6 +95,7 @@
 				$('#add_advice_studentId').val(studentId);
 				$('#advice_dialog').dialog('open');
 			}
+			
 		]]>	
 		</script>
 	</div>
