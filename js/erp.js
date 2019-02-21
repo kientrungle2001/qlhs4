@@ -80,8 +80,9 @@ function ajax(options) {
 }
 
 pzk.loadScript('/js/upload.js');
-
-pzk.loadScript('/js/erp/thapController.js');
-pzk.loadScript('/js/erp/phanquyenController.js');
-pzk.loadScript('/js/erp/thamsoController.js');
-pzk.loadScript('/js/erp/khachhangController.js');
+var d = new Date();
+var t = ''+ d.getFullYear() +''+ (d.getMonth()+1) +''+ d.getDate() +''+ d.getHours();
+pzk.loadScript('/js/erp/thapController.js?t=' + t);
+pzk.loadScript('/js/erp/phanquyenController.js?t=' + t);
+pzk.loadScript('/js/erp/thamsoController.js?t=' + t);
+pzk.loadScript('/js/erp/khachhangController.js?t=' + t);

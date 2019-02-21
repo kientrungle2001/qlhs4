@@ -99,6 +99,14 @@
 					</div>
 
 					<div class="form-group">
+						<select ng-model="hoan_thanh_hoa_don" ng-change="chonHoanThanhHoaDon()" class="form-control form-control-sm">
+							<option value="">Hoàn thành hóa đơn</option>
+							<option value="1">Đã hoàn thành</option>
+							<option value="0">Chưa hoàn thành</option>
+						</select>
+					</div>
+
+					<div class="form-group">
 						<select ng-model="co_thiet_bi" ng-change="chonCoThietBi()" class="form-control form-control-sm">
 							<option value="">Có thiết bị</option>
 							<option value="1">Có</option>
@@ -237,6 +245,13 @@
 							<option value="0">Không</option>
 						</select>	
 						</div>
+						<div class="col-md-2" ng-show="selectedItem.co_hoa_don == 1">
+						<label>Hoàn thành hóa đơn:</label> 
+						<select ng-model="selectedItem.hoan_thanh_hoa_don" class="form-control form-control-sm">
+							<option value="1">Đã hoàn thành</option>
+							<option value="0">Chưa hoàn thành</option>
+						</select>	
+						</div>
 						<div class="col-md-2">
 						<label>Có thiết bị:</label> 
 						<select ng-model="selectedItem.co_thiet_bi" class="form-control form-control-sm">
@@ -263,7 +278,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<label>Nhân viên kinh doanh:</label>
 							<?php if(0):?> 
 							<select ng-model="selectedItem.id_nhan_vien_kinh_doanh" class="form-control form-control-sm"
@@ -281,9 +296,18 @@
 							<input type="text" ng-model="selectedItem.nhan_vien_kinh_doanh" readonly
 									class="form-control form-control-sm d-none" />
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<label>Note:</label> 
 							<textarea ng-model="selectedItem.note" class="form-control form-control-sm"></textarea>	
+						</div>
+						<div class="col-md-3">
+							<label>Đính kèm:</label> 
+							<div class="input-group mb-3">
+							<input ng-model="selectedItem.dinh_kem" class="form-control form-control-sm" />
+									<div class="input-group-append">
+											<span class="btn btn-primary btn-sm" id="basic-addon2">Chọn</span>
+									</div>
+							</div>	
 						</div>
 					</div>
 				</p>
