@@ -38,6 +38,10 @@ class PzkHomeController extends PzkController{
 
 	public function updateStudentAction() {
 		set_time_limit(0);
+		$cond = '1';
+		if(@$_REQUEST['id']) {
+			$cond .= ' and student.id > ' . @$_REQUEST['id'];
+		}
 		$query = "select student.id, group_concat('[', classes.name, ']') as currentClassNames,
 			group_concat('[', classes.id, ']') as currentClassIds,
 			group_concat('[', classes.teacherId, ']') as teacherIds,
@@ -50,8 +54,12 @@ class PzkHomeController extends PzkController{
 					left join `subject` on `classes`.subjectId = `subject`.id
 					left join `student_order` on student.id = student_order.studentId
 						and classes.id = student_order.classId and student_order.status='' or student_order.status is null
-					left join payment_period on student_order.payment_periodId = payment_period.id where 1 AND 1 AND 1 group by student.id order by student.id desc";
+					left join payment_period on student_order.payment_periodId = payment_period.id where $cond group by student.id order by student.id desc";
+		
 		$query = "update student as s, ($query) as i set s.currentClassNames = i.currentClassNames, s.currentClassIds = i.currentClassIds,s.periodNames = i.periodNames, s.periodIds = i.periodIds, s.subjectNames=i.subjectNames, s.subjectIds=i.subjectIds, s.teacherIds=i.teacherIds where s.id = i.id";
+		if(@$_REQUEST['id']) {
+			$query .= ' and s.id > ' . @$_REQUEST['id'];
+		}
 		_db()->query($query);
 	}
 	
@@ -68,14 +76,5 @@ class PzkHomeController extends PzkController{
 		$arr->sortBy(array(array('classId', 'asc'), array('studentId', 'asc'), array('studyDate', 'asc'), array('status', 'asc')));
 		//var_dump($arr->getData());
 		echo 1;
-	}
-	
-	public function crawlAction() {
-		for($page = 1; $page < 7; $page++) {
-			$records = pzk_mytour()->crawl('http://mytour.vn/c37/khach-san-tai-lai-chau.html?page=' . $page);
-			foreach($records as $record) {
-				$record->update(array('city' => 'Lai Châu'));
-			}
-		}
 	}
 }

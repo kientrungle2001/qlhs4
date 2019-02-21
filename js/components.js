@@ -16,6 +16,14 @@ String.pzkImpl({
 	}
 });
 
+Date.pzkImpl({
+	diff: function(d) {
+		var this_time = this.getTime();
+		var d_time = d.getTime();
+		return (this_time - d_time) / (1000 * 24 * 3600);
+	}
+});
+
 /**
 	* Source: https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
  */

@@ -155,7 +155,7 @@ class PzkDtableController extends PzkTableController {
 		'student' => array('name', 'phone', 'school', 'birthDate', 'address', 'parentName', 
 		'startStudyDate', 'endStudyDate', 'note', 'color', 'fontStyle', 'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code'),
 		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code', 'feeType', 'classed'),
-		'class_student' => array('classId', 'studentId', 'startClassDate', 'endClassDate', 'note'),
+		'class_student' => array('classId', 'studentId', 'startClassDate', 'endClassDate', 'note', 'code'),
 		'class_teacher' => array('classId', 'teacherId',  'note', 'status', 'role'),
 		'room' => array('name', 'size', 'status', 'note'),
 		'subject' => array('name', 'online', 'startDate', 'status', 'code'),
@@ -363,7 +363,7 @@ class PzkDtableController extends PzkTableController {
 	
 	public $constraints = array(
 		'class_student' => array('unique_key' => array('type' => 'key', 'key' 
-				=> array('classId', 'studentId'), 'message' => 'Bản ghi đã tồn tại' )),
+				=> array('classId', 'studentId', 'code'), 'message' => 'Bản ghi đã tồn tại' )),
 		'student' => array('unique_key' => array('type' => 'key', 'key' 
 				=> array('name', 'phone', 'code'), 'message' => 'Bản ghi đã tồn tại' )),
 		'student_schedule' => array('unique_key' => array('type' => 'key', 'key' 

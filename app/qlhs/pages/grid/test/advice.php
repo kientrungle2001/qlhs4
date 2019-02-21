@@ -1,50 +1,108 @@
 <?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
 <div style="margin-top: 15px;">
 	<!-- Bắt đầu form thêm tư vấn -->
-	<div style="float: left; width: 300px;">
-		<easyui.layout.panel title="Thêm Tư vấn" collapsible="true">
-			<frm.form id="add_test_schedule">
-				<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
-				<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
-				<frm.formItem name="name" required="false" validatebox="true" label="Tên học sinh" />
-				<frm.formItem name="phone" required="false" validatebox="false" label="Số điện thoại" />
-				<frm.formItem name="email" required="false" validatebox="false" label="Email" />
-				<frm.formItem name="parentName" required="false" validatebox="false" label="Phụ huynh" />
-				<frm.formItem type="date" name="testDate" required="false" label="Ngày tư vấn" value="<?php echo date('Y-m-d')?>" />
-				<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
-				<frm.formItem type="user-defined" name="classId" required="false" label="Phần mềm">
-					<edu.courseSelector id="courseSelector_add" name="classId" defaultFilters='{"online": 1, "status": 1}' />
-				</frm.formItem>
-				<frm.formItem type="user-defined" name="adviceId" required="false" label="Tư vấn viên">
-					<form.combobox name="adviceId"
-							sql="{teacher_sql}"
-								layout="category-select-list"></form.combobox>
-				</frm.formItem>
-				<frm.formItem type="user-defined" name="status" required="false" label="Trạng thái">
-					<form.combobox name="status" class="easyui-combobox"
-							layout="category-select-list" label="Trạng thái">
-							<option value="-2">Đang suy nghĩ</option>
-							<option value="-1">Từ chối</option>
-							<option value="0">Chưa gọi</option>
-							<option value="1">Đã gọi</option>
-							<option value="2">Đã dùng thử</option>
-							<option value="3">Đã sử dụng</option>
-					</form.combobox>
-				</frm.formItem>
-				<frm.formItem type="user-defined" name="send" required="false" label="">
-					<a href="#" class="easyui-linkbutton" onClick="addTestSchedule(); return false;" data-options="iconCls:'icon-plus'">
-						Thêm tư vấn
-					</a>
-				</frm.formItem>
-			</frm.form>
-		</easyui.layout.panel>
+	<div style="float: left; width: 400px;">
+		<easyui.window.dialog id="advice_dialog" layout="easyui/window/dialog" title="Thêm tư vấn" width="700px">
+		<frm.form id="add_advice_schedule">
+						<frm.formItem id="add_advice_studentId" type="hidden" name="studentId" required="false" validatebox="false" />
+						<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
+						<frm.formItem type="date" name="testDate" required="false" label="Ngày tư vấn" value="<?php echo date('Y-m-d')?>" />
+						<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
+						<frm.formItem type="user-defined" name="classId" required="false" label="Phần mềm">
+							<edu.courseSelector id="advice_courseSelector_add" name="classId" defaultFilters='{"online": 1, "status": 1}' />
+						</frm.formItem>
+						<frm.formItem type="user-defined" name="adviceId" required="false" label="Tư vấn viên">
+							<form.combobox name="adviceId"
+									sql="{teacher_sql}"
+										layout="category-select-list"></form.combobox>
+						</frm.formItem>
+						<frm.formItem type="user-defined" name="status" required="false" label="Trạng thái">
+							<form.combobox name="status" class="easyui-combobox"
+									layout="category-select-list" label="Trạng thái">
+									<option value="-2">Đang suy nghĩ</option>
+									<option value="-1">Từ chối</option>
+									<option value="0">Chưa gọi</option>
+									<option value="1">Đã gọi</option>
+									<option value="2">Đã dùng thử</option>
+									<option value="3">Đã sử dụng</option>
+							</form.combobox>
+						</frm.formItem>
+						<frm.formItem type="user-defined" name="send" required="false" label="">
+							<a href="#" class="easyui-linkbutton" onClick="addAdviceSchedule(); return false;" data-options="iconCls:'icon-plus'">
+								Thêm tư vấn
+							</a>
+						</frm.formItem>
+					</frm.form>
+		</easyui.window.dialog>
+		<easyui.layout.tabs>
+			<easyui.layout.tabpanel title="Học sinh trực tuyến">
+			
+				<dg.dataGrid id="dg_online_student" title="Học sinh trực tuyến"
+					table="student" width="400px" height="450px" nowrap="false"
+					defaultFilters='{"online": 1}'>
+					<dg.dataGridItem field="id" width="50">Id</dg.dataGridItem>
+					<dg.dataGridItem field="name" width="180" formatter="onlineName">Học sinh</dg.dataGridItem>
+					<dg.dataGridItem field="currentClassNames" width="180" formatter="adviceNote">Phần mềm</dg.dataGridItem>
+				</dg.dataGrid>
+			</easyui.layout.tabpanel>
+			<easyui.layout.tabpanel title="Thêm tư vấn">
+				
+				<easyui.layout.panel title="Thêm Tư vấn" collapsible="true">
+					<frm.form id="add_test_schedule">
+						<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
+						<frm.formItem name="name" required="false" validatebox="true" label="Tên học sinh" />
+						<frm.formItem name="phone" required="false" validatebox="false" label="Số điện thoại" />
+						<frm.formItem name="email" required="false" validatebox="false" label="Email" />
+						<frm.formItem type="date" name="testDate" required="false" label="Ngày tư vấn" value="<?php echo date('Y-m-d')?>" />
+						<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
+						<frm.formItem type="user-defined" name="classId" required="false" label="Phần mềm">
+							<edu.courseSelector id="courseSelector_add" name="classId" defaultFilters='{"online": 1, "status": 1}' />
+						</frm.formItem>
+						<frm.formItem type="user-defined" name="adviceId" required="false" label="Tư vấn viên">
+							<form.combobox name="adviceId"
+									sql="{teacher_sql}"
+										layout="category-select-list"></form.combobox>
+						</frm.formItem>
+						<frm.formItem type="user-defined" name="status" required="false" label="Trạng thái">
+							<form.combobox name="status" class="easyui-combobox"
+									layout="category-select-list" label="Trạng thái">
+									<option value="-2">Đang suy nghĩ</option>
+									<option value="-1">Từ chối</option>
+									<option value="0">Chưa gọi</option>
+									<option value="1">Đã gọi</option>
+									<option value="2">Đã dùng thử</option>
+									<option value="3">Đã sử dụng</option>
+							</form.combobox>
+						</frm.formItem>
+						<frm.formItem type="user-defined" name="send" required="false" label="">
+							<a href="#" class="easyui-linkbutton" onClick="addTestSchedule(); return false;" data-options="iconCls:'icon-plus'">
+								Thêm tư vấn
+							</a>
+						</frm.formItem>
+					</frm.form>
+				</easyui.layout.panel>
+			</easyui.layout.tabpanel>
+		</easyui.layout.tabs>
+		<script>
+		<![CDATA[
+			function onlineName(value, row, index) {
+				return row.name + '<br />' + row.code + '<br />' + row.phone + '<br />' + scheduleDateFormat(row.startStudyDate); 
+			}
+			function adviceNote(value, row, index) {
+				return row.currentClassNames + '<br />' + row.assignName + '<br />' + row.note + '<br /><a href="#" onClick="showAdviceDialog('+row.id+'); return false;">Tạo tư vấn</a>';
+			}
+			function showAdviceDialog(studentId) {
+				$('#advice_dialog').dialog('open');
+			}
+		]]>	
+		</script>
 	</div>
 	<!-- Kết thúc form thêm tư vấn -->
 
 	<!-- Bắt đầu danh sách tư vấn -->
-	<div style="float: left; width: 550px; margin-left: 15px;">
+	<div style="float: left; width: 450px; margin-left: 15px;">
 		<dg.dataGrid id="dg" title="Tư vấn sử dụng phần mềm" scriptable="true" 
-				table="test_schedule" width="550px" height="450px" nowrap="false"
+				table="test_schedule" width="450px" height="450px" nowrap="false"
 				rowStyler="adviceRowStyler"
 				onClickRow="testScheduleClickRow"
 				noClickRow="true" defaultFilters='{"type": 1}'>

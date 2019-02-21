@@ -725,7 +725,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 					$item = _db()->useCB()->select('*')->from($table);
 					$key = $constraint['key'];
 					foreach ($key as $field) {
-						$item->where(array($field, $data[$field]));
+						$item->where(array($field, @$data[$field]));
 					}
 					
 					$item = $item->result_one();

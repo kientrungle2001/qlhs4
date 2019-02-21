@@ -158,7 +158,9 @@
 Đã lấy: <span id="got_count"></span> Bản ghi
 <br />
 <script>
-var remotes = [{
+var remotes = [
+	// student
+{
 	source: {
 		url: 'http://api2.nextnobels.com/coreusers',
 		type: 'get',
@@ -219,12 +221,78 @@ var remotes = [{
 		}
 	}
 	
-}];
+},
+// services
+{
+	source: {
+		url: 'http://api2.nextnobels.com/ecommercepayments',
+		type: 'get',
+		dataType: 'json',
+		data: {
+			sort: 'id asc',
+			limit: 50,
+			where: {
+				paymentDate: {
+					'>=': '2018-01-01'
+				}
+			}
+		},
+		lastid: function(success, lastid) {
+			$.ajax({
+				url: '/index.php/dtable/lastid?table=class_student',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					lastid: lastid || ''
+				},
+				success: function(resp) {
+					if(lastid) {
+						success(resp);
+					} else {
+						var where = {
+							id: {
+								'>': resp
+							}
+						};
+						success(where);
+					}
+				}
+			});
+		}
+	},
+	target: {
+		url: '/index.php/Dtable/addmul?table=class_student',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			studentId: 0
+		},
+		map: {
+			classId: function(field, item) {
+				return 247;
+			},
+			code: function(field, item) {
+				return item.username;
+			},
+			startClassDate: function(field, item) {
+				return item.paymentDate.substr(0, 10);
+			},
+			endClassDate: function(field, item) {
+				return item.expiredDate.substr(0, 10);
+			}
+		}
+	}
+	
+}
+];
+// import tất cả các source vào database
 function getRemoteDatas() {
 	remotes.forEach(function(remote) {
 		getRemoteData(remote);
 	});
 }
+
+// thực hiện import theo từng remote source
 function getRemoteData(remote) {
 	loadRemoteDataFromSource(remote.source, function(resp){
 		processImportDataToTarget(resp, remote.target, remote, function(processResp){
@@ -245,6 +313,8 @@ function getRemoteData(remote) {
 		});
 	});
 }
+
+// lấy dữ liệu từ source về
 function loadRemoteDataFromSource(source, success) {
 	source.lastid(function(where){
 		source.success = success;
@@ -253,6 +323,7 @@ function loadRemoteDataFromSource(source, success) {
 	});
 }
 
+// import vào database
 function processImportDataToTarget(resp, target, remote, success) {
 	if(0) {
 		// OLD insert
@@ -299,7 +370,14 @@ function processImportDataToTarget(resp, target, remote, success) {
 			}
 
 			// lưu vào items
-			items.push(itemData);
+			if(typeof remote.source.skip !== 'undefined') {
+				if(!remote.source.skip(itemData)) {
+					items.push(itemData);
+				}
+			} else {
+				items.push(itemData);
+			}
+			
 			
 		});
 		var targetOptions = {

@@ -85,7 +85,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 		if(is_string($exp1)) {
 			$exp1 = array('column', $exp1);
 		}
-		if(is_string($exp2)) {
+		if(!is_array($exp2)) {
 			$exp2 = array('string', $exp2);
 		}
 		return '(' . $this->build($exp1) .'=' . $this->build($exp2) . ')';
