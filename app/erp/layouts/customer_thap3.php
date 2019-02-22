@@ -105,19 +105,21 @@
 							<option value="0">Chưa hoàn thành</option>
 						</select>
 					</div>
-					<div class="form-group">
-						<select ng-model="hoan_thanh_thiet_bi" ng-change="chonHoanThanhThietBi()" class="form-control form-control-sm">
-							<option value="">Hoàn thành thiết bị</option>
-							<option value="1">Đã hoàn thành</option>
-							<option value="0">Chưa hoàn thành</option>
-						</select>
-					</div>
+					
 
 					<div class="form-group">
 						<select ng-model="co_thiet_bi" ng-change="chonCoThietBi()" class="form-control form-control-sm">
 							<option value="">Có thiết bị</option>
 							<option value="1">Có</option>
 							<option value="0">Không</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<select ng-model="hoan_thanh_thiet_bi" ng-change="chonHoanThanhThietBi()" class="form-control form-control-sm">
+							<option value="">Hoàn thành thiết bị</option>
+							<option value="1">Đã hoàn thành</option>
+							<option value="0">Chưa hoàn thành</option>
 						</select>
 					</div>
 
