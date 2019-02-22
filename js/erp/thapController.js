@@ -50,6 +50,9 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		if($scope.co_thiet_bi && jQuery.trim($scope.co_thiet_bi)) {
 			postData.filters.co_thiet_bi = $scope.co_thiet_bi;
 		}
+		if($scope.hoan_thanh_thiet_bi && jQuery.trim($scope.hoan_thanh_thiet_bi)) {
+			postData.filters.hoan_thanh_thiet_bi = $scope.hoan_thanh_thiet_bi;
+		}
 		if($scope.ngay_vang && jQuery.trim($scope.ngay_vang)) {
 			postData.filters.ngay_vang = $scope.ngay_vang;
 		}
@@ -104,6 +107,10 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 	}
 
 	$scope.chonCoThietBi = function() {
+		$scope.search();
+	}
+
+	$scope.chonHoanThanhThietBi = function() {
 		$scope.search();
 	}
 
