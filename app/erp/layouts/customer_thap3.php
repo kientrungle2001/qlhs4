@@ -305,7 +305,7 @@
 							<div class="input-group mb-3">
 							<input ng-model="selectedItem.dinh_kem" class="form-control form-control-sm" />
 									<div class="input-group-append">
-											<span class="btn btn-primary btn-sm" id="basic-addon2">Chọn</span>
+											<a href="#" class="btn btn-primary btn-sm" id="basic-addon2" ng-click="openFileManager(selectedItem, 'dinh_kem'); return false;" onclick="return false;">Chọn</a>
 									</div>
 							</div>	
 						</div>
@@ -393,11 +393,11 @@
 					<div class="row">
 						<div class="col-md-4">
 						<label>Số tiền: <% selectedItem.so_tien | vnprice %></label> 
-						<input readonly ng-model="selectedItem.so_tien" class="form-control form-control-sm" />	
+						<input  ng-model="selectedItem.so_tien" ng-change="tinh_con_thu(selectedItem)" class="form-control form-control-sm" />	
 						</div>
 						<div class="col-md-4">
 						<label>Phí dịch vụ: <% selectedItem.phi_dich_vu | vnprice %></label> 
-						<input ng-model="selectedItem.phi_dich_vu" ng-change="tinh_con_thu(selectedItem)" class="form-control form-control-sm" />	
+						<input readonly ng-model="selectedItem.phi_dich_vu" class="form-control form-control-sm" />	
 						</div>
 						<div class="col-md-4">
 						<label>Chiết khấu: <% selectedItem.chiet_khau | vnprice %></label> 

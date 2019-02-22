@@ -61,6 +61,14 @@ class PzkHomeController extends PzkController{
 			$query .= ' and s.id > ' . @$_REQUEST['id'];
 		}
 		_db()->query($query);
+		$updateClassStudentQuery = "update class_student, student set class_student.studentId = student.id where class_student.code = student.code and class_student.studentId=0 and class_student.code != '' and student.code != ''";
+		_db()->query($updateClassStudentQuery);
+		$resp = array(
+			'success' => true,
+			'errorMsg' => false,
+			'msg' => 'Đã index xong' . (@$_REQUEST['id']? ' từ bản ghi ' . @$_REQUEST['id'] : '')
+		);
+		echo json_encode($resp);
 	}
 	
 	public function testAction() {

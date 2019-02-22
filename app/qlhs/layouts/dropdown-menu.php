@@ -153,9 +153,7 @@
 </ul>
 
 <br />
-<a href="#" onclick="getRemoteDatas(); return false;">Lấy dữ liệu từ các phần mềm online</a>
-<br />
-Đã lấy: <span id="got_count"></span> Bản ghi
+<a href="#" onclick="getRemoteDatas(); return false;">Lấy dữ liệu</a> | Đã lấy: <span id="got_count"></span> Bản ghi | <a href="#" onClick="indexStudentData(); return false;">Index dữ liệu</a>
 <br />
 <script>
 var remotes = [
@@ -416,6 +414,24 @@ function processImportDataToTarget(resp, target, remote, success) {
 			pzk.elements.dg.reload();
 		}
 	}
+}
+
+function indexStudentData() {
+	pzk.ajax({
+		url: '/index.php/Home/updateStudent',
+		data: {
+			id: 9936
+		},
+		success: function(resp) {
+			$.messager.show({
+				title: 'Thành công',
+				msg: resp.msg
+			});
+			if(typeof pzk.elements.dg !== 'undefined') {
+				pzk.elements.dg.reload();
+			}
+		}
+	});
 }
 
 </script>
