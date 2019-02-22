@@ -8,14 +8,17 @@ class PzkUploadController extends PzkController {
 
 		if($fileError == UPLOAD_ERR_OK){
 			//Processes your file here
+			$t = date('YmdHis');
 			move_uploaded_file($_FILES["file"]["tmp_name"],
-			BASE_DIR . "/cache/" . $filename);
+			BASE_DIR . "/cache/upload/".$t .'_' . $filename);
 			$message = 'Upload thành công';
 			echo json_encode(array(
+				'success' => true,
 				'error' => false,
+				'errorMsg' => false,
 				'message' => $message,
-				'file'	=> '/cache/'.$filename,
-				'path' => '/cache/'.$filename	
+				'file'	=> '/cache/upload/'.$t.'_'.$filename,
+				'path' => '/cache/upload/'.$t.'_'.$filename	
 				));
 		}else{
 			switch($fileError){
@@ -44,8 +47,10 @@ class PzkUploadController extends PzkController {
 					break;
 			}
 			echo json_encode(array(
-			'error' => true,
-			'message' => $message
+				'success'	=> false,
+				'error' => true,
+				'errorMsg' => $message,
+				'message' => $message
 			));
 		}
 	}

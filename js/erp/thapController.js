@@ -1,5 +1,5 @@
 
-erpApp.controller('thapController', ['$scope', function($scope) {
+erpApp.controller('thapController', ['$scope', 'fileUpload', function($scope, fileUpload) {
 	$scope.keyword = "";
 	$scope.all_rows = [10, 20, 50, 100, 200];
 
@@ -324,12 +324,12 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 			data: postData,
 			success: function(resp) {
 				var path= resp.file; 
-    var save = document.createElement('a');  
-    save.href = path; 
-    save.download = 'thap.' + postData.export; 
-    save.target = '_blank'; 
-    document.body.appendChild(save);
-    save.click();
+	var save = document.createElement('a');  
+	save.href = path; 
+	save.download = 'thap.' + postData.export; 
+	save.target = '_blank'; 
+	document.body.appendChild(save);
+	save.click();
 				document.body.removeChild(save);
 			}
 		});
@@ -517,10 +517,21 @@ erpApp.controller('thapController', ['$scope', function($scope) {
 		});
 	};
 
-	$scope.openFileManager = function(item, field) {
-
+	$scope.uploadFileDinhKem = function() {
+		var file = $scope.dinh_kem_file;
+		console.log('file is ' );
+		console.dir(file);
+		if(!file) {
+			alert('Chọn file để upload');
+			return false;
+		}
+		var uploadUrl = "/index.php/upload/post";
+		fileUpload.uploadFileToUrl(file, uploadUrl, function(r){
+			var resp = r.data;
+			if(resp.success) {
+				$scope.selectedItem.dinh_kem = resp.path;
+			}
+		});
 	};
 
 }]);
-
-

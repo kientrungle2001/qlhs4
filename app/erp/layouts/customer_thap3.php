@@ -205,7 +205,10 @@
 							<span class="btn btn-info btn-sm"><% item.tinh_trang%></span><br />
 							<a href="javascript:void(0)" ng-click="duplicate(item)">Sao chép</a>
 						</td>
-						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%><br /><% item.co_thiet_bi | co_tb%><br />giao phát: <% item.giao_phat%><br />Ngày vàng: <% item.ngay_vang%></td>
+						<td><% item.mst%><br /><a href="javascript:void(0)" ng-click="edit(item)"> <span class="fa fa-pencil-square-o"></span> <% item.ten_doanh_nghiep%></a><br /><% item.ma_don_vi%><br /><% item.kh_phat_sinh%><br /><% item.note_pkt%><br /><% item.note%><br /><% item.co_hoa_don | co_hd%>
+						<span ng-show="item.co_hoa_don != 0"><br /><% item.hoan_thanh_hoa_don | ht_hd_tb %></span>
+						<span ng-show="item.dinh_kem != ''"><br /><a href="<% item.dinh_kem %>" download><span class="fa fa-download"></span>  Đính kèm</a></span>
+						<br /><% item.co_thiet_bi | co_tb%><br />giao phát: <% item.giao_phat%><br />Ngày vàng: <% item.ngay_vang%></td>
 						<td><% item.thoi_gian_gen | vndate%><br /><% item.so_hop_dong%><br /><% item.so_hoa_don%><br /><% item.hinh_thuc_thanh_toan%><br /><% item.nhan_vien_kinh_doanh%></td>
 						<td><% item.ten_khach_hang%><br /><% item.so_dien_thoai%><br /><% item.email%><br /><% item.dia_chi_vat%><br /><% item.dia_chi_tra%><br /><% item.khu_vuc_cai_dat%>
 						<br />
@@ -312,16 +315,17 @@
 							<input type="text" ng-model="selectedItem.nhan_vien_kinh_doanh" readonly
 									class="form-control form-control-sm d-none" />
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-9">
 							<label>Note:</label> 
 							<textarea ng-model="selectedItem.note" class="form-control form-control-sm"></textarea>	
 						</div>
-						<div class="col-md-3">
-							<label>Đính kèm:</label> 
+						<div class="col-md-12">
+							<label>Đính kèm: <a ng-show="selectedItem.dinh_kem != ''" href="<% selectedItem.dinh_kem %>" download>Tải xuống</a> (Bấm Choose File sau đó bấm nút Upload)</label> 
+							<input type="text" ng-model="selectedItem.dinh_kem" class="form-control form-control-sm" />
 							<div class="input-group mb-3">
-							<input ng-model="selectedItem.dinh_kem" class="form-control form-control-sm" />
+							<input type="file" file-model="dinh_kem_file" class="form-control form-control-sm" />
 									<div class="input-group-append">
-											<a href="#" class="btn btn-primary btn-sm" id="basic-addon2" ng-click="openFileManager(selectedItem, 'dinh_kem'); return false;" onclick="return false;">Chọn</a>
+											<a href="#" class="btn btn-primary btn-sm" id="basic-addon2" ng-click="uploadFileDinhKem()" onclick="return false;">Upload</a>
 									</div>
 							</div>	
 						</div>
@@ -617,7 +621,7 @@
 						<td><input class="form-control form-control-sm" ng-model="item.muc_diem"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.so_tien" ng-change="tinh_con_thu(item)" /></td>
 						<td><input class="form-control form-control-sm" ng-model="item.phi_dich_vu" readonly /></td>
-						<td><input class="form-control form-control-sm" ng-model="item.chiet_khau || 0" ng-change="tinh_con_thu(item)" /></td>
+						<td><input class="form-control form-control-sm" ng-model="item.chiet_khau" ng-init="item.chiet_khau=0" ng-change="tinh_con_thu(item)" /></td>
 						<td><input class="form-control form-control-sm" ng-model="item.con_thu" readonly /></td>
 						<td><input class="form-control form-control-sm" ng-model="item.da_thu"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.hoa_hong"/></td>
