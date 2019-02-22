@@ -599,10 +599,10 @@
 						<td><input class="form-control form-control-sm" ng-model="item.goi_hoa_don"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.nha_cc"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.muc_diem"/></td>
-						<td><input class="form-control form-control-sm" ng-model="item.so_tien"/></td>
-						<td><input class="form-control form-control-sm" ng-model="item.phi_dich_vu"/></td>
-						<td><input class="form-control form-control-sm" ng-model="item.chiet_khau"/></td>
-						<td><input class="form-control form-control-sm" ng-model="item.con_thu"/></td>
+						<td><input class="form-control form-control-sm" ng-model="item.so_tien" ng-change="tinh_con_thu(item)" /></td>
+						<td><input class="form-control form-control-sm" ng-model="item.phi_dich_vu" readonly /></td>
+						<td><input class="form-control form-control-sm" ng-model="item.chiet_khau || 0" ng-change="tinh_con_thu(item)" /></td>
+						<td><input class="form-control form-control-sm" ng-model="item.con_thu" readonly /></td>
 						<td><input class="form-control form-control-sm" ng-model="item.da_thu"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.hoa_hong"/></td>
 						<td><input class="form-control form-control-sm" ng-model="item.doanh_thu"/></td>
