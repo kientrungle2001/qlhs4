@@ -61,6 +61,7 @@ class PzkDtableController extends PzkTableController {
 			'giao_phat',
 			'da_doc',
 			'hoan_thanh_hoa_don',
+			'hoan_thanh_thiet_bi',
 			'dinh_kem'
 		)
 	);
@@ -85,6 +86,7 @@ class PzkDtableController extends PzkTableController {
 				'da_doc' => array('equal', 'da_doc', '?'),
 				'co_hoa_don' => array('equal', 'co_hoa_don', '?'),
 				'hoan_thanh_hoa_don' => array('equal', 'hoan_thanh_hoa_don', '?'),
+				'hoan_thanh_thiet_bi' => array('equal', 'hoan_thanh_thiet_bi', '?'),
 				'co_thiet_bi' => array('equal', 'co_thiet_bi', '?'),
 				'ngay_vang' => array('equal', 'ngay_vang', '?'),
 				'giao_phat' => array('equal', 'giao_phat', '?'),
