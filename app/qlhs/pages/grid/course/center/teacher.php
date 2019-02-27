@@ -14,7 +14,7 @@
 						layout="category-select-list"></form.combobox>
 				<layout.toolbarItem action="searchTeacher()" icon="search" />
 		</hform>
-		<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').val(row.id); searchClasses();  });" icon="sum" />
-		<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').val(''); searchClasses();  });" icon="reload" />
+		<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').pzkVal(row.id); searchClasses();  });" icon="sum" />
+		<layout.toolbarItem action="$dgteacher.detail(function(row) { jQuery('#searchTeacher').pzkVal(''); searchClasses();  });" icon="reload" />
 	</layout.toolbar>
 </dg.dataGrid>

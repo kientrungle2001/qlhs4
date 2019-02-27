@@ -39,8 +39,9 @@ class PzkDtableController extends PzkTableController {
 		),
 		'teacher' => array(
 			'table' => '`teacher` as t
-				left join `subject` as s on t.subjectId = s.id',
-			'fields' => 't.*, s.name as subjectName'
+				left join `subject` as s on t.subjectId = s.id
+				left join `department` as d on t.departmentId = d.id',
+			'fields' => 't.*, s.name as subjectName, d.name as departmentName'
 		),
 		'teaching' => array(
 			'table' => '`teaching` as t 
@@ -148,18 +149,24 @@ class PzkDtableController extends PzkTableController {
 					left join teacher as t on ah.teacherId = t.id
 					left join employee as e on ah.employeeId = e.id',
 			'fields' => 'ah.*, a.name, a.price, t.name as teacherName, e.name as employeeName, s.name as softwareName'
+		),
+		'room' => array(
+			'table' => 'room as r
+					left join center as c on r.centerId = c.id',
+			'fields' => 'r.*, c.name as centerName'
 		)
 	);
 	
 	public $inserts = array(
 		'student' => array('name', 'phone', 'school', 'birthDate', 'address', 'parentName', 
-		'startStudyDate', 'endStudyDate', 'note', 'color', 'fontStyle', 'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code'),
+		'startStudyDate', 'endStudyDate', 'note', 'color', 'fontStyle', 
+		'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code', 'adviceNote', 'adviceStatus'),
 		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code', 'feeType', 'classed'),
 		'class_student' => array('classId', 'studentId', 'startClassDate', 'endClassDate', 'note', 'code'),
 		'class_teacher' => array('classId', 'teacherId',  'note', 'status', 'role'),
-		'room' => array('name', 'size', 'status', 'note'),
+		'room' => array('name', 'size', 'status', 'note', 'centerId'),
 		'subject' => array('name', 'online', 'startDate', 'status', 'code'),
-		'teacher' => array('name', 'phone', 'address', 'school', 'salary', 'password', 'subjectId', 'code'),
+		'teacher' => array('name', 'phone', 'address', 'school', 'salary', 'password', 'subjectId', 'departmentId', 'code', 'type'),
 		'employee' => array('name', 'phone', 'address', 'code', 'startDate', 'endDate', 'departmentId', 'status'),
 		'employee_absent' => array('employeeId', 'startDate', 'endDate', 'total', 'reason'),
 		'partner' => array('name', 'phone', 'address', 'code', 'startDate', 'endDate', 'note', 'status'),
@@ -275,6 +282,7 @@ class PzkDtableController extends PzkTableController {
 		'teacher_filter' => array(
 			'where' => array(
 				'keyword' => array('sql', "(t.name like '%?%' or t.code like '%?%')"),
+				'type' => array('equal', array('column', 't', 'type'), '?'),
 			)
 		),
 		'employee_filter' => array(

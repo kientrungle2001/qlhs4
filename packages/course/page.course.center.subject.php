@@ -3,7 +3,7 @@
 	<dg.dataGridItem field="name" width="140">Môn học</dg.dataGridItem>
 	
 	<layout.toolbar id="dgsubject_toolbar" style="display: none;">
-		<layout.toolbarItem icon="sum" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').val(row.id); searchClasses(); jQuery('#searchTeacherSubject').val(row.id); searchTeacher(); });" />
-		<layout.toolbarItem icon="reload" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').val(''); searchClasses(); jQuery('#searchTeacherSubject').val(''); searchTeacher(); });" />	
+		<layout.toolbarItem icon="sum" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').pzkVal(row.id); searchClasses(); jQuery('#searchTeacherSubject').pzkVal(row.id); searchTeacher(); });" />
+		<layout.toolbarItem icon="reload" action="$dgsubject.detail(function(row) { jQuery('#searchSubject').pzkVal(''); searchClasses(); jQuery('#searchTeacherSubject').pzkVal(''); searchTeacher(); });" />	
 	</layout.toolbar>	
 </dg.dataGrid>

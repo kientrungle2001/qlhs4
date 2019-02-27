@@ -12,13 +12,18 @@
 		<layout.toolbarItem action="$dg.edit()" icon="edit" />
 		<layout.toolbarItem action="$dg.del()" icon="remove" />
 	</layout.toolbar>
-	<wdw.dialog gridId="dg" width="700px" height="auto" title="Kế hoạch">
+	<wdw.dialog gridId="dg" width="700px" height="auto" title="Trung tâm">
 		<frm.form gridId="dg">
 			<frm.formItem type="hidden" name="id" required="false" label="" />
-			<frm.formItem name="name" required="true" validatebox="true" label="Tên kế hoạch" />
+			<frm.formItem name="name" required="true" validatebox="true" label="Tên trung tâm" />
 			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
 			<frm.formItem name="address" required="true" validatebox="true" label="Địa chỉ" />
-			<frm.formItem name="status" label="Trạng thái" />
+			<frm.formItem type="user-defined" name="status" label="Trạng thái">
+				<form.selectbox name="status" label="Trạng thái">
+					<option value="0">Không hoạt động</option>
+					<option value="1">Đang hoạt động</option>
+				</form.selectbox>
+			</frm.formItem>
 
 		</frm.form>
 	</wdw.dialog>

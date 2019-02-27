@@ -3,7 +3,7 @@
 	<dg.dataGridItem field="name" width="140">Trình độ</dg.dataGridItem>
 	
 	<layout.toolbar id="dglevel_toolbar" style="display: none;">
-		<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').val(row.id); searchClasses(); jQuery('#searchTeacherLevel').val(row.id); searchTeacher(); });" icon="sum" />
-		<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').val(''); searchClasses(); jQuery('#searchTeacherLevel').val(''); searchTeacher(); });" icon="reload" />
+		<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').pzkVal(row.id); searchClasses(); jQuery('#searchTeacherLevel').pzkVal(row.id); searchTeacher(); });" icon="sum" />
+		<layout.toolbarItem action="$dglevel.detail(function(row) { jQuery('#searchLevel').pzkVal(''); searchClasses(); jQuery('#searchTeacherLevel').pzkVal(''); searchTeacher(); });" icon="reload" />
 	</layout.toolbar>
 </dg.dataGrid>

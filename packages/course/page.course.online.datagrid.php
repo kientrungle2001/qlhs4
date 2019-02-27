@@ -37,9 +37,9 @@
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail(function(row) { 
-				jQuery('#searchClass2').val(row.id); 
+				jQuery('#searchClass2').pzkVal(row.id); 
 				$dg2.search({'fields': {'classId' : '#searchClass2' }});
-				jQuery('#searchClass3').val(row.id); 
+				jQuery('#searchClass3').pzkVal(row.id); 
 				$dg3.search({'fields': {'classId' : '#searchClass3' }});				
 			});" icon="sum" />
 		</hform>

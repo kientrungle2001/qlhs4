@@ -39,10 +39,16 @@
 			
 				<dg.dataGrid id="dg_online_student" title="Học sinh trực tuyến"
 					table="student" width="400px" height="450px" nowrap="false"
+					multiple="true"
 					defaultFilters='{"online": 1}'>
 					<dg.dataGridItem field="id" width="50">Id</dg.dataGridItem>
 					<dg.dataGridItem field="name" width="180" formatter="onlineName">Học sinh</dg.dataGridItem>
 					<dg.dataGridItem field="currentClassNames" width="180" formatter="adviceNote">Phần mềm</dg.dataGridItem>
+					<layout.toolbar id="dg_online_student_toolbar">
+						<hform id="dg_online_student_search">
+							<layout.toolbarItem action="$dg_online_student.del()" icon="remove" />
+						</hform>
+					</layout.toolbar>
 				</dg.dataGrid>
 			</easyui.layout.tabpanel>
 			<easyui.layout.tabpanel title="Thêm tư vấn">
@@ -89,11 +95,52 @@
 				return row.name + '<br />' + row.code + '<br />' + row.phone + '<br />' + scheduleDateFormat(row.startStudyDate); 
 			}
 			function adviceNote(value, row, index) {
-				return row.currentClassNames + '<br />' + row.assignName + '<br />' + row.note + '<br /><a href="#" onClick="showAdviceDialog('+row.id+'); return false;">Tạo tư vấn</a>';
+				return row.currentClassNames 
+				+ '<br />' 
+				+ row.assignName 
+				+ '<br />' 
+				+ row.adviceNote 
+				+ '<br />' 
+				+ adviceStatusFormatter(row.adviceStatus) 
+				+ '<br /><a href="#" onClick="showAdviceDialog('+row.id+'); return false;">Tạo tư vấn</a>'
+				+ '<br /><a href="#" onClick="clearAdviceStatus('+row.id+'); return false;">Clear tư vấn</a>';
 			}
 			function showAdviceDialog(studentId) {
 				$('#add_advice_studentId').val(studentId);
 				$('#advice_dialog').dialog('open');
+			}
+			function addAdviceSchedule() {
+				var data = $('#add_advice_schedule').serializeForm();
+				data.type = 1;
+				pzk.db.add('test_schedule', data, function(resp){
+					
+					pzk.db.update('student', {
+						id: data.studentId,
+						adviceStatus: data.status,
+						adviceNote: data.note
+					}, function(resp){
+						pzk.elements.dg.reload();
+						pzk.elements.dg_online_student.reload();
+						$.messager.show({
+							title: 'Thành công',
+							msg: 'Đã tạo tư vấn'
+						});
+						$('#advice_dialog').dialog('close');
+					});
+				});
+			}
+			function clearAdviceStatus(studentId) {
+				pzk.db.update('student', {
+					id: studentId,
+					adviceStatus: 0,
+					adviceNote: ''
+				}, function(resp) {
+					pzk.elements.dg_online_student.reload();
+					$.messager.show({
+						title: 'Thành công',
+						msg: 'Đã clear'
+					});
+				});
 			}
 			
 		]]>	
@@ -105,6 +152,8 @@
 	<div style="float: left; width: 450px; margin-left: 15px;">
 		<dg.dataGrid id="dg" title="Tư vấn sử dụng phần mềm" scriptable="true" 
 				table="test_schedule" width="450px" height="450px" nowrap="false"
+				onAdd="test_schedule_onAdd"
+				onEdit="test_schedule_onAdd"
 				rowStyler="adviceRowStyler"
 				onClickRow="testScheduleClickRow"
 				noClickRow="true" defaultFilters='{"type": 1}'>
@@ -131,13 +180,14 @@
 					<layout.toolbarItem action="$dg.search({'fields': {'classId' : '#searchClass', 'studentId': '#searchStudent' }})" icon="search" />
 					<layout.toolbarItem action="$dg.add(); $studentSelector.resetValue();$courseSelector.resetValue();" icon="add" />
 					<layout.toolbarItem action="$dg.edit(); $studentSelector.loadValue();$courseSelector.loadValue();" icon="edit" />
-					<layout.toolbarItem action="$dg.del()" icon="remove" />
+					<layout.toolbarItem action="$dg.del(function() {
+						clearAdviceStatus($dg.getSelected('studentId'));
+					})" icon="remove" />
 				</hform>
 			</layout.toolbar>
 			<wdw.dialog gridId="dg" width="700px" height="auto" title="Phần mềm">
 				<frm.form gridId="dg">
 					<frm.formItem type="hidden" name="id" required="false" label="" />
-					<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
 					<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
 					<frm.formItem 
 						type="user-defined"
@@ -196,10 +246,8 @@
 				Người tư vấn: <span id="detail_adviceName" class="pzk-field-adviceName" /><br />
 				Trạng thái: <span id="detail_status" /><br />
 				---------------<br />
-				Tiêu đề: <span id="detail_title" /><br />
-				Ghi chú: <span id="detail_note" /><br />
+				Ghi chú: <span id="detail_note" class="pzk-field-note" /><br />
 				---------------<br />
-				Lịch sử tư vấn: <br />
 			</div>
 		</easyui.layout.panel>
 	</div>
@@ -410,6 +458,9 @@
 			}
 		});
 	}
+
+	
+
 	function deleteStudent() {
 		var schedule = pzk.elements.dg.getSelected();
 		if(!schedule) {
@@ -440,6 +491,18 @@
 				});
 			}
 		});
+	}
+
+	function test_schedule_onAdd(data) {
+		if(data.studentId != '0' && data.studentId != '') {
+			pzk.db.update('student', {
+				id: data.studentId,
+				adviceStatus: data.status,
+				adviceNote: data.note
+			}, function(resp) {
+				pzk.elements.dg_online_student.reload();
+			});
+		}
 	}
 	</script>
 </div>

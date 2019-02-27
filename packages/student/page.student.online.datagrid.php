@@ -16,6 +16,25 @@ if(!isset($defaultClassFilters)) {
 <![CDATA[
 	var studentDefaultFilters = <?php echo json_encode($filters); ?>;
 	var studentDefaultAdd = <?php echo json_encode($defaultAdd); ?>;
+	function studentInfo(value, item, index) {
+		return [item.name, item.code, item.phone, item.birthDate].join('<br />');
+	}
+	function serviceInfo(value, item, index) {
+		return [item.subjectNames, item.currentClassNames, item.startStudyDate].join('<br />');
+	}
+	function adviceStatusFormatter(value,row,index) {
+		switch(value) {
+			case '-2': return 'Đang suy nghĩ';
+			case '-1': return 'Từ chối';
+			case '0': return 'Chưa gọi';
+			case '1': return 'Đã gọi';
+			case '2': return 'Đã dùng thử';
+			case '3': return 'Đã sử dụng';
+		}
+	}
+	function noteInfo(value, item, index) {
+		return [item.note, item.adviceNote, adviceStatusFormatter(item.adviceStatus)].join('<br />');
+	}
 ]]>
 </script>
 <dg.dataGrid id="dg" title="Quản lý học sinh" scriptable="true" layout="easyui/datagrid/datagrid" 
@@ -23,15 +42,20 @@ if(!isset($defaultClassFilters)) {
 		table="student" width="600px" height="450px"
 		rowStyler="studentRowStyler" defaultFilters='<?php echo json_encode($filters)?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
-	<dg.dataGridItem field="name" width="140">Tên học sinh</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="140" formatter="studentInfo">Tên học sinh</dg.dataGridItem>
+	<!--
 	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
 	<dg.dataGridItem field="phone" width="80">Số điện thoại</dg.dataGridItem>
+	-->
 	<!--dg.dataGridItem field="school" width="120">Trường</dg.dataGridItem-->
+	<dg.dataGridItem field="subjectNames" width="100" formatter="serviceInfo">Phần mềm</dg.dataGridItem>
+	<!--
 	<dg.dataGridItem field="subjectNames" width="100">Phần mềm</dg.dataGridItem>
 	<dg.dataGridItem field="currentClassNames" width="100">Dịch vụ</dg.dataGridItem>
+	-->
 	<!--dg.dataGridItem field="classNames" width="100">Lớp Đã Học</dg.dataGridItem-->
-	<dg.dataGridItem field="startStudyDate" width="100">Ngày vào học</dg.dataGridItem>
-	<dg.dataGridItem field="note" width="140">Ghi chú</dg.dataGridItem>
+	<!--dg.dataGridItem field="startStudyDate" width="100">Ngày vào học</dg.dataGridItem-->
+	<dg.dataGridItem field="note" width="140" formatter="noteInfo">Ghi chú</dg.dataGridItem>
 	<dg.dataGridItem field="assignName" width="140">Phụ trách</dg.dataGridItem>
 	<!-- Toolbar cho danh sách học sinh -->
 	<layout.toolbar id="dg_toolbar">

@@ -1,10 +1,10 @@
 <?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
 <div>
-	<div style="float: left; width: 350px;">
+	<div style="float: left; width: 550px;">
 		<?php $defaultFilters = array('type' => 0); ?>
 		{include grid/teacher/datagrid}
 	</div>
-	<div style="float: left; width: 850px;">
+	<div style="float: left; width: 650px;">
 		<div class="easyui-tabs">
 			<div title="Lớp học">
 				{include grid/teacher/classes}

@@ -39,8 +39,7 @@ class PzkEduStudentSelector extends PzkObject {
 		<dg.dataGridItem field="assignName" width="140">Phụ trách</dg.dataGridItem>
 		<layout.toolbar id="dg_student_'.$this->id.'_toolbar">
 			<hform id="dg_search_'.$this->id.'" onsubmit="pzk.elements.'.$this->id.'.searchStudent(); return false;">
-				<strong>Tên học sinh: </strong><form.textField width="120px" name="name" id="searchName_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
-				<strong> SĐT: </strong><form.textField width="80px" name="phone" id="searchPhone_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
+				<strong>Tìm kiếm: </strong><form.textField width="120px" name="keyword" id="searchKeyword_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
 				<edu.courseSelector id="searchClassIds_'.$this->id.'" 
 						name="classIds" onChange="pzk.elements.'.$this->id.'.searchStudent();"
 						defaultFilters=\''.@$this->defaultFilters.'\' />
@@ -48,55 +47,61 @@ class PzkEduStudentSelector extends PzkObject {
 					sql="'.$payment_period_sql.'" layout="category-select-list" onChange="pzk.elements.'.$this->id.'.searchStudent();"></form.combobox>
 				<form.combobox label="Chọn kỳ chưa thanh toán" id="searchnotlikePeriod_'.$this->id.'" name="notlikeperiodId"
 					sql="'.$payment_period_sql.'" layout="category-select-list" onChange="pzk.elements.'.$this->id.'.searchStudent();"></form.combobox>
-				<select name="color" id="searchColor_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Chọn màu</option>
+				<form.selectbox name="color" id="searchColor_'.$this->id.'"
+						label="Chọn màu"
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="red">Đỏ</option>
 					<option value="blue">Xanh da trời</option>
 					<option value="green">Xanh lá cây</option>
 					<option value="yellow">Vàng</option>
 					<option value="purple">Tím</option>
 					<option value="grey">Xám</option>
-				</select>
-				<select name="fontStyle" id="searchFontStyle_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Chọn kiểu</option>
+				</form.selectbox>
+				<form.selectbox name="fontStyle" id="searchFontStyle_'.$this->id.'" 
+						label="Chọn kiểu"
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="bold">Đậm</option>
 					<option value="italic">Nghiêng</option>
 					<option value="underline">Gạch chân</option>
-				</select>
-				<form.combobox label="Người phụ trách" id="searchAssignId_'.$this->id.'" name="assignId"
-					sql="'.$teacher_sql.'" onChange="pzk.elements.'.$this->id.'.searchStudent();"
-					layout="category-select-list"></form.combobox>
-				<select name="online" id="searchOnline_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Học tại</option>
+				</form.selectbox>
+				<form.selectbox label="Người phụ trách" id="searchAssignId_'.$this->id.'" name="assignId"
+					sql="'.$teacher_sql.'" onChange="pzk.elements.'.$this->id.'.searchStudent();" />
+				<form.selectbox name="online" id="searchOnline_'.$this->id.'" 
+						label="Học tại"
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="0">Trung tâm</option>
 					<option value="1">Trực tuyến</option>
-				</select>
-				<select name="classed" id="searchClassed_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Xếp lớp</option>
+				</form.selectbox>
+				<form.selectbox name="classed" id="searchClassed_'.$this->id.'" 
+						label="Xếp lớp"
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="1">Đã xếp lớp</option>
 					<option value="0">Chờ xếp lớp</option>
 					<option value="-1">Thi đầu vào</option>
-				</select>
-				<select name="type" id="searchType_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Phân loại</option>
+				</form.selectbox>
+				<form.selectbox name="type" id="searchType_'.$this->id.'"
+						label="Phân loại" 
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="1">Đang học</option>
 					<option value="0">Tiềm năng</option>
 					<option value="2">Lâu năm</option>
-				</select>
-				<select name="rating" id="searchRating_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Xếp hạng</option>
+				</form.selectbox>
+				<form.selectbox name="rating" id="searchRating_'.$this->id.'" 
+						label="Xếp hạng"
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="0">Chưa xếp hạng</option>
 					<option value="1">Kém</option>
 					<option value="2">Trung Bình</option>
 					<option value="3">Khá</option>
 					<option value="4">Giỏi</option>
 					<option value="5">Xuất Sắc</option>
-				</select>
-				<select name="status" id="searchStatus_'.$this->id.'" onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="">Trạng thái</option>
+				</form.selectbox>
+				<form.selectbox name="status" id="searchStatus_'.$this->id.'"
+						label="Trạng thái" 
+						onChange="pzk.elements.'.$this->id.'.searchStudent();">
 					<option value="0">Đang học</option>
 					<option value="1">Dừng học</option>
-				</select>
+				</form.selectbox>
 				<input type="submit" style="display: none;" value="Tìm" />
 				<layout.toolbarItem id="searchButton_'.$this->id.'" action="$'.$this->id.'.searchStudent();" icon="search" />
 				<layout.toolbarItem action="$dg_student_'.$this->id.'.detail(function(row) { 

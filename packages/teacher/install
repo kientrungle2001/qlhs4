@@ -10,3 +10,5 @@ copy(PKG_DIR . DS . 'page.teacher.student_order.php', BASE_DIR . '/app/qlhs/page
 copy(PKG_DIR . DS . 'page.teacher.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/schedule.php');
 copy(PKG_DIR . DS . 'page.teacher.tutor.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/tutor.php');
 copy(PKG_DIR . DS . 'page.teacher.lecturer.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/lecturer.php');
+copy(PKG_DIR . DS . 'page.teacher.employee.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/employee.php');
+copy(PKG_DIR . DS . 'page.teacher.partner.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/partner.php');

@@ -121,10 +121,13 @@ Hiển thị cấu hình cho bảng con
 		var config = that.getExportConfig(that.table);
 		var fields = that.getFields(that.table);
 		that.renderMainFields(that.table, fields);
-		config.childTables.forEach(function(childConfig){
-			var childFields = that.getFields(childConfig.table);
-			that.renderFields(childConfig.table, childFields);
-		});
+		if(config && config.childTables) {
+			config.childTables.forEach(function(childConfig){
+				var childFields = that.getFields(childConfig.table);
+				that.renderFields(childConfig.table, childFields);
+			});
+		}
+		
 	},
 	getExportConfig: function() {
 		if(!this._config) {

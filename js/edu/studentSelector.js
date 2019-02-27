@@ -79,8 +79,9 @@ PzkEduStudentSelector = PzkObj.pzkExt({
 	searchStudent: function() {
 		pzk.elements['dg_student_'+this.id].search({
 			'fields': {
-				'name' : '#searchName_'+this.id, 'classIds' : '#searchClassIds_'+this.id, 
-				'phone': '#searchPhone_'+this.id, 'periodId' : '#searchPeriod_'+this.id, 
+				'keyword' : '#searchKeyword_'+this.id, 
+				'classIds' : '#searchClassIds_'+this.id, 
+				'periodId' : '#searchPeriod_'+this.id, 
 				'notlikeperiodId': '#searchnotlikePeriod_'+this.id,
 				'subjectIds': '#searchSubject_'+this.id,
 				'color': '#searchColor_'+this.id,

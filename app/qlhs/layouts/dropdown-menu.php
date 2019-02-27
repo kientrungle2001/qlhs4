@@ -53,10 +53,14 @@
 		</ul>	
 	</li>
 	<li>
-		<a href="{url /teacher}">Giáo viên</a>
+		<a href="{url /teacher}">Nhân sự</a>
 		<ul>
 			<li><a href="{url /teacher/lecturer}">Giảng viên</a></li>
 			<li><a href="{url /teacher/tutor}">Trợ giảng</a></li>
+			<li><a href="{url /teacher/employee}">Nhân viên</a></li>
+			<li><a href="{url /teacher/partner}">Đối tác</a></li>
+			<li><a href="{url /department}">Phòng ban</a></li>
+			<li><a href="{url /employee/absent}">Ngày nghỉ</a></li>
 			<li><a href="{url /teacher/billing}">Bảng lương</a></li>
 			<li><a href="{url /teacher/create_billing}">Tạo HĐ Chi 1 mục</a></li>
 			<li><a href="{url /teacher/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
@@ -79,6 +83,7 @@
 			</li>
 		</ul>
 	</li>
+	<!--
 	<li>
 		<a href="{url /employee}">Nhân viên</a>
 		<ul>
@@ -95,6 +100,7 @@
 			<li><a href="{url /employee/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
 		</ul>
 	</li>
+	-->
 	<li>
 		<a href="{url /partner}">Đối tác</a>
 		<ul>
@@ -163,6 +169,7 @@ var remotes = [
 		url: 'http://api2.nextnobels.com/coreusers',
 		type: 'get',
 		dataType: 'json',
+		async: false,
 		data: {
 			sort: 'id asc',
 			limit: 50,
@@ -177,6 +184,7 @@ var remotes = [
 				url: '/index.php/dtable/lastid?table=student',
 				type: 'post',
 				dataType: 'json',
+				async: false,
 				data: {
 					lastid: lastid || ''
 				},
@@ -199,6 +207,7 @@ var remotes = [
 		url: '/index.php/Dtable/addmul?table=student',
 		type: 'post',
 		dataType: 'json',
+		async: false,
 		data: {
 			online: 1,
 			status: 0
@@ -209,12 +218,20 @@ var remotes = [
 			email: 'email',
 			code: 'username',
 			birthDate: 'birthday',
+			adviceNote: 'note',
 			birthYear: function(field, item) {
 				return item.birthday.substr(0, 4);
 			},
 			startStudyDate: function(field, item) {
 				var registered = item.registered;
 				return registered.substr(0, 10);
+			},
+			adviceStatus: function(field, item) {
+				var note = item.note;
+				if($.trim(note) !== '') {
+					return 1;
+				}
+				return 0;
 			}
 		}
 	}
@@ -226,6 +243,7 @@ var remotes = [
 		url: 'http://api2.nextnobels.com/ecommercepayments',
 		type: 'get',
 		dataType: 'json',
+		async: false,
 		data: {
 			sort: 'id asc',
 			limit: 50,
@@ -240,6 +258,7 @@ var remotes = [
 				url: '/index.php/dtable/lastid?table=class_student',
 				type: 'post',
 				dataType: 'json',
+				async: false,
 				data: {
 					lastid: lastid || ''
 				},
@@ -262,6 +281,7 @@ var remotes = [
 		url: '/index.php/Dtable/addmul?table=class_student',
 		type: 'post',
 		dataType: 'json',
+		async: false,
 		data: {
 			studentId: 0
 		},
@@ -420,7 +440,7 @@ function indexStudentData() {
 	pzk.ajax({
 		url: '/index.php/Home/updateStudent',
 		data: {
-			id: 9936
+			id: 9442
 		},
 		success: function(resp) {
 			$.messager.show({

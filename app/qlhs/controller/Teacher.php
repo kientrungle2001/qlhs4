@@ -9,6 +9,12 @@ class PzkTeacherController extends PzkBaseController {
 	public function tutorAction() {
 		$this->viewGrid('teacher/tutor');
 	}
+	public function employeeAction() {
+		$this->viewGrid('teacher/employee');
+	}
+	public function partnerAction() {
+		$this->viewGrid('teacher/partner');
+	}
 	
 	public function loginAction() {
 		$page = $this->parse('login');

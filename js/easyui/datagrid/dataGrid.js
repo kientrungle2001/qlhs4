@@ -18,6 +18,17 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	 */
 	addMode: function() {
 		this.url = BASE_URL + '/index.php'+this.controller+'/add?table=' + this.table;
+		this.saveMode = 'add';
+		return this;
+	},
+	/**
+	 * Chuyển chế độ sang chế độ sửa. Thường dùng khi bấm nút sửa
+	 * @example pzk.elements.dg.editMode().edit()
+	 * @returns PzkEasyuiDatagridDataGrid
+	 */
+	editMode: function() {
+		this.url = BASE_URL + '/index.php'+this.controller+'/edit?table=' + this.table;
+		this.saveMode = 'edit';
 		return this;
 	},
 	/**
@@ -25,6 +36,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	 * Đặt lại url thêm dữ liệu
 	 */
 	add: function(data) {
+		this.saveMode = 'add';
 		$('#dlg-' + this.id).dialog('open');
 		$('#fm-' + this.id).form('clear');
 
@@ -61,6 +73,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	 * Đặt lại url sửa dữ liệu
 	 */
 	edit: function() {
+		this.saveMode = 'edit';
 		var row = $('#' + this.id).datagrid('getSelected');
 		if (row){
 			$('#dlg-' + this.id).dialog('open');
@@ -92,7 +105,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	/**
 	 * Xóa các bản ghi đang chọn
 	 */
-	del: function() {
+	del: function(success) {
 		var that = this;
 		if(that.singleSelect == 'false' || that.singleSelect == false) {
 			var rows = $('#' + this.id).datagrid('getSelections');
@@ -105,6 +118,9 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 						}
 						$.post(BASE_URL + '/index.php'+that.controller+'/del?table=' + that.table,{ids:ids},function(result){
 							if (result.success){
+								if(typeof success !== 'undefined') {
+									success(result);
+								}
 								$('#' + that.id).datagrid('reload');    // reload the user data
 								$.messager.show({    // show error message
 									title: 'Success',
@@ -129,6 +145,9 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 				if (r){
 					$.post(BASE_URL + '/index.php'+that.controller+'/del?table=' + that.table,{id:row.id},function(result){
 						if (result.success){
+							if(typeof success !== 'undefined') {
+								success(result);
+							}
 							$('#' + that.id).datagrid('reload');    // reload the user data
 						} else {
 							$.messager.show({    // show error message
@@ -145,7 +164,6 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	 * Lưu dữ liệu trên form thêm hoặc form sửa
 	 */
 	save: function(formId) {
-		console.log('save');
 		var that = this;
 		var dialogMode = true;
 		if(typeof formId != 'undefined') {
@@ -178,6 +196,20 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 							msg: result.errorMsg
 						});
 					} else {
+						if(that.saveMode == 'add') {
+							if(typeof that.onAdd !== 'undefined') {
+								if(typeof window[that.onAdd] !== 'undefined') {
+									window[that.onAdd](result.data);
+								}
+							}
+						}
+						if(that.saveMode == 'edit') {
+							if(typeof that.onEdit !== 'undefined') {
+								if(typeof window[that.onEdit] !== 'undefined') {
+									window[that.onEdit](result.data);
+								}
+							}
+						}
 						if(dialogMode)
 							$('#dlg-' + that.id).dialog('close');        // close the dialog
 						$('#' + that.id).datagrid('reload');    // reload the user data

@@ -1,5 +1,5 @@
 <dg.dataGrid id="dg2" title="Quản lý lịch học" table="schedule" 
-		width="210px" height="350px" singleSelect="false" noClickRow="true"
+		width="210px" height="350px" singleSelect="false" noClickRow="true" scriptable="true"
 		rownumbers="false" pageSize="50">
 	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 	<dg.dataGridItem field="className" width="120">Tên lớp</dg.dataGridItem>

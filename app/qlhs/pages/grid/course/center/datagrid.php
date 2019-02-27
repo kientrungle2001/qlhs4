@@ -5,68 +5,81 @@ endif;
 	?>
 <script>
 classesDefaultAdd = <?php echo json_encode($defaultFilters);?>;
+function course_dateInfo(value, item, index) {
+	return [item.startDate, item.endDate].join('<br />');
+}
+function course_classInfo(value, item, index) {
+	return [item.name, item.code].join('<br />');
+}
+function course_teachingInfo(value, item, index) {
+	return [item.subjectName, 'Lớp ' + item.level, item.teacherName].join('<br />');
+}
+function course_learningInfo(value, item, index) {
+	return [item.amount, item.status == '1' ? 'Đang học': 'Dừng học'].join('<br />');
+}
 </script>
-<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" 
+<dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" nowrap="false" 
 		table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" 
 		defaultFilters='<?php echo json_encode($defaultFilters); ?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
-	<dg.dataGridItem field="name" width="120">Tên lớp</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="160" formatter="course_classInfo">Tên lớp</dg.dataGridItem>
+	<!--
 	<dg.dataGridItem field="code" width="80">Mã</dg.dataGridItem>
-	<dg.dataGridItem field="subjectName" width="120">Môn học</dg.dataGridItem>
+	-->
+	<dg.dataGridItem field="subjectName" width="120" formatter="course_teachingInfo">Giảng dạy</dg.dataGridItem>
 	<!--dg.dataGridItem field="level" width="120">Trình độ</dg.dataGridItem-->
-	<dg.dataGridItem field="teacherName" width="120">Giáo viên</dg.dataGridItem>
+	<!--dg.dataGridItem field="teacherName" width="120">Giáo viên</dg.dataGridItem-->
 	<!--dg.dataGridItem field="teacher2Name" width="120">Giáo viên 2</dg.dataGridItem-->
-	<dg.dataGridItem field="roomName" width="100">Phòng</dg.dataGridItem>
-	<dg.dataGridItem field="startDate" width="160">Ngày bắt đầu</dg.dataGridItem>
+	<dg.dataGridItem field="roomName" width="60">Phòng</dg.dataGridItem>
+	<dg.dataGridItem field="startDate" width="160" formatter="course_dateInfo">Khoảng thời gian</dg.dataGridItem>
+	<!--
 	<dg.dataGridItem field="endDate" width="160">Ngày kết thúc</dg.dataGridItem>
-	<dg.dataGridItem field="amount" width="100">Học phí</dg.dataGridItem>
-	<dg.dataGridItem field="status" width="40">TT</dg.dataGridItem>
+	-->
+	<dg.dataGridItem field="amount" width="100" formatter="course_learningInfo">Học phí</dg.dataGridItem>
 	
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search">
-			<form.combobox 
+			<form.selectbox onChange="searchClasses()" 
 					id="searchTeacher" name="teacherId"
 					label="Chọn giáo viên"
 					sql="select id as value, 
-							name as label from `teacher` order by name ASC"
-					layout="category-select-list"></form.combobox>
-			<form.combobox 
+							name as label from `teacher` order by name ASC" />
+			<form.selectbox onChange="searchClasses()" 
 					id="searchSubject" name="subjectId"
 					label="Chọn môn học"
-					sql="{subject_center_sql}"
-					layout="category-select-list"></form.combobox>
-			<form.combobox 
+					sql="{subject_center_sql}" />
+			<form.selectbox onChange="searchClasses()" 
 					id="searchLevel" name="level"
 					label="Chọn khối"
-					sql="select distinct(level) as value, level as label from classes order by label asc"
-					layout="category-select-list"></form.combobox>
-			<form.combobox 
+					sql="select distinct(level) as value, level as label from classes order by label asc" />
+			<form.selectbox onChange="searchClasses()"
 					id="searchStatus" name="status"
-					label="Chọn trạng thái"
-					sql="select distinct(status) as value, status as label from classes order by label asc"
-					layout="category-select-list"></form.combobox>
+					label="Chọn trạng thái">
+						<option value="1">Đang học</option>
+						<option value="0">Dừng học</option>
+					</form.selectbox>
 			<layout.toolbarItem action="searchClasses()" icon="search" />
 			<layout.toolbarItem action="$dg.add(classesDefaultAdd)" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail(function(row) { 
-				jQuery('#searchClass2').val(row.id); 
+				jQuery('#searchClass2').pzkVal(row.id); 
 				$dg2.search({'fields': {'classId' : '#searchClass2' }});
-				jQuery('#searchClass3').val(row.id); 
+				jQuery('#searchClass3').pzkVal(row.id); 
 				$dg3.search({'fields': {'classId' : '#searchClass3' }});
 				$dg_student.filters({
 					classIds: row.id
 				});
 				$dg_student_order.filters({
 					classId: row.id,
-					periodId: jQuery('#searchStudentOrderPeriod').val()
+					periodId: jQuery('#searchStudentOrderPeriod').pzkVal()
 				});
 				$dg_test_class.filters({
 					classId: row.id
 				});
 				$dg_test_student_mark.filters({
 					classId: row.id,
-					testId: jQuery('#searchTestStudentMarkTestId').val() 
+					testId: jQuery('#searchTestStudentMarkTestId').pzkVal() 
 				});
 				$dg_class_teacher.filters({
 					classId: row.id
@@ -110,16 +123,16 @@ classesDefaultAdd = <?php echo json_encode($defaultFilters);?>;
 							layout="category-select-list"></form.combobox>
 			</frm.formItem>
 			<frm.formItem type="user-defined" name="online" required="false" label="Trực tuyến">
-				<select name="online">
+				<form.selectbox name="online">
 					<option value="0">Trung tâm</option>
 					<option value="1">Trực tuyến</option>
-				</select>
+				</form.selectbox>
 			</frm.formItem>
 			<frm.formItem type="user-defined" name="classed" required="false" label="Xếp lớp">
-				<select name="classed">
+				<form.selectbox name="classed">
 					<option value="1">Đã xếp lớp</option>
 					<option value="-1">Chờ xếp lớp</option>
-				</select>
+				</form.selectbox>
 			</frm.formItem>
 			<frm.formItem name="startDate" type="date" required="false" label="Ngày bắt đầu">
 			</frm.formItem>
@@ -128,10 +141,10 @@ classesDefaultAdd = <?php echo json_encode($defaultFilters);?>;
 			<frm.formItem name="amount" required="false" label="Học phí">
 			</frm.formItem>
 			<frm.formItem type="user-defined" name="feeType" required="false" label="Loại phí">
-				<select name="feeType">
+				<form.selectbox name="feeType">
 					<option value="0">Theo buổi</option>
 					<option value="1">Cả khóa</option>
-				</select>
+				</form.selectbox>
 			</frm.formItem>
 			<frm.formItem name="status" required="true" validatebox="true" label="Trạng thái" />
 		</frm.form>

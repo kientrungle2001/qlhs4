@@ -63,6 +63,9 @@ class PzkHomeController extends PzkController{
 		_db()->query($query);
 		$updateClassStudentQuery = "update class_student, student set class_student.studentId = student.id where class_student.code = student.code and class_student.studentId=0 and class_student.code != '' and student.code != ''";
 		_db()->query($updateClassStudentQuery);
+
+		$updateStudentClassed = "update student, class_student set student.type=1 where class_student.code = student.code and class_student.code != '' and student.code != ''";
+		_db()->query($updateStudentClassed);
 		$resp = array(
 			'success' => true,
 			'errorMsg' => false,

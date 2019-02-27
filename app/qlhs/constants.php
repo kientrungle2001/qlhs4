@@ -2,8 +2,12 @@
 $btabs = 'div class="easyui-tabs"';
 $etabs = 'div';
 // combobox
+$center_sql = 'select id as value, 
+     name as label from `center` order by name ASC';
 $asset_sql = 'select id as value, 
      name as label from `asset` order by name ASC';
+$department_sql = 'select id as value, 
+     name as label from `department` order by name ASC';
 $room_sql = 'select id as value, 
      name as label from `room` order by name ASC';
 $subject_sql = 'select id as value, 

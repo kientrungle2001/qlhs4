@@ -20,17 +20,17 @@
 	function searchStudentOrder() {
 		pzk.elements.dg_student_order.filters({
 			classId: pzk.elements.dg.getSelected('id'),
-			periodId: $('#searchStudentOrderPeriod').val()
+			periodId: $('#searchStudentOrderPeriod').pzkVal()
 		});
 	}
 	function searchTestStudentMark() {
 		pzk.elements.dg_test_student_mark.filters({
 			classId: pzk.elements.dg.getSelected('id'),
-			testId: $('#searchTestStudentMarkTestId').val()
+			testId: $('#searchTestStudentMarkTestId').pzkVal()
 		});
 	}
 	function showCalendar() {
-		var month = $('#monthSelector').val();
+		var month = $('#monthSelector').pzkVal();
 		var classId = pzk.elements.dg.getSelected('id');
 		if(!month) {
 			alert('Nhập tháng');
