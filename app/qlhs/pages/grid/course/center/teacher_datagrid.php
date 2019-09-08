@@ -1,6 +1,6 @@
 <dg.dataGrid id="dg_class_teacher" title="Danh sách giáo viên" scriptable="true" 
 		layout="easyui/datagrid/datagrid" 
-		nowrap="true" pageSize="50"
+		nowrap="true" pageSize="10"
 		table="class_teacher" width="550px" height="450px">
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="className" width="140">Lớp</dg.dataGridItem>

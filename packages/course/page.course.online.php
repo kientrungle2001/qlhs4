@@ -7,27 +7,17 @@
 	<div style="float:left; width: 500px;">
 		{include grid/course/online/datagrid}
 	</div>
-	<div style="float:left; margin-left: 20px; margin-top: 20px; width: auto;">
-		<div layout="form/schedule">
-			<layout.toolbarItem action="$dg.actOnSelected({
-				'url': '{url /dtable/addschedule}', 
-				'gridField': 'classId', 
-				'fields': {
-					'startDate': 'input[name=startDate]',
-					'endDate' : 'input[name=endDate]',
-					'weekday' : '#weekday',
-					'studyTime' : '#studyTime'
-				}
-			}); $dg2.reload();" icon="ok" />
-		</div>
-		<div>
-			<div style="float:left; width: 220px;">
-			{include grid/course/online/schedule}
+	<div style="float:left; margin-left: 20px; margin-top: 0; width: auto;">
+		<div class="easyui-tabs" style="width: 500px">
+			<div title="Học sinh">
+			{include grid/course/online/student}
 			</div>
-			<div style="float:left; width: 320px;">
-				{include grid/course/online/tuition_fee}
+			<div title="Tư vấn">
+			{include grid/course/online/advice}
 			</div>
-			<div class="clear"></div>
+			<div title="Báo lỗi">
+			{include grid/course/online/problem}
+			</div>
 		</div>
 	</div>
 	<div class="clear" />

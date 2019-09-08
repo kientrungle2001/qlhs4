@@ -10,6 +10,7 @@
 	<dg.dataGridItem field="bookNum" width="40">Quyển</dg.dataGridItem>
 	<dg.dataGridItem field="noNum" width="40">Số</dg.dataGridItem>
 	<dg.dataGridItem field="status" width="80">Trạng thái</dg.dataGridItem>
+	<dg.dataGridItem field="paymentType" width="80" formatter="orderPaymentTypeFormatter">Hình thức TT</dg.dataGridItem>
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search" onsubmit="searchOrder(); return false;">
 			<strong>Tên học sinh: </strong><form.textField name="name" id="searchName" />
@@ -54,6 +55,12 @@ function searchOrder() {
 			'phone': '#searchPhone'
 		}
 	});
+}
+function orderPaymentTypeFormatter(value, item, index) {
+	if(value == '1') {
+		return 'CK';
+	}
+	return 'TM';
 }
 window.viewMode = true;
 </script>

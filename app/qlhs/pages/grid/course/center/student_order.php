@@ -1,6 +1,6 @@
 <dg.dataGrid id="dg_student_order" title="Danh sách học phí" scriptable="true" 
 		layout="easyui/datagrid/datagrid" 
-		nowrap="true" pageSize="50"
+		nowrap="true" pageSize="10"
 		table="student_order" width="550px" height="450px">
 	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 	<dg.dataGridItem field="studentName" width="120">Học sinh</dg.dataGridItem>

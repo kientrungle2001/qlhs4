@@ -1,6 +1,13 @@
 <!-- Source: https://catalin.red/dist/uploads/2011/03/css3-dropdown-menu-demo.html -->
 <ul id="menu">
 	<li><a href="{url /}">Tổng quan</a></li>
+	<li><a href="{url /test/schedule}">Thi đầu vào</a></li>
+	<li><a href="{url /demo/muster}">Điểm danh</a>
+		<ul>
+			<li><a href="{url /teacher/schedule}">ĐD giáo viên</a></li>
+			<li><a href="{url /student/schedule}">ĐD học sinh</a></li>
+		</ul>
+	</li>
 	<li>
 		<a href="{url /student}">Học sinh</a>
 		<ul>
@@ -20,11 +27,11 @@
 					<li><a href="{url /student/familiar}">Thân thiết</a></li>
 				</ul>				
 			</li>
-			<li><a href="{url /test/schedule}">Lịch hẹn thi đầu vào</a></li>
+			
 			<li><a href="{url /test/advice}">Tư vấn Phần mềm</a></li>
-			<li><a href="{url /problem}">Vụ việc - lỗi</a></li>
+			<li><a href="{url /test/problem}">Vụ việc - lỗi</a></li>
 			<li><a href="{url /demo/orderstat}">Bảng học phí</a></li>
-			<li><a href="{url /demo/muster}">Điểm danh</a></li>
+			
 		</ul>
 	</li>
 	<li>
@@ -35,6 +42,9 @@
 			</li>
 			<li>
 				<a href="{url /subject/online}">Phần mềm</a>		
+			</li>
+			<li>
+				<a href="{url /subject/book}">Sách</a>		
 			</li>
 		</ul>		
 	</li>
@@ -48,8 +58,13 @@
 				<a href="{url /course/online}">Trực tuyến</a>
 			</li>
 			<li>
+				<a href="{url /course/book}">Sách</a>
+			</li>
+			<li>
 				<a href="{url /course/unclassed}">Danh sách chờ</a>
 			</li>
+			<li><a href="{url /course/student}">Xếp lớp</a></li>
+			
 		</ul>	
 	</li>
 	<li>
@@ -64,12 +79,8 @@
 			<li><a href="{url /teacher/billing}">Bảng lương</a></li>
 			<li><a href="{url /teacher/create_billing}">Tạo HĐ Chi 1 mục</a></li>
 			<li><a href="{url /teacher/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
-		</ul>	
-	</li>
-	<li>
-		<a href="{url /room}">Phòng học</a>
-		<ul>
 			<li><a href="{url /center}">Trung tâm</a></li>
+			<li><a href="{url /room}">Phòng học</a></li>
 		</ul>	
 	</li>
 	<li>
@@ -100,7 +111,6 @@
 			<li><a href="{url /employee/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
 		</ul>
 	</li>
-	-->
 	<li>
 		<a href="{url /partner}">Đối tác</a>
 		<ul>
@@ -110,13 +120,19 @@
 			<li><a href="{url /partner/create_billing_multiple}">Tạo HĐ Chi nhiều mục</a></li>
 		</ul>
 	</li>
+	-->
 	<li>
 		<a href="#">Trung tâm</a>
 		<ul>
-		<li><a href="{url /course/student}">Xếp lớp</a></li>
+		
 		<li><a href="{url /course/schedule}">Lịch học</a></li>
 		<li><a href="{url /offschedule}">Lịch nghỉ</a></li>
 		<li><a href="{url /paymentperiod}">Kỳ thanh toán</a></li>
+		<li><a href="{url /schedule/daily}">TKB Theo ngày</a></li>
+			<li><a href="{url /schedule/weekly}">TKB Theo tuần</a></li>
+			<li><a href="{url /schedule/teacher}">TKB Theo giáo viên</a></li>
+			<li><a href="{url /plan}">Kế hoạch</a></li>
+			<li><a href="{url /task}">Tiến độ</a></li>
 		</ul>	
 	</li>
 	<li>
@@ -131,14 +147,6 @@
 		</ul>
 	</li>
 	<li>
-		<a href="{url /schedule/daily}">Thời khóa biểu</a>
-		<ul>
-			<li><a href="{url /schedule/daily}">Theo ngày</a></li>
-			<li><a href="{url /schedule/weekly}">Theo tuần</a></li>
-			<li><a href="{url /schedule/teacher}">Theo giáo viên</a></li>
-		</ul>
-	</li>
-	<li>
 		<a href="{url /asset}">Tài sản</a>
 		<ul>
 			<li><a href="{url /asset/facility}">Phương tiện</a></li>
@@ -150,17 +158,14 @@
 			<li><a href="#">Hóa đơn thanh lý</a></li>
 		</ul>
 	</li>
-	<li>
-		<a href="{url /plan}">Kế hoạch</a>
-		<ul>
-			<li><a href="{url /task}">Tiến độ</a></li>
-		</ul>
-	</li>
+	<li><a href="{url /demo/logout}">Thoát</a></li>
 </ul>
-
 <br />
+<div style="display: none;">
+
 <a href="#" onclick="getRemoteDatas(); return false;">Lấy dữ liệu</a> | Đã lấy: <span id="got_count"></span> Bản ghi | <a href="#" onClick="indexStudentData(); return false;">Index dữ liệu</a>
 <br />
+</div>
 <script>
 var remotes = [
 	// student
@@ -174,9 +179,6 @@ var remotes = [
 			sort: 'id asc',
 			limit: 50,
 			where: {
-				registered: {
-					'>=': '2018-01-01'
-				}
 			}
 		},
 		lastid: function(success, lastid) {
@@ -248,9 +250,6 @@ var remotes = [
 			sort: 'id asc',
 			limit: 50,
 			where: {
-				paymentDate: {
-					'>=': '2018-01-01'
-				}
 			}
 		},
 		lastid: function(success, lastid) {
@@ -308,6 +307,9 @@ function getRemoteDatas() {
 	remotes.forEach(function(remote) {
 		getRemoteData(remote);
 	});
+	if(typeof pzk.elements.dg !== 'undefined') {
+		pzk.elements.dg.reload();
+	}
 }
 
 // thực hiện import theo từng remote source
@@ -424,24 +426,20 @@ function processImportDataToTarget(resp, target, remote, success) {
 
 			// chạy lại hàm lấy dữ liệu
 			if(1) {
-				setTimeout(function() {
-					getRemoteDatas();
-				}, 1000);
+				getRemoteData(remote);
 			}
 		}, lastid);
 
 		if(typeof pzk.elements.dg != 'undefined') {
-			pzk.elements.dg.reload();
+			// pzk.elements.dg.reload();
 		}
 	}
 }
 
 function indexStudentData() {
 	pzk.ajax({
-		url: '/index.php/Home/updateStudent',
-		data: {
-			id: 9442
-		},
+		url: '/index.php/Home/indexStudent',
+		data: {},
 		success: function(resp) {
 			$.messager.show({
 				title: 'Thành công',

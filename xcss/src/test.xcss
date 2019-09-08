@@ -340,3 +340,8 @@
 	}
 	
 }
+
+.half-col {
+	float: left;
+	width: 50%;
+}

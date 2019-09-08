@@ -82,4 +82,8 @@ class PzkStudentController extends PzkBaseController {
 		$student_detail->studentId = @$_REQUEST['id'];
 		$this->render($student_detail);
 	}
+
+	public function scheduleAction() {
+		$this->viewGrid('student/schedule');
+	}
 }

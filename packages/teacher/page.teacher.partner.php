@@ -6,26 +6,8 @@
 	</div>
 	<div style="float: left; width: 650px;">
 		<div class="easyui-tabs">
-			<div title="Lớp học">
-				{include grid/teacher/classes}
-			</div>
-			<div title="Học sinh">
-				{include grid/teacher/student}
-			</div>
-			<div title="Bài thi">
-				{include grid/teacher/test_class}
-			</div>
-			<div title="Kết quả thi">
-			{include grid/teacher/test_student_mark}
-			</div>
-			<div title="Học phí">
-			{include grid/teacher/student_order}
-			</div>
-			<div title="Lịch giảng dạy">
-			{include grid/teacher/schedule}
-			</div>
 			<div title="Trả lương">
-				Lương
+			{include grid/teacher/billing}
 			</div>
 			<div title="Thời khóa biểu">
 				<div id="calendar" style="padding: 10px;">

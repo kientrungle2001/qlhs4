@@ -35,3 +35,5 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/student/online')) {
 
 copy(PKG_DIR . DS . 'page.student.online.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/student/online/datagrid.php');
 copy(PKG_DIR . DS . 'page.student.online.classify_student.php', BASE_DIR . '/app/qlhs/pages/grid/student/online/classify_student.php');
+
+copy(PKG_DIR . DS . 'page.student.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/student/schedule.php');

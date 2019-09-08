@@ -545,12 +545,12 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
                         }
                 } elseif(isset($fieldTypesMap[$key]) && $fieldTypesMap[$key]['Type'] === 'date' ) {
                     if(!$val) {
-                        $val = '0000-01-01';
+                        $val = '0000-00-00';
                     }
                     $result[$key] = $val;
                 } elseif(isset($fieldTypesMap[$key]) && $fieldTypesMap[$key]['Type'] === 'datetime' ) {
                     if(!$val) {
-                        $val = '0000-01-01 00:00:00';
+                        $val = '0000-00-00 00:00:00';
                     }
                     $result[$key] = $val;
                 } else {

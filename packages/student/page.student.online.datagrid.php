@@ -90,7 +90,7 @@ if(!isset($defaultClassFilters)) {
 			<form.combobox name="type" id="searchType" onChange="searchStudent();"
 					layout="category-select-list"
 					label="Phân loại">
-				<option value="1">Đang học</option>
+				<option value="1">Đã học</option>
 				<option value="0">Tiềm năng</option>
 				<option value="2">Lâu năm</option>
 			</form.combobox>
@@ -177,7 +177,7 @@ if(!isset($defaultClassFilters)) {
 			</frm.formItem>
 			<frm.formItem name="type" label="Phân loại" type="user-defined">
 				<form.selectbox name="type" label="Phân loại">
-					<option value="1">Đang học</option>
+					<option value="1">Đã học</option>
 					<option value="0">Tiềm năng</option>
 					<option value="2">Lâu năm</option>
 				</form.selectbox>

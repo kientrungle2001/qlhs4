@@ -14,3 +14,4 @@ copy(PKG_DIR . DS . 'page.asset.online.php', BASE_DIR . '/app/qlhs/pages/grid/as
 copy(PKG_DIR . DS . 'page.asset.document.php', BASE_DIR . '/app/qlhs/pages/grid/asset/document.php');
 copy(PKG_DIR . DS . 'page.asset.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/asset/schedule.php');
 copy(PKG_DIR . DS . 'page.asset.schedule.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/asset/schedule/datagrid.php');
+copy(PKG_DIR . DS . 'page.asset.schedule.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/asset/schedule/teacher.php');

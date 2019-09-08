@@ -29,7 +29,7 @@ class PzkEduCourseSelector extends PzkObject {
 	<dg.dataGrid id="dg_course_'.$this->id.'" title="Quản lý lớp học" 
 			scriptable="true" table="classes" 
 			width="950px" height="'.$this->height.'" 
-			rownumbers="false" pageSize="50" 
+			rownumbers="false" pageSize="10" 
 			defaultFilters=\''.$this->defaultFilters.'\'>
 			<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 			<dg.dataGridItem field="name" width="120">Tên lớp</dg.dataGridItem>

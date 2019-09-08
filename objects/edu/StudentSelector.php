@@ -82,7 +82,7 @@ class PzkEduStudentSelector extends PzkObject {
 				<form.selectbox name="type" id="searchType_'.$this->id.'"
 						label="Phân loại" 
 						onChange="pzk.elements.'.$this->id.'.searchStudent();">
-					<option value="1">Đang học</option>
+					<option value="1">Đã học</option>
 					<option value="0">Tiềm năng</option>
 					<option value="2">Lâu năm</option>
 				</form.selectbox>

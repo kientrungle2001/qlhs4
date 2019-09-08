@@ -4,12 +4,22 @@
 	<div style="float: left; width: 300px;">
 		<easyui.layout.panel title="Thêm lịch hẹn" collapsible="true">
 			<frm.form id="add_test_schedule">
-				<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
-				<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
 				<frm.formItem name="name" required="false" validatebox="true" label="Tên học sinh" />
+				<frm.formItem type="date" name="birthDate" label="Ngày sinh" />
 				<frm.formItem name="phone" required="false" validatebox="false" label="Số điện thoại" />
 				<frm.formItem name="email" required="false" validatebox="false" label="Email" />
 				<frm.formItem name="parentName" required="false" validatebox="false" label="Phụ huynh" />
+				<frm.formItem type="user-defined" name="grade" required="false" label="Khối lớp">
+					<select name="grade" class="easyui-combobox">
+						<option value="3">Lớp 3</option>
+						<option value="4">Lớp 4</option>
+						<option value="5">Lớp 5</option>
+						<option value="6">Lớp 6</option>
+						<option value="7">Lớp 7</option>
+						<option value="8">Lớp 8</option>
+						<option value="9">Lớp 9</option>
+					</select>
+				</frm.formItem>
 				<frm.formItem type="date" name="testDate" required="false" label="Ngày Thi" />
 				<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
 				<frm.formItem type="user-defined" name="classId" required="false" label="Lớp">
@@ -74,13 +84,18 @@
 			<wdw.dialog gridId="dg" width="700px" height="auto" title="Phần mềm">
 				<frm.form gridId="dg">
 					<frm.formItem type="hidden" name="id" required="false" label="" />
-					<frm.formItem name="title" required="true" validatebox="true" label="Tiêu đề" />
-					<frm.formItem name="note" required="false" validatebox="false" label="Ghi chú" />
 					<frm.formItem 
 						type="user-defined"
 						name="studentId" required="false" validatebox="false" label="Học sinh">
-					<edu.studentSelector name="studentId" id="studentSelector" defaultFilters='{"online": 0, "status": 1, "classed": -1}' />
+					<edu.studentSelector name="studentId" id="studentSelector" defaultFilters='{"online": 0, "status": 0, "classed": -1}' />
 				</frm.formItem>
+					<frm.formItem name="mark" required="false" validatebox="false" label="Điểm" />
+					<frm.formItem 
+						type="user-defined"
+						name="note" required="false" validatebox="false" label="Nhận xét">
+					<form.textArea name="note" />
+				</frm.formItem>
+					
 					<frm.formItem type="date" name="testDate" required="false" label="Ngày Thi" />
 					<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
 					<frm.formItem type="user-defined" name="classId" required="false" label="Khóa học">
@@ -108,7 +123,58 @@
 
 	<!-- Bắt đầu form nghiệp vụ -->
 	<div style="float: left; width: 400px; margin-left: 15px;">
-		<easyui.layout.panel title="Lịch hẹn" collapsible="true">
+		<easyui.layout.panel title="Sửa lịch hẹn" collapsible="true">
+		<frm.form id="edit_test_schedule">
+				<frm.formItem type="hidden" name="id" />
+				<frm.formItem type="hidden" name="studentId" />
+				<frm.formItem name="name" required="false" validatebox="true" label="Tên học sinh" />
+				<frm.formItem type="date" name="birthDate" label="Ngày sinh" />
+				<frm.formItem name="phone" required="false" validatebox="false" label="Số điện thoại" />
+				<frm.formItem name="email" required="false" validatebox="false" label="Email" />
+				<frm.formItem name="parentName" required="false" validatebox="false" label="Phụ huynh" />
+				<frm.formItem type="user-defined" name="grade" required="false" label="Khối lớp">
+					<select name="grade" class="easyui-combobox">
+						<option value="3">Lớp 3</option>
+						<option value="4">Lớp 4</option>
+						<option value="5">Lớp 5</option>
+						<option value="6">Lớp 6</option>
+						<option value="7">Lớp 7</option>
+						<option value="8">Lớp 8</option>
+						<option value="9">Lớp 9</option>
+					</select>
+				</frm.formItem>
+				<frm.formItem name="mark" required="false" validatebox="false" label="Điểm" />
+					<frm.formItem 
+						type="user-defined"
+						name="note" required="false" validatebox="false" label="Nhận xét">
+					<form.textArea name="note" />
+				</frm.formItem>
+				<frm.formItem type="date" name="testDate" required="false" label="Ngày Thi" />
+				<frm.formItem type="time" name="testTime" required="false" label="Thời gian" />
+				<frm.formItem type="user-defined" name="classId" required="false" label="Lớp">
+					<edu.courseSelector id="courseSelector_edit" name="classId" defaultFilters='{"online": 0, "status": 1, "classed": -1}' />
+				</frm.formItem>
+				<frm.formItem type="user-defined" name="adviceId" required="false" label="Tư vấn viên">
+					<form.combobox name="adviceId"
+							sql="{teacher_sql}"
+								layout="category-select-list"></form.combobox>
+				</frm.formItem>
+				<frm.formItem type="user-defined" name="status" required="false" label="Trạng thái">
+					<select name="status" class="easyui-combobox">
+						<option value="0">Chưa thi</option>
+						<option value="1">Đã thi</option>
+						<option value="2">Đã có kết quả</option>
+						<option value="3">Đã xếp lớp</option>
+					</select>
+				</frm.formItem>
+				<frm.formItem type="user-defined" name="send" required="false" label="">
+					<a href="#" class="easyui-linkbutton" onClick="editTestSchedule(); return false;" data-options="iconCls:'icon-plus'">
+						Cập nhật lịch hẹn
+					</a>
+				</frm.formItem>
+			</frm.form>
+		</easyui.layout.panel>
+		<easyui.layout.panel title="Xếp lớp" collapsible="true">
 		<div style="padding: 15px;">
 			<h3>Xếp lớp cho học sinh: <span id="studentName"></span></h3>
 
@@ -132,8 +198,7 @@
 				Người tư vấn: <span id="detail_adviceName" class="pzk-field-adviceName" /><br />
 				Trạng thái: <span id="detail_status" /><br />
 				---------------<br />
-				Tiêu đề: <span id="detail_title" /><br />
-				Ghi chú: <span id="detail_note" /><br />
+				Ghi chú: <span id="detail_note"  class="pzk-field-note" /><br />
 				---------------<br />
 				Lịch sử tư vấn: <br />
 			</div>
@@ -197,6 +262,12 @@
 		$('#studentName').html(row.studentName);
 		$('#chitiet').pzkTemplate(row);
 		$('#detail_status').html(adviceStatusFormatter(row.status));
+		pzk.db.get('student', row.studentId, function(student) {
+			delete student.id;
+			$.extend(student, row);
+			$('#edit_test_schedule').form('load',student);
+			pzk.elements.courseSelector_edit.loadValue();
+		});
 		/*
 		for(var field in row) {
 			if(field == 'status') {
@@ -350,6 +421,41 @@
 				});
 			}
 		});
+	}
+	function editTestSchedule() {
+		var data = jQuery('#edit_test_schedule').serializeForm();
+		if(typeof data.id !== 'undefined') {
+			var student = {
+				name: data.name,
+				email: data.email,
+				phone: data.phone,
+				birthDate: data.birthDate,
+				grade: data.grade,
+				assignId: data.adviceId,
+				parentName: data.parentName,
+				id: data.studentId
+			};
+
+			
+
+			var test_schedule = {
+				id: data.id,
+				mark: data.mark,
+				note: data.note,
+				adviceId: data.adviceId,
+				status: data.status,
+				testDate: data.testDate,
+				testTime: data.testTime,
+				classId: data.classId
+			};
+
+			pzk.db.update('test_schedule', test_schedule, function() {
+				pzk.db.update('student', student, function() {
+					pzk.elements.dg.reload();
+				});
+			});
+		}
+		
 	}
 	function deleteStudent() {
 		var schedule = pzk.elements.dg.getSelected();

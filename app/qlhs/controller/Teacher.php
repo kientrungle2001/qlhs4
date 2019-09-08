@@ -57,6 +57,17 @@ class PzkTeacherController extends PzkBaseController {
 		}
 	}
 
+	public function scheduleAction() {
+		$this->viewGrid('teacher/teacher_schedule');
+	}
+
+	public function musterstatAction() {
+		$musterstat = $this->parse('<edu.teacher.musterstat />');
+		$musterstat->setTeacherId(pzk_request('teacherId'));
+		$musterstat->setClassId(pzk_request('classId'));
+		$musterstat->display();
+	}
+
 	public function billingAction() {
 		$this->viewGrid('teacher_billing');
 	}

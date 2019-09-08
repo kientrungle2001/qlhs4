@@ -1,46 +1,41 @@
+<?php require BASE_DIR . '/' . pzk_app()->getUri('constants.php')?>
 <dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" table="classes" 
-		width="500px" height="500px" rownumbers="false" pageSize="50" defaultFilters='{"online": 1}'>
+		width="500px" height="500px" rownumbers="false" pageSize="10" defaultFilters='{"online": 1}'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
-	<dg.dataGridItem field="name" width="120">Tên lớp</dg.dataGridItem>
-	<dg.dataGridItem field="subjectName" width="120">Môn học</dg.dataGridItem>
+	<dg.dataGridItem field="name" width="140">Phần mềm</dg.dataGridItem>
+	<dg.dataGridItem field="subjectName" width="140">Dịch vụ</dg.dataGridItem>
 	<!--dg.dataGridItem field="level" width="120">Trình độ</dg.dataGridItem-->
-	<dg.dataGridItem field="teacherName" width="120">Giáo viên</dg.dataGridItem>
 	<!--dg.dataGridItem field="teacher2Name" width="120">Giáo viên 2</dg.dataGridItem-->
 	<!--dg.dataGridItem field="roomName" width="100">Phòng</dg.dataGridItem-->
-	<dg.dataGridItem field="startDate" width="160">Ngày bắt đầu</dg.dataGridItem>
-	<dg.dataGridItem field="endDate" width="160">Ngày kết thúc</dg.dataGridItem>
-	<dg.dataGridItem field="amount" width="100">Học phí</dg.dataGridItem>
+	<dg.dataGridItem field="amount" width="80">Học phí</dg.dataGridItem>
 	<dg.dataGridItem field="status" width="40">TT</dg.dataGridItem>
 	
 	<layout.toolbar id="dg_toolbar">
 		<hform id="dg_search">
-			<form.combobox 
+			<form.selectbox onChange="searchClasses()" 
 					id="searchTeacher" name="teacherId"
-					sql="select id as value, 
-							name as label from `teacher` order by name ASC"
-					layout="category-select-list"></form.combobox>
-			<form.combobox 
+					sql="{teacher_sql}" label="Chọn giáo viên" />
+			<form.selectbox onChange="searchClasses()" 
 					id="searchSubject" name="subjectId"
-					sql="select id as value, 
-							name as label from `subject` order by name ASC"
-					layout="category-select-list"></form.combobox>
-			<form.combobox 
+					sql="{subject_online_sql}" label="Chọn phần mềm" />
+			<form.selectbox onChange="searchClasses()" 
 					id="searchLevel" name="level"
 					sql="select distinct(level) as value, level as label from classes order by label asc"
-					layout="category-select-list"></form.combobox>
-			<form.combobox 
+					label="Lớp" />
+			<form.selectbox onChange="searchClasses()"
 					id="searchStatus" name="status"
-					sql="select distinct(status) as value, status as label from classes order by label asc"
-					layout="category-select-list"></form.combobox>
+					label="Chọn trạng thái">
+						<option value="1">Đang kích hoạt</option>
+						<option value="0">Chưa kích hoạt</option>
+					</form.selectbox>
 			<layout.toolbarItem action="searchClasses()" icon="search" />
 			<layout.toolbarItem action="$dg.add({online: 1})" icon="add" />
 			<layout.toolbarItem action="$dg.edit()" icon="edit" />
 			<layout.toolbarItem action="$dg.del()" icon="remove" />
 			<layout.toolbarItem action="$dg.detail(function(row) { 
-				jQuery('#searchClass2').pzkVal(row.id); 
-				$dg2.search({'fields': {'classId' : '#searchClass2' }});
-				jQuery('#searchClass3').pzkVal(row.id); 
-				$dg3.search({'fields': {'classId' : '#searchClass3' }});				
+				$dg_student.filters({classId: row.id});
+				$dg_advice.filters({classId: row.id});
+				$dg_problem.filters({classId: row.id});
 			});" icon="sum" />
 		</hform>
 	</layout.toolbar>

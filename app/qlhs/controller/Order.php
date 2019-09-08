@@ -1,14 +1,17 @@
 <?php
 require_once dirname(__FILE__) . '/Base.php';
-class PzkOrderController extends PzkBaseController {
+class PzkOrderController extends PzkBaseController
+{
 	public $grid = 'student_order';
 	public $masterPage = 'demo';
 	public $masterPosition = 'left';
-	public function createAction() {
+	public function createAction()
+	{
 		$create_order = $this->getOperationStructure('create_order');
 		$create_order->setStudentId(pzk_request()->getStudentId());
 		$create_order->setPeriodId(pzk_request()->getPeriodId());
-		if(pzk_request()->getMultiple()) {
+		$create_order->setPaymentType(pzk_request()->getPaymentType());
+		if (pzk_request()->getMultiple()) {
 			$create_order->setMultiple(true);
 			$create_order->setClassIds(pzk_request()->getClassIds());
 			$create_order->setAmounts(pzk_request()->getAmounts());
@@ -23,8 +26,31 @@ class PzkOrderController extends PzkBaseController {
 		}
 		$this->viewStructure($create_order);
 	}
-	
-	public function detailAction() {
+
+	public function create2Action()
+	{
+		$create_order = $this->getOperationStructure('create_order');
+		$create_order->setLayout('create_order2');
+		$create_order->setStudentId(pzk_request()->getStudentId());
+		$create_order->setPeriodId(pzk_request()->getPeriodId());
+		if (pzk_request()->getMultiple()) {
+			$create_order->setMultiple(true);
+			$create_order->setClassIds(pzk_request()->getClassIds());
+			$create_order->setAmounts(pzk_request()->getAmounts());
+			$create_order->setDiscounts(pzk_request()->getDiscounts());
+			$create_order->setMusters(pzk_request()->getMusters());
+			$create_order->setPrices(pzk_request()->getPrices());
+			$create_order->setDiscount_reasons(pzk_request()->getDiscount_reasons());
+		} else {
+			$create_order->setMultiple(false);
+			$create_order->setClassId(pzk_request()->getClassId());;
+			$create_order->setAmount(pzk_request()->getAmount());
+		}
+		$this->viewStructure($create_order);
+	}
+
+	public function detailAction()
+	{
 		$order_detail = $this->getOperationStructure('order_detail');
 		$order_detail->setOrderId(pzk_request()->getId());
 		$xcssjs = '<html.js src="' . BASE_URL . '/xcss" />';
@@ -33,19 +59,19 @@ class PzkOrderController extends PzkBaseController {
 		$order_detail->append(pzk_parse($xcsscss));
 		$order_detail->display();
 	}
-	
-	public function billingdetailAction() {
+
+	public function billingdetailAction()
+	{
 		$order = _db()->getTableEntity('billing_order');
 		$order->load(pzk_request()->getId());
-		if($order->getType() == 'normal') {
+		if ($order->getType() == 'normal') {
 			$order_detail = $this->getOperationStructure('bill_detail2');
 			$order_detail->setOrderId(pzk_request()->getId());
 			$xcssjs = '<html.js src="' . BASE_URL . '/xcss" />';
 			$xcsscss = '<html.css src="' . BASE_URL . '/xcss/output/test.css" />';
 			$order_detail->append(pzk_parse($xcssjs));
 			$order_detail->append(pzk_parse($xcsscss));
-			$order_detail->display();	
-
+			$order_detail->display();
 		} else {
 			$order_detail = $this->getOperationStructure('bill_detail');
 			$order_detail->setOrderId(pzk_request()->getId());
@@ -53,13 +79,13 @@ class PzkOrderController extends PzkBaseController {
 			$xcsscss = '<html.css src="' . BASE_URL . '/xcss/output/test.css" />';
 			$order_detail->append(pzk_parse($xcssjs));
 			$order_detail->append(pzk_parse($xcsscss));
-			$order_detail->display();	
+			$order_detail->display();
 		}
-		
 	}
-	
-	public function postAction() {
-		if(@$_REQUEST['bookNum'] && @$_REQUEST['noNum']) {
+
+	public function postAction()
+	{
+		if (@$_REQUEST['bookNum'] && @$_REQUEST['noNum']) {
 			// do nothing
 			$bookNum = $_REQUEST['bookNum'];
 			$noNum = $_REQUEST['noNum'];
@@ -82,51 +108,52 @@ class PzkOrderController extends PzkBaseController {
 			'reason' => $_REQUEST['reason'],
 			'additional' => $_REQUEST['additional'],
 			'invoiceNum' => $_REQUEST['invoiceNum'],
-			'studentId'	=>	$_REQUEST['studentId']
+			'studentId'	=>	$_REQUEST['studentId'],
+			'paymentType' => @$_REQUEST['paymentType']
 		);
 		$orderId = _db()->insert('general_order')
-				->fields(implode(',', array_keys($order)))
-				->values(array($order))->result();
+			->fields(implode(',', array_keys($order)))
+			->values(array($order))->result();
 		$classIds = explode(',', $_REQUEST['classIds']);
 		$amounts = explode(',', $_REQUEST['amounts']);
 		$discounts = explode(',', $_REQUEST['discounts']);
 		$musters = explode(',', $_REQUEST['musters']);
 		$prices = explode(',', $_REQUEST['prices']);
 		$discount_reasons = explode(',', $_REQUEST['discount_reasons']);
-		foreach($classIds as $index => $classId) {
-		$student_order = array(
-			'orderId' => $orderId,
-			'classId' => $classId,
-			'studentId' => $_REQUEST['studentId'],
-			'payment_periodId' => $_REQUEST['payment_periodId'],
-			'amount' => $amounts[$index],
-			'discount' => $discounts[$index],
-			'discount_reason' => $discount_reasons[$index],
-			'muster' => $musters[$index],
-			'price' => $prices[$index],
-			'total_before_discount' => $musters[$index] * $prices[$index],
-			'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
-			'createdTime' => time(),
-			'bookNum' => $bookNum,
-			'noNum' => $noNum,
-			'debit' => $_REQUEST['debit'],
-			'name' => $_REQUEST['name'],
-			'address' => $_REQUEST['address'],
-			'reason' => $_REQUEST['reason'],
-			'additional' => $_REQUEST['additional'],
-			'invoiceNum' => $_REQUEST['invoiceNum']
-		);
-		_db()->insert('student_order')->fields(implode(',',array_keys($student_order)))
-			->values(array($student_order))->result();
-		$student = _db()->getEntity('edu.student')->load($student_order['studentId']);
-			if($student->getId()) {
+		foreach ($classIds as $index => $classId) {
+			$student_order = array(
+				'orderId' => $orderId,
+				'classId' => $classId,
+				'studentId' => $_REQUEST['studentId'],
+				'payment_periodId' => $_REQUEST['payment_periodId'],
+				'amount' => $amounts[$index],
+				'discount' => $discounts[$index],
+				'discount_reason' => $discount_reasons[$index],
+				'muster' => $musters[$index],
+				'price' => $prices[$index],
+				'total_before_discount' => $musters[$index] * $prices[$index],
+				'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
+				'createdTime' => time(),
+				'bookNum' => $bookNum,
+				'noNum' => $noNum,
+				'debit' => $_REQUEST['debit'],
+				'name' => $_REQUEST['name'],
+				'address' => $_REQUEST['address'],
+				'reason' => $_REQUEST['reason'],
+				'additional' => $_REQUEST['additional'],
+				'invoiceNum' => $_REQUEST['invoiceNum']
+			);
+			_db()->insert('student_order')->fields(implode(',', array_keys($student_order)))
+				->values(array($student_order))->result();
+			$student = _db()->getEntity('edu.student')->load($student_order['studentId']);
+			if ($student->getId()) {
 				$student->gridIndex();
 			}
 		}
-		if(@$_REQUEST['bookNum'] && @$_REQUEST['noNum']) { 
+		if (@$_REQUEST['bookNum'] && @$_REQUEST['noNum']) {
 			// do nothing
 		} else {
-			if($noNum >= 50) {
+			if ($noNum >= 50) {
 				pzk_element('config')->set('noNum', 1);
 				pzk_element('config')->set('bookNum', $bookNum + 1);
 			} else {
@@ -134,26 +161,31 @@ class PzkOrderController extends PzkBaseController {
 				pzk_element('config')->set('bookNum', $bookNum);
 			}
 		}
-		header('Location: '.BASE_URL.'/index.php/student/order');
+		header('Location: ' . BASE_URL . '/index.php/student/order');
 	}
-	
-	public function billingAction() {
+
+	public function billingAction()
+	{
 		$this->viewGrid('order_billing');
 	}
-	
-	public function createbillAction() {
+
+	public function createbillAction()
+	{
 		$this->viewOperation('create_bill');
 		//$create_order->display();
 	}
-	public function createordermanualAction() {
+	public function createordermanualAction()
+	{
 		$this->viewOperation('create_order_manual');
 		//$create_order->display();
 	}
-	public function createbill2Action() {
+	public function createbill2Action()
+	{
 		$this->viewOperation('create_bill2');
 		//$create_order->display();
 	}
-	public function createbillpostAction() {
+	public function createbillpostAction()
+	{
 		$bookNum = $_REQUEST['bookNum'] = pzk_element('config')->get('bill_bookNum', 1);
 		$noNum = $_REQUEST['noNum'] = pzk_element('config')->get('bill_noNum', 1);
 		$order = array(
@@ -173,47 +205,48 @@ class PzkOrderController extends PzkBaseController {
 			'invoiceNum' => $_REQUEST['invoiceNum']
 		);
 		$orderId = _db()->insert('billing_order')
-				->fields(implode(',', array_keys($order)))
-				->values(array($order))->result();
+			->fields(implode(',', array_keys($order)))
+			->values(array($order))->result();
 		$names = $_REQUEST['name'];
 		$amounts = $_REQUEST['amount'];
 		$total_before_discounts = $_REQUEST['total_before_discount'];
 		$discounts = $_REQUEST['discount'];
 		$prices = $_REQUEST['price'];
 		$quantitys = $_REQUEST['quantity'];
-		foreach($names as $index => $name) {
-		$order_item = array(
-			'orderId' => $orderId,
-			'amount' => $amounts[$index],
-			'discount' => $discounts[$index],
-			'quantity' => $quantitys[$index],
-			'price' => $prices[$index],
-			'total_before_discount' => $total_before_discounts[$index],
-			'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
-			'createdTime' => time(),
-			'bookNum' => $_REQUEST['bookNum'],
-			'noNum' => $_REQUEST['noNum'],
-			'debit' => $_REQUEST['debit'],
-			'name' => $names[$index],
-			'address' => $_REQUEST['address'],
-			'reason' => $_REQUEST['reason'],
-			'additional' => $_REQUEST['additional'],
-			'invoiceNum' => $_REQUEST['invoiceNum']
-		);
-		_db()->insert('billing_detail_order')->fields(implode(',',array_keys($order_item)))
-			->values(array($order_item))->result();
+		foreach ($names as $index => $name) {
+			$order_item = array(
+				'orderId' => $orderId,
+				'amount' => $amounts[$index],
+				'discount' => $discounts[$index],
+				'quantity' => $quantitys[$index],
+				'price' => $prices[$index],
+				'total_before_discount' => $total_before_discounts[$index],
+				'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
+				'createdTime' => time(),
+				'bookNum' => $_REQUEST['bookNum'],
+				'noNum' => $_REQUEST['noNum'],
+				'debit' => $_REQUEST['debit'],
+				'name' => $names[$index],
+				'address' => $_REQUEST['address'],
+				'reason' => $_REQUEST['reason'],
+				'additional' => $_REQUEST['additional'],
+				'invoiceNum' => $_REQUEST['invoiceNum']
+			);
+			_db()->insert('billing_detail_order')->fields(implode(',', array_keys($order_item)))
+				->values(array($order_item))->result();
 		}
-		if($noNum >= 50) {
+		if ($noNum >= 50) {
 			pzk_element('config')->set('bill_noNum', 1);
 			pzk_element('config')->set('bill_bookNum', $bookNum + 1);
 		} else {
 			pzk_element('config')->set('bill_noNum', $noNum + 1);
 			pzk_element('config')->set('bill_bookNum', $bookNum);
 		}
-		header('Location: '.BASE_URL.'/index.php/order/billing');
+		header('Location: ' . BASE_URL . '/index.php/order/billing');
 	}
-	
-	public function createbillpost2Action() {
+
+	public function createbillpost2Action()
+	{
 		$bookNum = $_REQUEST['bookNum'] = pzk_element('config')->get('bill_bookNum', 1);
 		$noNum = $_REQUEST['noNum'] = pzk_element('config')->get('bill_noNum', 1);
 		$order = array(
@@ -233,9 +266,9 @@ class PzkOrderController extends PzkBaseController {
 			'invoiceNum' => $_REQUEST['invoiceNum']
 		);
 		$orderId = _db()->insert('billing_order')
-				->fields(implode(',', array_keys($order)))
-				->values(array($order))->result();
-		
+			->fields(implode(',', array_keys($order)))
+			->values(array($order))->result();
+
 		$order_item = array(
 			'orderId' => $orderId,
 			'amount' => $_REQUEST['total_amount'],
@@ -254,20 +287,21 @@ class PzkOrderController extends PzkBaseController {
 			'additional' => $_REQUEST['additional'],
 			'invoiceNum' => $_REQUEST['invoiceNum']
 		);
-		_db()->insert('billing_detail_order')->fields(implode(',',array_keys($order_item)))
+		_db()->insert('billing_detail_order')->fields(implode(',', array_keys($order_item)))
 			->values(array($order_item))->result();
-		
-		if($noNum >= 50) {
+
+		if ($noNum >= 50) {
 			pzk_element('config')->set('bill_noNum', 1);
 			pzk_element('config')->set('bill_bookNum', $bookNum + 1);
 		} else {
 			pzk_element('config')->set('bill_noNum', $noNum + 1);
 			pzk_element('config')->set('bill_bookNum', $bookNum);
 		}
-		header('Location: '.BASE_URL.'/index.php/order/billing');
+		header('Location: ' . BASE_URL . '/index.php/order/billing');
 	}
-	
-	public function createordermanualpostAction() {
+
+	public function createordermanualpostAction()
+	{
 		$bookNum = $_REQUEST['bookNum'] = pzk_element('config')->get('bill_bookNum', 1);
 		$noNum = $_REQUEST['noNum'] = pzk_element('config')->get('bill_noNum', 1);
 		$order = array(
@@ -287,61 +321,63 @@ class PzkOrderController extends PzkBaseController {
 			'invoiceNum' => $_REQUEST['invoiceNum']
 		);
 		$orderId = _db()->insert('billing_order')
-				->fields(implode(',', array_keys($order)))
-				->values(array($order))->result();
+			->fields(implode(',', array_keys($order)))
+			->values(array($order))->result();
 		$names = $_REQUEST['name'];
 		$amounts = $_REQUEST['amount'];
 		$total_before_discounts = $_REQUEST['total_before_discount'];
 		$discounts = $_REQUEST['discount'];
 		$prices = $_REQUEST['price'];
 		$quantitys = $_REQUEST['quantity'];
-		foreach($names as $index => $name) {
-		$order_item = array(
-			'orderId' => $orderId,
-			'amount' => $amounts[$index],
-			'discount' => $discounts[$index],
-			'quantity' => $quantitys[$index],
-			'price' => $prices[$index],
-			'total_before_discount' => $total_before_discounts[$index],
-			'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
-			'createdTime' => time(),
-			'bookNum' => $_REQUEST['bookNum'],
-			'noNum' => $_REQUEST['noNum'],
-			'debit' => $_REQUEST['debit'],
-			'name' => $names[$index],
-			'address' => $_REQUEST['address'],
-			'reason' => $_REQUEST['reason'],
-			'additional' => $_REQUEST['additional'],
-			'invoiceNum' => $_REQUEST['invoiceNum']
-		);
-		_db()->insert('billing_detail_order')->fields(implode(',',array_keys($order_item)))
-			->values(array($order_item))->result();
+		foreach ($names as $index => $name) {
+			$order_item = array(
+				'orderId' => $orderId,
+				'amount' => $amounts[$index],
+				'discount' => $discounts[$index],
+				'quantity' => $quantitys[$index],
+				'price' => $prices[$index],
+				'total_before_discount' => $total_before_discounts[$index],
+				'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
+				'createdTime' => time(),
+				'bookNum' => $_REQUEST['bookNum'],
+				'noNum' => $_REQUEST['noNum'],
+				'debit' => $_REQUEST['debit'],
+				'name' => $names[$index],
+				'address' => $_REQUEST['address'],
+				'reason' => $_REQUEST['reason'],
+				'additional' => $_REQUEST['additional'],
+				'invoiceNum' => $_REQUEST['invoiceNum']
+			);
+			_db()->insert('billing_detail_order')->fields(implode(',', array_keys($order_item)))
+				->values(array($order_item))->result();
 		}
-		if($noNum >= 50) {
+		if ($noNum >= 50) {
 			pzk_element('config')->set('bill_noNum', 1);
 			pzk_element('config')->set('bill_bookNum', $bookNum + 1);
 		} else {
 			pzk_element('config')->set('bill_noNum', $noNum + 1);
 			pzk_element('config')->set('bill_bookNum', $bookNum);
 		}
-		header('Location: '.BASE_URL.'/index.php/order/billing');
+		header('Location: ' . BASE_URL . '/index.php/order/billing');
 	}
-	
-	public function reportAction() {
+
+	public function reportAction()
+	{
 		$this->render('operation/order_report');
 	}
-	
-	public function reportPostAction() {
+
+	public function reportPostAction()
+	{
 		$reportType = 'order';
 		$this->initPage();
 		$report = $this->parse('operation/order_report');
 		$this->append($report);
 		$reportResult = $this->parse('report/' . $reportType);
-		
-		foreach(array('startDate', 'endDate', 'subject', 'notsubject') as $key) {
+
+		foreach (array('startDate', 'endDate', 'subject', 'notsubject', 'payment_type') as $key) {
 			$reportResult->$key = @$_REQUEST[$key];
 			$elem = $report->findElement("[name=$key]");
-			if($elem) {
+			if ($elem) {
 				$elem->value = @$_REQUEST[$key];
 			}
 		}
@@ -349,11 +385,148 @@ class PzkOrderController extends PzkBaseController {
 		$this->display();
 	}
 
-	public function createteacherbillingAction() {
-		
+	public function createteacherbillingAction()
+	{ }
+
+	public function createpartnerbillingAction()
+	{ }
+
+	public function create_softwaresAction()
+	{
+		$create_order = $this->getOperationStructure('create_order_softwares');
+		$create_order->setStudentId(pzk_request()->getStudentId());
+		$create_order->setClassId(pzk_request()->getSoftwareId());
+		$create_order->setLayout('create_order_softwares');
+		$this->viewStructure($create_order);
 	}
 
-	public function createpartnerbillingAction() {
+	public function create_booksAction()
+	{
+		$this->initPage();
+		$this->display();
+	}
+
+	public function softwarePostAction()
+	{
+		$data = pzk_request()->getFilterData();
+		// TODO: Chèn order
+		$bookNum = $_REQUEST['bookNum'] = pzk_element('config')->get('bill_bookNum', 1);
+		$noNum = $_REQUEST['noNum'] = pzk_element('config')->get('bill_noNum', 1);
+		// TODO: tạo reason theo đơn hàng
+		$classNames = array();
+		foreach ($_REQUEST['items_classId'] as $index => $classId) {
+			$class = _db()->select('*')->from('classes')->whereId($classId)->result_one();
+			$classNames[] = $class['name'];
+		}
+		$_REQUEST['reason'] = 'Nộp tiền phần mềm ' . implode($classNames);
+		$order = array(
+			'orderType' => 'invoice',
+			'type' => 'software',
+			'amount' => $_REQUEST['amount'],
+			'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
+			'createdTime' => time(),
+			'bookNum' => $bookNum,
+			'noNum' => $noNum,
+			'debit' => $_REQUEST['debit'],
+			'name' => $_REQUEST['name'],
+			'phone' => $_REQUEST['phone'],
+			'address' => $_REQUEST['address'],
+			'reason' => @$_REQUEST['reason'],
+			'additional' => $_REQUEST['additional'],
+			'invoiceNum' => $_REQUEST['invoiceNum'],
+			'studentId'	=>	$_REQUEST['studentId'],
+			'paymentType' => @$_REQUEST['paymentType'],
+			'adviceId' => @$_REQUEST['adviceId'],
+			'paymentNote' => @$_REQUEST['paymentNote'],
+			'bank' => @$_REQUEST['bank'],
+			'transactionCode' => @$_REQUEST['transactionCode'],
+			'shipperId' => @$_REQUEST['shipperId'],
+			'shipCode' => @$_REQUEST['shipCode'],
+			'gift_amount' => @$_REQUEST['gift_amount'],
+		);
 		
+
+		// INSERT:: chèn vào bảng đơn hàng
+		$orderId = _db()->insert('general_order')
+			->fields(implode(',', array_keys($order)))
+			->values(array($order))->result();
+		// TODO: Chèn order items
+
+		foreach ($_REQUEST['items_classId'] as $index => $classId) {
+			$student_order = array(
+				'orderId' => $orderId,
+				'classId' => $classId,
+				'studentId' => $_REQUEST['studentId'],
+				'payment_periodId' => 0,
+				'amount' => $_REQUEST['items_amount'][$index],
+				'discount' => $_REQUEST['items_discount'][$index],
+				'discount_reason' => $_REQUEST['items_discount_reason'][$index],
+				'muster' => $_REQUEST['items_quantity'][$index],
+				'price' => $_REQUEST['items_price'][$index],
+				'total_before_discount' => $_REQUEST['items_amount_before_discount'][$index],
+				'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
+				'createdTime' => time(),
+				'bookNum' => $bookNum,
+				'noNum' => $noNum,
+				'debit' => $_REQUEST['debit'],
+				'name' => $_REQUEST['name'],
+				'address' => $_REQUEST['address'],
+				'reason' => @$_REQUEST['reason'],
+				'additional' => $_REQUEST['additional'],
+				'invoiceNum' => $_REQUEST['invoiceNum'],
+				'gift_amount' => 0
+			);
+			_db()->insert('student_order')->fields(implode(',', array_keys($student_order)))
+				->values(array($student_order))->result();
+		}
+
+		// TODO: Chèn order gifts
+		foreach ($_REQUEST['gifts_classId'] as $index => $classId) {
+			if(!$classId) {
+				continue;
+			}
+			$student_order = array(
+				'orderId' => $orderId,
+				'classId' => $classId,
+				'studentId' => $_REQUEST['studentId'],
+				'payment_periodId' => 0,
+				'amount' => 0,
+				'discount' => 0,
+				'discount_reason' => '',
+				'muster' => $_REQUEST['gifts_quantity'][$index],
+				'price' => $_REQUEST['gifts_price'][$index],
+				'total_before_discount' => $_REQUEST['gifts_amount'][$index],
+				'created' => date('Y-m-d', strtotime($_REQUEST['created'])),
+				'createdTime' => time(),
+				'bookNum' => $bookNum,
+				'noNum' => $noNum,
+				'debit' => $_REQUEST['debit'],
+				'name' => $_REQUEST['name'],
+				'address' => $_REQUEST['address'],
+				'reason' => @$_REQUEST['reason'],
+				'additional' => $_REQUEST['additional'],
+				'invoiceNum' => $_REQUEST['invoiceNum'],
+				'gift_amount' => $_REQUEST['gifts_amount'][$index]
+			);
+			_db()->insert('student_order')->fields(implode(',', array_keys($student_order)))
+				->values(array($student_order))->result();
+		}
+		// INDEX:: Index lại dữ liệu
+		$student = _db()->getEntity('edu.student')->load($student_order['studentId']);
+		if ($student->getId()) {
+			$student->gridIndex();
+		}
+		if (@$_REQUEST['bookNum'] && @$_REQUEST['noNum']) {
+			// do nothing
+		} else {
+			if ($noNum >= 50) {
+				pzk_element('config')->set('noNum', 1);
+				pzk_element('config')->set('bookNum', $bookNum + 1);
+			} else {
+				pzk_element('config')->set('noNum', $noNum + 1);
+				pzk_element('config')->set('bookNum', $bookNum);
+			}
+		}
+		header('Location: ' . BASE_URL . '/index.php/student/order');
 	}
 }

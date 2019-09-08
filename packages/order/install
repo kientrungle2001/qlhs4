@@ -1,0 +1,4 @@
+<?php
+echo "Order\r\n";
+copy(PKG_DIR . DS . 'page.order.create.softwares.php', QLHS_DIR . '/pages/operation/create_order_softwares.php');
+copy(PKG_DIR . DS . 'order.create.softwares.php', QLHS_DIR . '/layouts/create_order_softwares.php');

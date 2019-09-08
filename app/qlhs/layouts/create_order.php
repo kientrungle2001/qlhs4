@@ -1,6 +1,7 @@
 <?php
 $student = $data->getStudent();
 $period = $data->getPeriod();
+$subject = null;
 if(!$data->multiple) {
 	$class = $data->getClass();
 	if($class['subjectId'])
@@ -83,6 +84,7 @@ if(!$data->multiple) {
 		</div>
 		<div class="clear"></div>
 	</div>
+	<input type="hidden" name="paymentType" value="{data.paymentType}" />
 	<div class="order_body">
 		<div class="order_line">
 			<span class="order_line_label">Họ, tên người nộp tiền: </span>

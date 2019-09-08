@@ -11,6 +11,20 @@
 		<layout.toolbarItem action="$dg.add()" icon="add" />
 		<layout.toolbarItem action="$dg.edit()" icon="edit" />
 		<layout.toolbarItem action="$dg.del()" icon="remove" />
+		<layout.toolbarItem action="$dg.detail(function(row){
+			$dg_room.filters({
+				centerId: row.id
+			});
+			$dg_classes.filters({
+				centerId: row.id
+			});
+			$dg_asset.filters({
+				centerId: row.id
+			});
+			$dg_schedule.filters({
+				centerId: row.id
+			});
+		})" icon="sum" />
 	</layout.toolbar>
 	<wdw.dialog gridId="dg" width="700px" height="auto" title="Trung tâm">
 		<frm.form gridId="dg">

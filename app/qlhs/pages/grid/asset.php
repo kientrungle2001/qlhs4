@@ -5,8 +5,8 @@
 	</div>
 	<div style="width: 800px;float: left; margin-left: 10px;">
 		<div class="easyui-tabs" style="width: 800px;">
-			<div title="Các lớp">
-				Lớp học
+			<div title="Lịch sử bàn giao">
+			{include grid/asset/schedule/teacher}
 			</div>
 		</div>
 	</div>

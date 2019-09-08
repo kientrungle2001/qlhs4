@@ -8,7 +8,8 @@ PzkEduStudentSelector = PzkObj.pzkExt({
 				this.initialFilters = initialFilters;
 				for(var k in initialFilters) {
 					var v = initialFilters[k];
-					$('#dg_search_' + this.id + ' [name='+k+']').val(v);
+					$('#dg_search_' + this.id + ' [name='+k+']').pzkVal(''+v);
+					$('#dg_search_' + this.id + ' [comboname='+k+']').pzkVal(''+v);
 				}
 				this.searchStudent();
 			}

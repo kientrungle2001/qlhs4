@@ -151,6 +151,14 @@
 		return '<strong>' + row.name + '</strong>' + (row.code !== '' ? '<br />' + row.code: '') + (row.phone !== '' ? '<br />' + row.phone: '') + (row.startStudyDate !== '' ? '<br />' + row.startStudyDate: '');
 	}
 
+	function studentNoteFormatter(value, row, index) {
+		var rs = (parseInt(row.classed) === -1 ? 'Thi đầu vào':'');
+		rs += (parseInt(row.online) === 1 ? (rs !== ''? ' - ': '') + 'Trực tuyến':'');
+		rs += (parseInt(row.type) === 0 ?  (rs !== ''? ' - ': '') + 'Tiềm năng': (parseInt(row.type) === 1 ? '':(rs !== ''? ' - ': '') + 'Quen thuộc') );
+		rs = '<strong>' + rs + (rs !== ''? '<br />': '') + '</strong>' + row.note;
+		return rs;
+	}
+
 	function importStudent(type) {
 		var $fileUpload = jQuery('#fileUpload');
 		if(!$fileUpload.length) {

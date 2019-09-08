@@ -25,7 +25,7 @@
 			{include grid/teacher/schedule}
 			</div>
 			<div title="Trả lương">
-				Lương
+			{include grid/teacher/billing}
 			</div>
 			<div title="Thời khóa biểu">
 				<div id="calendar" style="padding: 10px;">

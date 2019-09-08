@@ -139,7 +139,7 @@ class PzkDtableController extends PzkTableController {
 		],
 		'employee_absent' => [
 			'table' => 'employee_absent as ea 
-					left join employee as e on ea.employeeId = e.id',
+					left join teacher as e on ea.employeeId = e.id',
 			'fields' => 'ea.*, e.name as employeeName, e.code as employeeCode'
 		],
 		'asset_schedule' => array(
@@ -160,7 +160,7 @@ class PzkDtableController extends PzkTableController {
 	public $inserts = array(
 		'student' => array('name', 'phone', 'school', 'birthDate', 'address', 'parentName', 
 		'startStudyDate', 'endStudyDate', 'note', 'color', 'fontStyle', 
-		'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code', 'adviceNote', 'adviceStatus'),
+		'assignId', 'online', 'classed', 'type', 'status', 'rating', 'code', 'adviceNote', 'adviceStatus', 'grade', 'email'),
 		'classes' => array('name', 'startDate', 'endDate', 'roomId', 'subjectId', 'teacherId', 'teacher2Id', 'level', 'status', 'amount', 'online', 'code', 'feeType', 'classed'),
 		'class_student' => array('classId', 'studentId', 'startClassDate', 'endClassDate', 'note', 'code'),
 		'class_teacher' => array('classId', 'teacherId',  'note', 'status', 'role'),
@@ -199,6 +199,9 @@ class PzkDtableController extends PzkTableController {
 	);
 	
 	public $filters = array(
+		'asset' => array(
+			'none' => 0
+		),
 		'advice' => array(
 			'none' => 0
 		),
@@ -247,6 +250,32 @@ class PzkDtableController extends PzkTableController {
 		'test_schedule' => array(
 			'none' => 0
 		),
+		'employee_absent' => array(
+			'none' => 0
+		),
+		'billing_order' => array(
+			'none' => 0
+		),
+		'teacher_schedule' => array(
+			'none' => 0
+		),
+		'asset_filter' => array(
+			'where' => array(
+				'roomId' => array('equal', 'roomId', '?'),
+				'teacherId' => array('equal', 'teacherId', '?'),
+				'status' => array('equal', 'status', '?'),
+				'online' => array('equal', 'online', '?'),
+				'centerId' => array('sql', 'roomId in (select id from room where centerId=?)')
+			)
+		),
+		'billing_order_filter' => array(
+			'where' => array(
+				'partyType' => array('equal', 'partyType', '?'),
+				'teacherId' => array('equal', 'teacherId', '?'),
+				'status' => array('equal', 'status', '?'),
+				'departmentId' => array('sql', 'teacherId in (select id from teacher where departmentId=?)')
+			)
+		),
 		'advice_filter' => array(
 			'where' => array(
 				'classId' => array('equal', array('column', 'ad', 'classId'), '?'),
@@ -274,6 +303,7 @@ class PzkDtableController extends PzkTableController {
 				'subjectId' => array('equal', array('column', 'c', 'subjectId'), '?'),
 				'teacherId' => array('equal', array('column', 'c', 'teacherId'), '?'),
 				'roomId' => array('equal', array('column', 'c', 'roomId'), '?'),
+				'centerId' => array('equal', array('column', 'r', 'centerId'), '?'),
 				'level' => array('equal', array('column', 'c', 'level'), '?'),
 				'online' => array('equal', array('column', 'c', 'online'), '?'),
 				'classed' => array('equal', array('column', 'c', 'classed'), '?'),
@@ -283,6 +313,13 @@ class PzkDtableController extends PzkTableController {
 			'where' => array(
 				'keyword' => array('sql', "(t.name like '%?%' or t.code like '%?%')"),
 				'type' => array('equal', array('column', 't', 'type'), '?'),
+				'departmentId' => array('equal', array('column', 't', 'departmentId'), '?'),
+			)
+		),
+		'teacher_schedule_filter' => array(
+			'where' => array(
+				'classId' => array('equal', array('column', 'ts', 'classId'), '?'),
+				'teacherId' => array('equal', array('column', 'ts', 'teacherId'), '?'),
 			)
 		),
 		'employee_filter' => array(
@@ -297,20 +334,26 @@ class PzkDtableController extends PzkTableController {
 		),
 		'student_filter' => array(
 			'where' => array(
-				'keyword' => array('sql', "(name like '%?%' or phone like '%?%' or code like '%?%' or currentClassNames like '%?%' or periodNames like '%?%' or assignName like '%?%' or startStudyDate like '%?%' or subjectNames like '%?%')"),
+				'keyword' => array('sql', "(note like '%?%' or adviceNote like '%?%' or name like '%?%' or phone like '%?%' or code like '%?%' or currentClassNames like '%?%' or periodNames like '%?%' or assignName like '%?%' or startStudyDate like '%?%' or subjectNames like '%?%')"),
 				'name' => array('like', array('column', 'student', 'name'), '%?%'),
 				'phone' => array('like', array('column', 'student', 'phone'), '%?%'),
 				'classIds' => array('like', array('column', 'currentClassIds'), '%[?]%'),
+				'classId' => array('like', array('column', 'currentClassIds'), '%[?]%'),
 				'subjectIds' => array('like', array('column', 'subjectIds'), '%[?]%'),
+				'subjectId' => array('like', array('column', 'subjectIds'), '%[?]%'),
 				'teacherIds' => array('like', array('column', 'teacherIds'), '%[?]%'),
+				'teacherId' => array('like', array('column', 'teacherIds'), '%[?]%'),
 				'periodId' =>  array('like', array('column', 'periodIds'), '%?%'),
+				'periodIds' =>  array('like', array('column', 'periodIds'), '%?%'),
 				'notlikeperiodId' => array('sql', "periodIds not like '%?%'"),
+				'notlikeperiodIds' => array('sql', "periodIds not like '%?%'"),
 				'color' => array('equal', array('column', 'color'), '?'),
 				'fontStyle' => array('equal', array('column', 'fontStyle'), '?'),
 				'assignId' => array('equal', array('column', 'assignId'), '?'),
 				'online' => array('equal', array('column', 'online'), '?'),
 				'type' => array('equal', array('column', 'type'), '?'),
 				'status' => array('equal', array('column', 'status'), '?'),
+				'adviceStatus' => array('equal', array('column', 'adviceStatus'), '?'),
 				'classed' => array('equal', array('column', 'classed'), '?'),
 				'rating' => array('equal', array('column', 'rating'), '?'),
 			)
@@ -358,13 +401,25 @@ class PzkDtableController extends PzkTableController {
 				'teacherId' => array('sql', '`c`.id in (select classId from `class_student` inner join classes on class_student.classId=classes.id where classes.teacherId=?)'),
 				'roomId' => array('sql', '`c`.id in (select classId from `class_student` inner join classes on class_student.classId=classes.id where classes.roomId=?)'),
 				'classId' => array('equal', array('column', 'classId'), '?'),
+				'centerId' => array('sql', 'c.roomId in (select id from room where centerId=?)')
 			)
 			),
+			'employee_absent_filter' => array(
+				'where' => array(
+					'employeeId' => array('sql', 'ea.employeeId=?'),
+					'startDate' => array('sql', "ea.startDate >= '?'"),
+					'endDate' => array('sql', "ea.startDate <= '?'"),
+				)
+				),
 			'test_schedule_filter' => array(
 				'where' => array(
 					'classId' => array('equal', array('column', 'ts', 'classId'), '?'),
 					'studentId' => array('equal', array('column', 'ts', 'studentId'), '?'),
+					'adviceId' => array('equal', array('column', 'ts', 'adviceId'), '?'),
+					'subjectId' => array('equal', array('column', 'c', 'subjectId'), '?'),
 					'type' => array('equal', array('column', 'ts', 'type'), '?'),
+					'status' => array('equal', array('column', 'ts', 'status'), '?'),
+					'keyword' => array('sql', "(ts.note like '%?%' or s.name like '%?%' or s.phone like '%?%')"),
 				)
 			)
 	);

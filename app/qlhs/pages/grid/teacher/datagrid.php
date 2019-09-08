@@ -16,12 +16,20 @@
 		<layout.toolbarItem action="$dg.edit()" icon="edit" />
 		<layout.toolbarItem action="$dg.del()" icon="remove" />
 		<layout.toolbarItem action="$dg.detail(function(row){
+			if(typeof $dg_classes !== 'undefined')
 			$dg_classes.filters({teacherId: row.id});
+			if(typeof $dg_student !== 'undefined')
 			$dg_student.filters({teacherIds: row.id});
+			if(typeof $dg_test_class !== 'undefined')
 			$dg_test_class.filters({teacherId: row.id});
+			if(typeof $dg_test_student_mark !== 'undefined')
 			$dg_test_student_mark.filters({teacherId: row.id});
+			if(typeof $dg_student_order !== 'undefined')
 			$dg_student_order.filters({teacherId: row.id});
+			if(typeof $dg_schedule !== 'undefined')
 			$dg_schedule.filters({teacherId: row.id});
+			if(typeof $dg_billing !== 'undefined')
+			$dg_billing.filters({teacherId: row.id});
 			showCalendar();
 		})" icon="sum" />
 	</layout.toolbar>

@@ -188,6 +188,7 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 					return $(this).form('validate');
 				},
 				success: function(result){
+					result = result.replace('\=""', '\\\/');
 					wasSubmitted = false;
 					var result = eval('('+result+')');
 					if (result.errorMsg){
@@ -329,7 +330,8 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 	search: function(options) {
 		var builder = options.builder || this.defaultBuilder;
 		var data = builder.call(this, null, options);
-		$('#' + this.id).datagrid('load', {filters: data});
+		if(data)
+			$('#' + this.id).datagrid('load', {filters: data});
 	},
 	export: function(options, type, callback) {
 		var that = this;
@@ -401,7 +403,8 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 		});
 	},
 	filters: function(data) {
-		$('#' + this.id).datagrid('load', {filters: data});
+		if(data)
+			$('#' + this.id).datagrid('load', {filters: data});
 	},
 	detail: function(options) {
 		var row = $('#' + this.id).datagrid('getSelected');
@@ -451,5 +454,15 @@ PzkEasyuiDatagridDataGrid = PzkObj.pzkExt({
 		// open export dialog
 		$('#import_' + this.id).dialog('open');
 		pzk.elements['import_' + this.id].startOver();
+	},
+	toggleSingleSelect: function() {
+		var that = this;
+		if(that.singleSelect === 'true' || that.singleSelect === true) {
+			that.singleSelect = 'false';
+			that.datagrid({'singleSelect': false});
+		} else {
+			that.singleSelect = 'true';
+			that.datagrid({'singleSelect': true});
+		}
 	}
 });

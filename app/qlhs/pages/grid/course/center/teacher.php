@@ -1,4 +1,4 @@
-<dg.dataGrid id="dgteacher" title="" table="teacher_class" width="200px" height="250px" pagination="false" rownumbers="false" pageSize="50">
+<dg.dataGrid id="dgteacher" title="" table="teacher_class" width="200px" height="250px" pagination="false" rownumbers="false" pageSize="10">
 	<dg.dataGridItem field="id" width="20">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="140">Tên giáo viên</dg.dataGridItem>
 	<layout.toolbar id="dgteacher_toolbar">

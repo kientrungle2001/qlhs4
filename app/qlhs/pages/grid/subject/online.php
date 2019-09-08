@@ -1,21 +1,76 @@
-<dg.dataGrid id="dg" title="Quản lý phần mềm" table="subject" width="800px" height="450px" defaultFilters='{"online": 1}'>
-	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
-	<dg.dataGridItem field="name" width="120">Phần mềm</dg.dataGridItem>
-	<dg.dataGridItem field="code" width="120">Mã</dg.dataGridItem>
-	<dg.dataGridItem field="startDate" width="120">Ngày ra mắt</dg.dataGridItem>
-	
-	<layout.toolbar id="dg_toolbar">
-		<layout.toolbarItem action="$dg.add()" icon="add" />
-		<layout.toolbarItem action="$dg.edit()" icon="edit" />
-		<layout.toolbarItem action="$dg.del()" icon="remove" />
-	</layout.toolbar>
-	<wdw.dialog gridId="dg" width="700px" height="auto" title="Phần mềm">
-		<frm.form gridId="dg">
-			<frm.formItem type="hidden" name="id" required="false" label="" />
-			<frm.formItem name="name" required="true" validatebox="true" label="Phần mềm" />
-			<frm.formItem name="code" required="true" validatebox="true" label="Mã" />
-			<frm.formItem type="hidden" name="online" required="false" label="" />
-			<frm.formItem name="startDate" type="date" required="false" validatebox="false" label="Ngày ra mắt" />
-		</frm.form>
-	</wdw.dialog>
-</dg.dataGrid>
+<div>
+	<div style="float: left; width: 350px">
+		{include grid/subject/online/datagrid}
+	</div>
+	<div style="float: left; width: auto; margin-left:15px;">
+		<div class="easyui-tabs" style="width: 850px;">
+			<div title="Các dịch vụ">
+				{include grid/subject/online/classes}
+			</div>
+			<div title="Học sinh">
+				{include grid/subject/online/student}
+			</div>
+			<div title="Học phí">
+				{include grid/subject/center/student_order}
+			</div>
+			<div title="Tư vấn">
+			<!-- TODO: danh sách tư vấn -->
+			{include grid/subject/online/advice}
+			</div>
+			<div title="Báo lỗi">
+			<!-- TODO: danh sách báo lỗi -->
+			{include grid/subject/online/problem}
+			</div>
+		</div>
+	</div>
+
+	<script>
+	function studentRowStyler(index, row) {
+		var style = '';
+		if(row.color !== '') {
+			style += 'color:' + row.color + ';';
+		}
+		
+		if(row.fontStyle !== '') {
+			if(row.fontStyle === 'bold')
+				style += 'font-weight: bold;';
+			else if(row.fontStyle === 'italic') {
+				style += 'font-style: italic;';
+			} else if(row.fontStyle === 'underline') {
+				style += 'text-decoration: underline;';
+			}
+		}
+		if(style === '') {
+			var studentDate = new Date(row.startStudyDate);
+			var currentDate = new Date();
+			return (currentDate.getTime() - studentDate.getTime() > 365 * 24 * 3600 * 1000) ?  'color: grey;': '';
+		} else {
+			return style;
+		}
+	}
+
+	function showCalendar() {
+		var week = $('#weekSelector').val();
+		var subjectId = pzk.elements.dg.getSelected('id');
+		if(!week) {
+			alert('Nhập tuần');
+			return false;
+		}
+		if(!subjectId) {
+			alert('Chọn môn để xem');
+			return false;
+		}
+		$.ajax({
+			url: BASE_URL + '/index.php/schedule/subject',
+			type: 'post',
+			data: {
+				week: week,
+				subjectId: subjectId
+			},
+			success: function(resp) {
+				$('#calendarResult').html(resp);
+			}
+		});
+	}
+	</script>
+</div>

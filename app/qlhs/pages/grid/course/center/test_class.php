@@ -1,6 +1,6 @@
 <dg.dataGrid id="dg_test_class" title="Danh sách bài thi" scriptable="true" 
 		layout="easyui/datagrid/datagrid" 
-		nowrap="true" pageSize="50"
+		nowrap="true" pageSize="10"
 		table="test_class" width="550px" height="450px">
 	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 	<dg.dataGridItem field="testName" width="120">Bài thi</dg.dataGridItem>

@@ -1,5 +1,5 @@
 <dg.dataGrid id="dg3" title="Quản lý học phí" table="tuition_fee" 
-		width="310px" height="350px" singleSelect="false" noClickRow="true"  rownumbers="false" pageSize="50">
+		width="310px" height="350px" singleSelect="false" noClickRow="true"  rownumbers="false" pageSize="10">
 	<dg.dataGridItem field="id" width="80">Id</dg.dataGridItem>
 	<dg.dataGridItem field="className" width="120">Tên lớp</dg.dataGridItem>
 	<dg.dataGridItem field="periodName" width="180">Kỳ thanh toán</dg.dataGridItem>

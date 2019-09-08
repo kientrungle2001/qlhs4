@@ -4,6 +4,8 @@ function rcopy($source, $target) {
         copy($target, $source);
 }
 define ('BASE_DIR', dirname(__FILE__));
+define ('APP_DIR', BASE_DIR . '/app');
+define ('QLHS_DIR', APP_DIR . '/qlhs');
 define('PKGS_DIR', BASE_DIR . '/packages');
 define('DS', DIRECTORY_SEPARATOR);
 $package = isset($argv[1]) ? $argv[1]: null;

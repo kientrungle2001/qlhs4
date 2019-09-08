@@ -46,7 +46,7 @@ $total = 0;
 	<td>#{order[id]}</td>
 	<td>{order[name]}</td>
 	<td>{order[phone]}</td>
-	<td>{order[reason]}</td>
+	<td>{order[className]}</td>
 	<td>{? echo product_price($order['amount']); $total += $order['amount']; ?}</td>
 	<td>{? echo date('d/m/Y', strtotime($order['created'])); ?}</td>
 	<td>{order[bookNum]}</td>

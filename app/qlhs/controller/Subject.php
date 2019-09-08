@@ -8,4 +8,7 @@ class PzkSubjectController extends PzkBaseController {
 	public function centerAction() {
 		$this->viewGrid('subject/center');
 	}
+	public function bookAction() {
+		$this->viewGrid('subject/book');
+	}
 }

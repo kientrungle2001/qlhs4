@@ -1,9 +1,9 @@
 <div>
 	<div style="float:left; width: 220px;">
 		<strong style="color: orange;">Môn học</strong><br />
-		<form.filter id="sjft" sql="select id as value, name as label from subject" onselect="jQuery('#searchSubject').val(this.value); searchClasses();" />
+		<form.filter id="sjft" sql="select id as value, name as label from subject" onselect="jQuery('#searchSubject').pzkVal(this.value); searchClasses();" />
 		<strong style="color: orange;">Trình độ</strong><br />
-		<form.filter id="sjlevel" sql="select distinct(level) as value, concat('Lớp ', level) as label from classes" onselect="jQuery('#searchLevel').val(this.value); searchClasses();" />
+		<form.filter id="sjlevel" sql="select distinct(level) as value, concat('Lớp ', level) as label from classes" onselect="jQuery('#searchLevel').pzkVal(this.value); searchClasses();" />
 		<strong style="color: orange;">Lớp</strong><br />
 		<dg.dataGrid id="dg" title="" table="classes&filters[status]=1" width="200px" height="500px" pagination="false" pageSize="50" rownumbers="false">
 			<!--dg.dataGridItem field="id" width="40">Id</dg.dataGridItem-->

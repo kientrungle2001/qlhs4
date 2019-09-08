@@ -19,7 +19,7 @@ function course_learningInfo(value, item, index) {
 }
 </script>
 <dg.dataGrid id="dg" title="Quản lý lớp học" scriptable="true" nowrap="false" 
-		table="classes" width="500px" height="500px" rownumbers="false" pageSize="50" 
+		table="classes" width="500px" height="500px" rownumbers="false" pageSize="10" 
 		defaultFilters='<?php echo json_encode($defaultFilters); ?>'>
 	<dg.dataGridItem field="id" width="40">Id</dg.dataGridItem>
 	<dg.dataGridItem field="name" width="160" formatter="course_classInfo">Tên lớp</dg.dataGridItem>
@@ -68,7 +68,7 @@ function course_learningInfo(value, item, index) {
 				jQuery('#searchClass3').pzkVal(row.id); 
 				$dg3.search({'fields': {'classId' : '#searchClass3' }});
 				$dg_student.filters({
-					classIds: row.id
+					classId: row.id
 				});
 				$dg_student_order.filters({
 					classId: row.id,

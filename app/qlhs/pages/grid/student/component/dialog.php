@@ -5,6 +5,7 @@
 		<frm.formItem name="name" required="true" validatebox="true" label="Tên học sinh" />
 		<frm.formItem name="code" required="false" validatebox="false" label="Mã" />
 		<frm.formItem name="phone" label="Số điện thoại" />
+		<frm.formItem name="email" label="Email" />
 		<frm.formItem name="school"  label="Trường" />
 		<frm.formItem type="date" name="birthDate" label="Ngày sinh" />
 		<frm.formItem name="address" label="Địa chỉ" />
@@ -55,7 +56,7 @@
 		<frm.formItem name="type" label="Phân loại" type="user-defined">
 			<form.combobox name="type"
 					layout="category-select-list" label="Phân loại">
-				<option value="1">Đang học</option>
+				<option value="1">Đã học</option>
 				<option value="0">Tiềm năng</option>
 				<option value="2">Lâu năm</option>
 			</form.combobox>

@@ -27,6 +27,7 @@ class PzkEduMusterTab extends PzkObject {
 	}
 	
 	public function getTeachers($teacherId1 = false, $teacherId2 = false) {
+		return _db()->select('*')->from('teacher')->result('edu.teacher');
 		$conds = '0';
 		if($teacherId1) {
 			$conds .= ' or id=' . $teacherId1;

@@ -1,5 +1,6 @@
 <?php
 echo "Teacher\r\n";
+
 copy(PKG_DIR . DS . 'page.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/teacher.php');
 copy(PKG_DIR . DS . 'page.teacher.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/datagrid.php');
 copy(PKG_DIR . DS . 'page.teacher.classes.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/classes.php');
@@ -10,5 +11,19 @@ copy(PKG_DIR . DS . 'page.teacher.student_order.php', BASE_DIR . '/app/qlhs/page
 copy(PKG_DIR . DS . 'page.teacher.schedule.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/schedule.php');
 copy(PKG_DIR . DS . 'page.teacher.tutor.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/tutor.php');
 copy(PKG_DIR . DS . 'page.teacher.lecturer.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/lecturer.php');
+
+copy(PKG_DIR . DS . 'page.teacher.teacher_schedule.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/teacher_schedule.php');
+
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/teacher/employee')) {
+	mkdir(BASE_DIR . '/app/qlhs/pages/grid/teacher/employee');
+}
 copy(PKG_DIR . DS . 'page.teacher.employee.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/employee.php');
+copy(PKG_DIR . DS . 'page.teacher.employee.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/employee/datagrid.php');
+
+copy(PKG_DIR . DS . 'page.teacher.billing.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/billing.php');
+
+copy(PKG_DIR . DS . 'page.teacher.ontest.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/ontest.php');
+copy(PKG_DIR . DS . 'page.teacher.advice.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/advice.php');
+copy(PKG_DIR . DS . 'page.teacher.problem.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/problem.php');
+
 copy(PKG_DIR . DS . 'page.teacher.partner.php', BASE_DIR . '/app/qlhs/pages/grid/teacher/partner.php');

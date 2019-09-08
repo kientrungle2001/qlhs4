@@ -5,8 +5,11 @@
 	</div>
 	<div style="width: 800px;float: left; margin-left: 10px;">
 		<div class="easyui-tabs" style="width: 800px;">
-			<div title="Các lớp">
-				Lớp học
+			<div title="Nhân viên">
+				{include grid/department/teacher}
+			</div>
+			<div title="Bảng lương">
+				{include grid/teacher/billing}
 			</div>
 		</div>
 	</div>

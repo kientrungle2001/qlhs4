@@ -8,4 +8,7 @@ class PzkTestController extends PzkBaseController {
 	public function adviceAction() {
 		$this->viewGrid('test/advice');
 	}
+	public function problemAction() {
+		$this->viewGrid('test/problem');
+	}
 }

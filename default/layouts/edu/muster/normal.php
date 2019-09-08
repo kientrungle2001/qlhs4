@@ -7,6 +7,7 @@
 	
 	$teacher = $class->getTeacher();
 	$teacher2 = $class->getTeacher2();
+	$teachers = $data->getTeachers();
 	
 	$periods = $class->getPeriods();
 	$students = $class->getRawStudents();
@@ -34,12 +35,17 @@
 				<br />
 				<select class="muster_teacher_{? echo $class->getId(); ?}_{? echo $period->getId(); ?}" id="teacher_{? echo $class->getId(); ?}_{date}" onchange="submitTeacherMuster('{? echo $class->getId(); ?}', '{date}', this.value)">
 					<option value="0">---</option>
+					{if 0}
 					{if $teacher}
 						<option value="{? echo $teacher->getId(); ?}">{? echo $teacher->getLastName(); ?}</option>
 					{/if}
 					{if $teacher2}
 						<option value="{? echo $teacher2->getId(); ?}">{? echo $teacher2->getLastName(); ?}</option>
 					{/if}
+					{/if}
+					{each $teachers as $t}
+					<option value="{? echo $t->getId(); ?}">{? echo $t->getLastName(); ?}</option>
+					{/each}
 				</select>
 				{? if(isset($teacherSchedules[$date])) { ?}
 				<script>
@@ -62,12 +68,17 @@
 				Giáo viên<br />
 				<select onchange="submitAllTeacherMuster('{? echo $class->getId(); ?}', '{? echo $period->getId(); ?}', this.value)">
 					<option value="0">---</option>
+					{if 0}
 					{if $teacher}
 						<option value="{? echo $teacher->getId(); ?}">{? echo $teacher->getLastName(); ?}</option>
 					{/if}
 					{if $teacher2}
 						<option value="{? echo $teacher2->getId(); ?}">{? echo $teacher2->getLastName(); ?}</option>
 					{/if}
+					{/if}
+					{each $teachers as $t}
+					<option value="{? echo $t->getId(); ?}">{? echo $t->getLastName(); ?}</option>
+					{/each}
 				</select><br />
 				Học sinh</th>
 			</tr>

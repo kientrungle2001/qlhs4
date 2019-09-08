@@ -23,7 +23,7 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 	 * @param string $path đường dẫn
 	 * @return string
 	 */
-	public static function appPath($path) {
+	public function appPath($path) {
 		return 'app/' . $this->getApp()->name . '/' . $path;
 	}
 	

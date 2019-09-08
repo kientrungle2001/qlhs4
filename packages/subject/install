@@ -6,7 +6,13 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/subject')) {
 if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/subject/center')) {
     mkdir(BASE_DIR . '/app/qlhs/pages/grid/subject/center');
 }
-copy(PKG_DIR . DS . 'page.subject.online.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online.php');
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/subject/online')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/subject/online');
+}
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/subject/book')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/subject/book');
+}
+
 copy(PKG_DIR . DS . 'page.subject.center.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center.php');
 copy(PKG_DIR . DS . 'page.subject.center.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/datagrid.php');
 copy(PKG_DIR . DS . 'page.subject.center.classes.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/classes.php');
@@ -15,3 +21,17 @@ copy(PKG_DIR . DS . 'page.subject.center.teacher.php', BASE_DIR . '/app/qlhs/pag
 copy(PKG_DIR . DS . 'page.subject.center.student_order.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/student_order.php');
 copy(PKG_DIR . DS . 'page.subject.center.test_class.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/test_class.php');
 copy(PKG_DIR . DS . 'page.subject.center.test_student_mark.php', BASE_DIR . '/app/qlhs/pages/grid/subject/center/test_student_mark.php');
+
+copy(PKG_DIR . DS . 'page.subject.online.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online.php');
+copy(PKG_DIR . DS . 'page.subject.online.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online/datagrid.php');
+copy(PKG_DIR . DS . 'page.subject.online.student.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online/student.php');
+copy(PKG_DIR . DS . 'page.subject.online.classes.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online/classes.php');
+copy(PKG_DIR . DS . 'page.subject.online.advice.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online/advice.php');
+copy(PKG_DIR . DS . 'page.subject.online.problem.php', BASE_DIR . '/app/qlhs/pages/grid/subject/online/problem.php');
+
+copy(PKG_DIR . DS . 'page.subject.book.php', BASE_DIR . '/app/qlhs/pages/grid/subject/book.php');
+copy(PKG_DIR . DS . 'page.subject.book.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/subject/book/datagrid.php');
+copy(PKG_DIR . DS . 'page.subject.book.student.php', BASE_DIR . '/app/qlhs/pages/grid/subject/book/student.php');
+copy(PKG_DIR . DS . 'page.subject.book.classes.php', BASE_DIR . '/app/qlhs/pages/grid/subject/book/classes.php');
+copy(PKG_DIR . DS . 'page.subject.book.advice.php', BASE_DIR . '/app/qlhs/pages/grid/subject/book/advice.php');
+copy(PKG_DIR . DS . 'page.subject.book.problem.php', BASE_DIR . '/app/qlhs/pages/grid/subject/book/problem.php');
