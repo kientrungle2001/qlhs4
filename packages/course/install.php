@@ -13,6 +13,10 @@ if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/course/unclassed')) {
     mkdir(BASE_DIR . '/app/qlhs/pages/grid/course/unclassed');
 }
 
+if(!is_dir(BASE_DIR . '/app/qlhs/pages/grid/course/book')) {
+    mkdir(BASE_DIR . '/app/qlhs/pages/grid/course/book');
+}
+
 // center
 copy(PKG_DIR . DS . 'page.course.center.php', BASE_DIR . '/app/qlhs/pages/grid/course/center.php');
 copy(PKG_DIR . DS . 'page.course.center.subject.php', BASE_DIR . '/app/qlhs/pages/grid/course/center/subject.php');
@@ -47,6 +51,15 @@ copy(PKG_DIR . DS . 'page.course.unclassed.datagrid.php', BASE_DIR . '/app/qlhs/
 copy(PKG_DIR . DS . 'page.course.unclassed.student.php', BASE_DIR . '/app/qlhs/pages/grid/course/unclassed/student.php');
 copy(PKG_DIR . DS . 'page.course.unclassed.ontest.php', BASE_DIR . '/app/qlhs/pages/grid/course/unclassed/ontest.php');
 
+// book
+copy(PKG_DIR . DS . 'page.course.book.php', BASE_DIR . '/app/qlhs/pages/grid/course/book.php');
+copy(PKG_DIR . DS . 'page.course.book.datagrid.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/datagrid.php');
+copy(PKG_DIR . DS . 'page.course.book.subject.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/subject.php');
+copy(PKG_DIR . DS . 'page.course.book.level.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/level.php');
+copy(PKG_DIR . DS . 'page.course.book.teacher.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/teacher.php');
+copy(PKG_DIR . DS . 'page.course.book.student.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/student.php');
+copy(PKG_DIR . DS . 'page.course.book.advice.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/advice.php');
+copy(PKG_DIR . DS . 'page.course.book.problem.php', BASE_DIR . '/app/qlhs/pages/grid/course/book/problem.php');
 // course selector
 copy(PKG_DIR . DS . 'class.CourseSelector.php', BASE_DIR . '/objects/edu/CourseSelector.php');
 copy(PKG_DIR . DS . 'class.CourseSelector.js', BASE_DIR . '/js/edu/courseSelector.js');

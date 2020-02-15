@@ -5,6 +5,7 @@
 	<core.rewrite.host name="phattrienngonngu.com" app="qlhs" controller="Student" action="index" />
 	<core.rewrite.host name="www.phattrienngonngu.com" app="qlhs" controller="Student" action="index" />
 	<core.rewrite.host name="qlhs.vn" app="qlhs" controller="Student" action="index" />
+	<core.rewrite.host name="qlhs2.vn" app="qlhs" controller="Student" action="index" />
 	<core.rewrite.host name="thap.vn" app="erp" controller="Home" action="index" />
 	<core.rewrite.host name="ptnn.vn" app="ptnn" />
 	<core.rewrite.host name="about.vn" app="about" />

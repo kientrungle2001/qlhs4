@@ -66,6 +66,11 @@ class PzkParser {
         $pageDom->preserveWhiteSpace = false;
         $pageDom->formatOutput = true;
         try {
+            $source = trim($source);
+            if($source[0] !== '<') {
+                // die($source . ' Không tồn tại');
+                $source = '<p>' .$source . ' không tồn tại</p>';
+            }
             $pageDom->loadXML($source);
             return self::parseNode($pageDom->documentElement);
         } catch (Exception $err) {
